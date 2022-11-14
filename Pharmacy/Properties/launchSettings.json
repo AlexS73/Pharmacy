@@ -1,0 +1,51 @@
+﻿{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:33089",
+      "sslPort": 44349
+    }
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "PharmacyDev": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:5001;http://localhost:5000",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+    //"PharmacyMain": {
+    //  "commandName": "Project",
+    //  "launchBrowser": true,
+    //  "applicationUrl": "https://localhost:6001;http://localhost:6000",
+    //  "environmentVariables": {
+    //    "ASPNETCORE_ENVIRONMENT": "CompanyMain"
+    //  }
+    //},
+    //"PharmacyAplha": {
+    //  "commandName": "Project",
+    //  "launchBrowser": true,
+    //  "applicationUrl": "https://localhost:7001;http://localhost:7000",
+    //  "environmentVariables": {
+    //    "ASPNETCORE_ENVIRONMENT": "CompanyApha"
+    //  }
+    //},
+    //"PharmacyBeta": {
+    //  "commandName": "Project",
+    //  "launchBrowser": true,
+    //  "applicationUrl": "https://localhost:8001;http://localhost:8000",
+    //  "environmentVariables": {
+    //    "ASPNETCORE_ENVIRONMENT": "CompanyBeta"
+    //  }
+    }
+  }
+}
