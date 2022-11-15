@@ -46,6 +46,6 @@
     //  "environmentVariables": {
     //    "ASPNETCORE_ENVIRONMENT": "CompanyBeta"
     //  }
-    }
+    //}
   }
 }
