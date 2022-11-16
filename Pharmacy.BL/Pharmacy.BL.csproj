@@ -5,4 +5,9 @@
     <Configurations>Debug;Release;CompanyAlpha;CompanyBeta;CompanyMain</Configurations>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Pharmacy.Core\Pharmacy.Core.csproj" />
+    <ProjectReference Include="..\Pharmacy.Entity\Pharmacy.Entity.csproj" />
+  </ItemGroup>
+
 </Project>

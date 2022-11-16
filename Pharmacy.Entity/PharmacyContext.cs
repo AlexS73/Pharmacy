@@ -12,6 +12,7 @@ namespace Pharmacy.Entity
     public class PharmacyContext: IdentityDbContext<IdentityUser<int>, IdentityRole<int>, int>
     {
         public DbSet<User> User { get; set; }
+        public DbSet<Department> Departments { get; set; }
         public DbSet<Warehouse> Warehouse { get; set; }
         public DbSet<WarehouseOperation> WarehouseOperations { get; set; }
         public DbSet<Product> Products { get; set; }
