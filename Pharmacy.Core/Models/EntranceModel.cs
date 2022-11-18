@@ -8,6 +8,6 @@ namespace Pharmacy.Core.Models
 {
     public class EntranceModel
     {
-        public IEnumerable<EntranceProductModel> Products { get; set; }
+        public IEnumerable<EntranceProductModel> EntranceProducts { get; set; }
     }
 }

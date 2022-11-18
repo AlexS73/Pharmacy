@@ -4,6 +4,6 @@ namespace Pharmacy.Core.Models
 {
     public class SaleModel
     {
-        public IEnumerable<SaleProductModel> Products { get; set; }
+        public IEnumerable<SaleProductModel> SaleProducts { get; set; }
     }
 }

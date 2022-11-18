@@ -24,23 +24,50 @@ namespace Pharmacy.BL.Services
             var newEntrance = new Entrance()
             {
                 CreatedOn = DateTime.UtcNow,
-                EntranceProducts = entranceModel.Products.Select(_ => new EntranceProduct()
+                EntranceProducts = entranceModel.EntranceProducts.Select(_ => new EntranceProduct()
                 {
                     Count = _.Count,
-                    ProductId = _.Id,
+                    ProductId = _.Product.Id,
                 }),
                 User = user
             };
 
-            db.Entrances.Add(newEntrance);
+            var newOperations = entranceModel.EntranceProducts.Select(_ => new WarehouseOperation() {
+                ProductId = _.Product.Id,
+                Operation = newEntrance,
+            });
+
+            //db.Entrances.Add(newEntrance);
+            db.WarehouseOperations.AddRange(newOperations);
             db.SaveChanges();
 
             return newEntrance;
         }
 
-        public Sale CreateSale(SaleModel saleModel)
+        public Sale CreateSale(SaleModel saleModel, User user)
         {
-            throw new NotImplementedException();
+            var newSale = new Sale()
+            {
+                CreatedOn = DateTime.UtcNow,
+                SaleProducts = saleModel.SaleProducts.Select(_ => new SaleProduct()
+                {
+                    Count = _.Count,
+                    ProductId = _.Product.Id,
+                }),
+                User = user
+            };
+
+            var newOperations = saleModel.SaleProducts.Select(_ => new WarehouseOperation()
+            {
+                ProductId = _.Product.Id,
+                Operation = newSale,
+            });
+
+            //db.Sales.Add(newSale);
+            db.WarehouseOperations.AddRange(newOperations);
+            db.SaveChanges();
+
+            return newSale;
         }
     }
 }

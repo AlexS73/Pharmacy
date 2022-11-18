@@ -10,7 +10,7 @@ namespace Pharmacy.BL.Interfaces
 {
     public interface ICommerceService
     {
-        Sale CreateSale(SaleModel saleModel);
+        Sale CreateSale(SaleModel saleModel, User user);
 
         Entrance CreateEntrance(EntranceModel entranceModel, User user);
     }

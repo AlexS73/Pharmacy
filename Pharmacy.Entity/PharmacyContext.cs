@@ -31,11 +31,12 @@ namespace Pharmacy.Entity
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=alexhomepc;Database=PharmacyTest;Trusted_Connection=True;");
+            //optionsBuilder.UseInterBase(@"Server=localhost;Database=PharmacyTest;user id=sysdba;password=masterkey");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Sale>().ToTable("Sales");
+            modelBuilder.Entity<Sale>().ToTable("Sales");   
             modelBuilder.Entity<Entrance>().ToTable("Entrances");
             modelBuilder.Entity<Product>().HasOne(_ => _.Warehouse).WithOne(_ => _.Product);
 
