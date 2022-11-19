@@ -9,7 +9,7 @@ namespace Pharmacy.BL.Interfaces
 {
     public interface IDepartmentService
     {
-        Task CreateDepartmentAsync(DepartmentModel departmentModel);
+        Task<DepartmentModel> SaveDepartmentAsync(DepartmentModel departmentModel);
 
         Task<IEnumerable<DepartmentModel>> GetDepartmentsAsync();
 

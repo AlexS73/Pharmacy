@@ -19,15 +19,26 @@ namespace Pharmacy.BL.Services
             this.db = db;
         }
 
-        public async Task CreateDepartmentAsync(DepartmentModel departmentModel)
+        public async Task<DepartmentModel> SaveDepartmentAsync(DepartmentModel departmentModel)
         {
-            var newDepartment = new Department()
+            var department = await db.Departments.FirstOrDefaultAsync(_=>_.Id == departmentModel.Id);
+
+            if(department != null)
             {
-                Name = departmentModel.Name
-            };
-            db.Add(newDepartment);
+                department.Name = departmentModel.Name;
+            }
+            else
+            {
+                department = new Department()
+                {
+                    Name = departmentModel.Name
+                };
+                db.Add(department);
+            }
 
             await db.SaveChangesAsync();
+
+            return new DepartmentModel(department);
         }
 
         public async Task<DepartmentModel> GetDepartmentByIdAsync(int id)

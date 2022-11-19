@@ -10,7 +10,7 @@ using Pharmacy.Entity;
 namespace Pharmacy.Entity.Migrations
 {
     [DbContext(typeof(PharmacyContext))]
-    [Migration("20221116175246_init")]
+    [Migration("20221118173849_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,7 +18,7 @@ namespace Pharmacy.Entity.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.7")
+                .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -236,7 +236,7 @@ namespace Pharmacy.Entity.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Department");
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("Pharmacy.Entity.EntranceProduct", b =>
@@ -450,7 +450,7 @@ namespace Pharmacy.Entity.Migrations
             modelBuilder.Entity("Pharmacy.Entity.EntranceProduct", b =>
                 {
                     b.HasOne("Pharmacy.Entity.Entrance", "Entrance")
-                        .WithMany("Products")
+                        .WithMany("EntranceProducts")
                         .HasForeignKey("EntranceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -486,7 +486,7 @@ namespace Pharmacy.Entity.Migrations
                         .IsRequired();
 
                     b.HasOne("Pharmacy.Entity.Sale", "Sale")
-                        .WithMany("Products")
+                        .WithMany("SaleProducts")
                         .HasForeignKey("SaleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -605,12 +605,12 @@ namespace Pharmacy.Entity.Migrations
 
             modelBuilder.Entity("Pharmacy.Entity.Entrance", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("EntranceProducts");
                 });
 
             modelBuilder.Entity("Pharmacy.Entity.Sale", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("SaleProducts");
                 });
 #pragma warning restore 612, 618
         }

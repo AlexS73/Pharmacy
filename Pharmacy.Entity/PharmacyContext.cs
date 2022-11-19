@@ -30,7 +30,7 @@ namespace Pharmacy.Entity
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=alexhomepc;Database=PharmacyTest;Trusted_Connection=True;");
+            //optionsBuilder.UseSqlServer(@"Server=alexhomepc;Database=PharmacyTest;User ID=sa;Password=12345678;");
             //optionsBuilder.UseInterBase(@"Server=localhost;Database=PharmacyTest;user id=sysdba;password=masterkey");
         }
 
