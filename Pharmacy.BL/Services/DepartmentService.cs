@@ -44,6 +44,11 @@ namespace Pharmacy.BL.Services
         public async Task<DepartmentModel> GetDepartmentByIdAsync(int id)
         {
             var dbDepartment = await db.Departments.FirstOrDefaultAsync(_ => _.Id == id);
+
+            if (dbDepartment == null)
+            {
+                return null;
+            }
             return new DepartmentModel()
             {
                 Id = dbDepartment.Id,

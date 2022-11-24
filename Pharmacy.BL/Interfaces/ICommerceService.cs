@@ -10,8 +10,8 @@ namespace Pharmacy.BL.Interfaces
 {
     public interface ICommerceService
     {
-        Sale CreateSale(SaleModel saleModel, User user);
+        Task<SaleModel> CreateSaleAsync(SaleModel saleModel, User user);
 
-        Entrance CreateEntrance(EntranceModel entranceModel, User user);
+        Task<EntranceModel> CreateEntranceAsync(EntranceModel entranceModel, User user);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Pharmacy.BL.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Pharmacy.BL.Interfaces;
 using Pharmacy.Core.Models;
 using Pharmacy.Entity;
 using System;
@@ -18,39 +19,88 @@ namespace Pharmacy.BL.Services
             this.db = db;
         }
 
-        public async Task CreateProducts(IEnumerable<ProductModel> productsModel)
+        public async Task<IEnumerable<ProductModel>> GetAllProductsAsync()
         {
-            var newProducts = productsModel.Select(_ => new Product() {
-                Article = _.Article,
-                Name = _.Name,
-                Id = _.Id
-            });
-
-            db.Products.AddRange(newProducts);
-            await db.SaveChangesAsync();
-        }
-
-        public async Task CreateProdut(ProductModel product)
-        {
-            var newProduct = new Product()
-            {
-                Article = product.Article,
-                Name = product.Name,
-            };
-
-            db.Products.AddRange(newProduct);
-            await db.SaveChangesAsync();
-        }
-
-        public IEnumerable<ProductModel> GetAllProducts()
-        {
-            var productsModel =  db.Products.Select(_=> new ProductModel { 
+            var productsModel = await db.Products.Select(_=> new ProductModel { 
                 Id = _.Id,
                 Name = _.Name,
                 Article = _.Article
-            }).ToList();
+            }).AsNoTracking().ToListAsync();
 
             return productsModel;
+        }
+
+        public async Task<ProductModel> GetProductByIdAsync(int id)
+        {
+            var product = await db.Products.FirstOrDefaultAsync(_ => _.Id == id);
+
+            if (product == null)
+            {
+                return null;
+            }
+
+            return new ProductModel()
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Article = product.Article
+            };
+        }
+
+        public async Task<ProductModel> SaveProductAsync(ProductModel productModel)
+        {
+            var product = await db.Products.FirstOrDefaultAsync(_ => _.Id == productModel.Id);
+
+            if (product != null)
+            {
+                product.Name = productModel.Name;
+                product.Article = productModel.Article;
+            }
+            else
+            {
+                product = new Product()
+                {
+                    Id = productModel.Id,
+                    Name = productModel.Name,
+                    Article = productModel.Article
+                };
+                db.Add(product);
+            }
+
+            await db.SaveChangesAsync();
+
+            return new ProductModel(product);
+        }
+
+        public async Task<IEnumerable<ProductModel>> SaveProductsAsync(IEnumerable<ProductModel> productsModel)
+        {
+            var result = new List<ProductModel>();
+            foreach (var productModel in productsModel)
+            {
+                var product = await db.Products.FirstOrDefaultAsync(_ => _.Id == productModel.Id);
+
+                if (product != null)
+                {
+                    product.Name = productModel.Name;
+                    product.Article = productModel.Article;
+                    //db.Entry(product).State = EntityState.Modified; //?
+                }
+                else
+                {
+                    product = new Product()
+                    {
+                        Id = productModel.Id,
+                        Name = productModel.Name,
+                        Article = productModel.Article
+                    };
+                    db.Add(product);
+                    result.Add(new ProductModel(product));
+                }
+            }
+
+            await db.SaveChangesAsync();
+
+            return result;
         }
     }
 }

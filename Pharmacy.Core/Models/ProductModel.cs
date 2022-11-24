@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pharmacy.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,17 @@ namespace Pharmacy.Core.Models
 {
     public class ProductModel
     {
+        public ProductModel()
+        {
+
+        }
+
+        public ProductModel(Product product)
+        {
+            this.Id = product.Id;
+            this.Name = product.Name;
+            this.Article = product.Article;
+        }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Article { get; set; }

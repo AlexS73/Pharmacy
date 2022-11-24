@@ -31,6 +31,7 @@ namespace Pharmacy
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<DepartmentSettings>(Configuration.GetSection("DepartmentSettings"));
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<Entity.PharmacyContext>(opt => opt.UseSqlServer(connection));
 
@@ -38,10 +39,14 @@ namespace Pharmacy
                 .AddEntityFrameworkStores<Entity.PharmacyContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddHttpClient();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IManagementService, ManagementService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICommerceService, CommerceService>();
 
             //Token settings
             var tokenSettingsSection = Configuration.GetSection("TokenSettings");

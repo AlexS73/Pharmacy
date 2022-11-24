@@ -19,7 +19,7 @@ namespace Pharmacy.BL.Services
             this.db = db;
         }
 
-        public Entrance CreateEntrance(EntranceModel entranceModel, User user)
+        public async Task<EntranceModel> CreateEntranceAsync(EntranceModel entranceModel, User user)
         {
             var newEntrance = new Entrance()
             {
@@ -39,12 +39,12 @@ namespace Pharmacy.BL.Services
 
             //db.Entrances.Add(newEntrance);
             db.WarehouseOperations.AddRange(newOperations);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
-            return newEntrance;
+            return new EntranceModel(newEntrance);
         }
 
-        public Sale CreateSale(SaleModel saleModel, User user)
+        public async Task<SaleModel> CreateSaleAsync(SaleModel saleModel, User user)
         {
             var newSale = new Sale()
             {
@@ -65,9 +65,9 @@ namespace Pharmacy.BL.Services
 
             //db.Sales.Add(newSale);
             db.WarehouseOperations.AddRange(newOperations);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
-            return newSale;
+            return new SaleModel(newSale);
         }
     }
 }
