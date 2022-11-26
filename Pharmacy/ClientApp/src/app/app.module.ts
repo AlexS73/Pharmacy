@@ -1,26 +1,26 @@
-import { BrowserModule } from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule, Provider} from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { RegistrationComponent } from './user/registration/registration.component';
-import { LoginComponent } from './user/login/login.component';
-import { ProductsComponent } from './products/products.component';
-import { ProductDetailComponent } from './product-detail/product-detail.component';
-import { SalesComponent } from './commercial/sales/sales.component';
-import { DepartmentsComponent } from './departments/departments.component';
-import { AdminComponent } from './admin/admin.component';
-import { EntrancesComponent } from './commercial/entrances/entrances.component';
-import { WarehouseComponent } from './warehouse/warehouse.component';
-import {JwtInterceptor} from './shared/services/jwt.interceptor';
-import { initializeApp} from './shared/services/app.initializer';
-import {UserService} from './shared/services/user.service';
-import {AppRoutingModule} from './app-routing.module';
+import { LoginPageComponent } from './Account/login-page/login-page.component';
+import { RegPageComponent } from './Account/reg-page/reg-page.component';
+import { HomePageComponent } from './Home/home-page/home-page.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {AuthService} from './Shared/Services/auth.service';
+import {JwtInterceptor} from './Shared/Services/jwt.interceptor';
+import {ReactiveFormsModule} from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {appInitializer} from './Shared/Services/app.initializer';
+import {NavMenuComponent} from './Nav-menu/nav-menu.component';
+import {ProductsComponent} from './Products/products.component';
+import {DepartmentsComponent} from './Departments/departments.component';
+import {SalesComponent} from './Commercial/sales/sales.component';
+import {ProductDetailComponent} from './Product-detail/product-detail.component';
+import {AdminComponent} from './Admin/admin.component';
+import {EntrancesComponent} from './Commercial/entrances/entrances.component';
+import {WarehouseComponent} from './Warehouse/warehouse.component';
+import {DepartmentService} from './Shared/Services/department.service';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -30,20 +30,18 @@ const INTERCEPTOR_PROVIDER: Provider = {
 
 const INITIALIZER_PROVIDER: Provider = {
   provide: APP_INITIALIZER,
-  useFactory: ()=> initializeApp,
+  useFactory: appInitializer,
   multi: true,
-  deps: [UserService]
+  deps: [AuthService]
 };
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginPageComponent,
+    RegPageComponent,
+    HomePageComponent,
     NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
-    RegistrationComponent,
-    LoginComponent,
     ProductsComponent,
     ProductDetailComponent,
     SalesComponent,
@@ -53,12 +51,14 @@ const INITIALIZER_PROVIDER: Provider = {
     WarehouseComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
+
   ],
-  providers: [ INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER],
+  providers: [AuthService, DepartmentService, INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

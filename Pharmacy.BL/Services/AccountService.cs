@@ -26,7 +26,7 @@ namespace Pharmacy.BL.Services
 
         public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)
         {
-            User user = db.User.FirstOrDefault(_ => _.UserName == model.Username);
+            User user = db.User.Include(_=>_.Department).FirstOrDefault(_ => _.UserName == model.Username);
 
             if (user == null) return null;
 
@@ -73,7 +73,7 @@ namespace Pharmacy.BL.Services
 
         public async Task<AuthenticateResponse> Registration(RegistrationRequest model)
         {
-            User newUser = new User() { UserName = model.Email, Email = model.Email };
+            User newUser = new User() { UserName = model.Email, DepartmentId = model.DepartmentId, Email = model.Email };
 
             var res = await userManager.CreateAsync(newUser, model.Password);
 

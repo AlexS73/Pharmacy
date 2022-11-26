@@ -14,12 +14,14 @@ namespace Pharmacy.Core.Models
         {
             Id = user.Id;
             UserName = user.UserName;
+            Department = user.Department.Name;
             JwtToken = jwtToken;
             RefreshToken = refreshToken;
         }
 
         public int Id { get; set; }
         public string UserName { get; set; }
+        public string Department { get; set; }
         public string JwtToken { get; set; }
 
         [JsonIgnore] //возвращается в http only cookie

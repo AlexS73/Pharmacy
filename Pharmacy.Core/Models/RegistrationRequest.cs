@@ -12,6 +12,9 @@ namespace Pharmacy.Core.Models
         [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
 
+        [Required(ErrorMessage = "Department is required")]
+        public int DepartmentId { get; set; }
+
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Длина пароля должна быть от 8 до 50 символов")]
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }

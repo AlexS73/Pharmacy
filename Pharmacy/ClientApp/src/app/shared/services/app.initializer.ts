@@ -1,17 +1,10 @@
-import {UserService} from './user.service';
+import {AuthService} from "./auth.service";
 
-/*export function AppInitializer(userService: UserService) {
+export function appInitializer(authService: AuthService) {
   return () => new Promise(resolve => {
     // attempt to refresh token on app start up to auto authenticate
-    userService.RefreshToken()
+    authService.RefreshToken()
       .subscribe()
       .add(resolve);
-  });
-}*/
-
-export function initializeApp(): Promise<any> {
-  return new Promise((resolve, reject) => {
-    // Do some asynchronous stuff
-    resolve();
   });
 }
