@@ -15,7 +15,7 @@ namespace Pharmacy.Core.Models
         {
             this.Id = sale.Id;
             this.CreatedOn = sale.CreatedOn;
-            this.UserName = sale.User.UserName;
+            this.CreatedBy = sale.User.UserName;
             this.SaleProducts = sale.SaleProducts.Select(_ => new SaleProductModel(_)).ToList();
         }
         public IEnumerable<SaleProductModel> SaleProducts { get; set; }

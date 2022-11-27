@@ -27,6 +27,38 @@ namespace Pharmacy.Controllers
             this.userManager = userManager;
         }
 
+        [HttpGet]
+        [Route("sales")]
+        public async Task<IEnumerable<SaleModel>> GetSales()
+        {
+            IEnumerable<SaleModel> sales = await commerceService.GetSales();
+            return sales;
+        }
+        
+        [HttpGet]
+        [Route("entrances")]
+        public async Task<IEnumerable<EntranceModel>> GetEntrances()
+        {
+            IEnumerable<EntranceModel> entrances = await commerceService.GetEntrances();
+            return entrances;
+        }
+        
+        [HttpGet]
+        [Route("sale/{id}")]
+        public async Task<SaleModel> GetSaleById(int id)
+        {
+            SaleModel sale = await commerceService.GetSaleById(id);
+            return sale;
+        }
+        
+        [HttpGet]
+        [Route("entrance/{id}")]
+        public async Task<EntranceModel> GetEntranceById(int id)
+        {
+            EntranceModel entrance = await commerceService.GetEntranceById(id);
+            return entrance;
+        }
+        
         [HttpPost]
         [Route("sale")]
         public async Task<SaleModel> CreateSale(SaleModel saleModel)

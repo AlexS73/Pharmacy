@@ -1,1 +1,18 @@
-<p>sales works!</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Создано</th>
+      <th scope="col">Пользователь</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let sale of sales">
+      <th scope="row">{{sale.Id}}</th>
+      <td>{{sale.CreatedOn}}</td>
+      <td>{{sale.CreatedBy}}</td>
+      <td><a routerLink="/sale/{{sale.Id}}" >Подробно</a></td>
+    </tr>
+  </tbody>
+</table>

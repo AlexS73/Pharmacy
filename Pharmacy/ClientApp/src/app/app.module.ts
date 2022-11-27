@@ -21,6 +21,8 @@ import {AdminComponent} from './Admin/admin.component';
 import {EntrancesComponent} from './Commercial/entrances/entrances.component';
 import {WarehouseComponent} from './Warehouse/warehouse.component';
 import {DepartmentService} from './Shared/Services/department.service';
+import { SaleDetailComponent } from './Commercial/sale-detail/sale-detail.component';
+import {CommerceService} from "./Shared/Services/commerce.service";
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -48,7 +50,8 @@ const INITIALIZER_PROVIDER: Provider = {
     DepartmentsComponent,
     AdminComponent,
     EntrancesComponent,
-    WarehouseComponent
+    WarehouseComponent,
+    SaleDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -56,9 +59,8 @@ const INITIALIZER_PROVIDER: Provider = {
     HttpClientModule,
     ReactiveFormsModule,
     NgbModule,
-
   ],
-  providers: [AuthService, DepartmentService, INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER],
+  providers: [AuthService, DepartmentService, CommerceService, INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

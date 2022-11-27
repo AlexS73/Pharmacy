@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Pharmacy.BL.Services
 {
@@ -18,7 +19,31 @@ namespace Pharmacy.BL.Services
         {
             this.db = db;
         }
+        
+        public async Task<IEnumerable<SaleModel>> GetSales()
+        {
+            var result = await this.db.Sales.Select(_=> new SaleModel(_)).ToListAsync();
+            return result;
+        }
 
+        public async Task<IEnumerable<EntranceModel>> GetEntrances()
+        {
+            var result = await this.db.Entrances.Select(_=> new EntranceModel(_)).ToListAsync();
+            return result;
+        }
+        
+        public async Task<SaleModel> GetSaleById(int id)
+        {
+            var result = await db.Sales.FindAsync(id);
+            return new SaleModel(result);
+        }
+
+        public async Task<EntranceModel> GetEntranceById(int id)
+        {
+            var result = await db.Entrances.FindAsync(id);
+            return new EntranceModel(result);
+        }
+        
         public async Task<EntranceModel> CreateEntranceAsync(EntranceModel entranceModel, User user)
         {
             var newEntrance = new Entrance()
@@ -43,7 +68,7 @@ namespace Pharmacy.BL.Services
 
             return new EntranceModel(newEntrance);
         }
-
+        
         public async Task<SaleModel> CreateSaleAsync(SaleModel saleModel, User user)
         {
             var newSale = new Sale()

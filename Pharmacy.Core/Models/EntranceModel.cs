@@ -17,7 +17,7 @@ namespace Pharmacy.Core.Models
         {
             this.Id = entrance.Id;
             this.CreatedOn = entrance.CreatedOn;
-            this.UserName = entrance.User.UserName;
+            this.CreatedBy = entrance.User.UserName;
             this.EntranceProducts = entrance.EntranceProducts.Select(_ => new EntranceProductModel(_));
         }
         public IEnumerable<EntranceProductModel> EntranceProducts { get; set; }

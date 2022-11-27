@@ -10,6 +10,7 @@ import {EntrancesComponent} from './Commercial/entrances/entrances.component';
 import {AdminComponent} from './Admin/admin.component';
 import {WarehouseComponent} from './Warehouse/warehouse.component';
 import {DepartmentsComponent} from './Departments/departments.component';
+import {SaleDetailComponent} from "./Commercial/sale-detail/sale-detail.component";
 
 const routes: Routes = [
   {path: '', component: HomePageComponent, canActivate: [ AuthGuardService ]},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'login', component: LoginPageComponent, canActivate: [ AuthGuardService ]},
   { path: 'products', component: ProductsComponent, canActivate: [ AuthGuardService ]},
   { path: 'sales', component: SalesComponent, canActivate: [ AuthGuardService ]},
+  { path: 'sale/:id', component: SaleDetailComponent, canActivate: [AuthGuardService]},
   { path: 'entrances', component: EntrancesComponent, canActivate: [ AuthGuardService ]},
   { path: 'admin', component: AdminComponent, canActivate: [ AuthGuardService ]},
   { path: 'warehouse', component: WarehouseComponent, canActivate: [ AuthGuardService ]},

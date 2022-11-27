@@ -9,7 +9,7 @@ namespace Pharmacy.Core.Models
     public class ProductOperationModel
     {
         public int Id { get; set; }
-        public string UserName { get; set; }
+        public string CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
     }
 }
