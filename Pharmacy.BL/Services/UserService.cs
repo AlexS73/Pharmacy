@@ -29,7 +29,9 @@ namespace Pharmacy.BL.Services
             var roles = await userManager.GetRolesAsync(user);
             var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName)
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                    //new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", user.Id.ToString()),
                 };
             foreach (var role in roles)
             {
@@ -38,6 +40,10 @@ namespace Pharmacy.BL.Services
             ClaimsIdentity claimsIdentity =
             new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
+            
+            /*ClaimsIdentity claimsIdentity =
+            new ClaimsIdentity(claims, "Token", "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
+                ClaimsIdentity.DefaultRoleClaimType);*/
 
             return claimsIdentity;
         }

@@ -1,0 +1,32 @@
+<p>Детальная информация:</p>
+<div class="p-2 border">
+  <div class="row">
+    <div class="col-4"><p>Id:</p></div>
+    <div class="col-8"><p>{{sale.Id}}</p></div>
+    <div class="col-4"><p>Создано:</p></div>
+    <div class="col-8"><p>{{sale.CreatedOn | date:'medium'}}</p></div>
+    <div class="col-4"><p>Пользователь:</p></div>
+    <div class="col-8"><p>{{sale.CreatedBy}}</p></div>
+  </div>
+  <div>
+    <p>Товары:</p>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Наименование</th>
+      <th scope="col">Артикул</th>
+      <th scope="col">Количество</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let saledProduct of sale.SaleProducts">
+      <th scope="row">{{saledProduct.Product.Id}}</th>
+      <td>{{saledProduct.Product.Name}}</td>
+      <td>{{saledProduct.Product.Article}}</td>
+      <td>{{saledProduct.Count}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

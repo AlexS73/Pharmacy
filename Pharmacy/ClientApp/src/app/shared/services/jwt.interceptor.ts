@@ -12,7 +12,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
     const token = this.authService.token;
     const isLoggedIn = this.authService.loggedIn;
-
+    console.log(isLoggedIn);
     if (isLoggedIn) {
       req = req.clone({
         setHeaders: { Authorization: `Bearer ${token}` }

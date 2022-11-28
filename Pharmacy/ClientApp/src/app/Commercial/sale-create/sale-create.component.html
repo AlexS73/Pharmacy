@@ -1,0 +1,39 @@
+<p class="font-weight-bold">Создание продажи</p>
+<div class="">
+  <button class="btn btn-primary" type="button" (click)="AddProduct()">Добавить товар</button>
+</div>
+<hr>
+<form class="newSaleForm" action="#" [formGroup]="newSaleForm" (ngSubmit)="Submit($event)">
+    <table class="table">
+    <thead>
+      <tr>
+        <th>№</th>
+        <th scope="col">Продукт</th>
+        <th scope="col">Количество</th>
+        <th scope="col">#</th>
+      </tr>
+    </thead>
+    <tbody formArrayName="SaleProducts">
+      <tr *ngFor="let itemSaleProduct of newSaleForm.get('SaleProducts')['controls']; let i=index;let l=last" [formGroupName]="i">
+        <td>{{i+1}}</td>
+        <td>
+          <select id="productInput" class="form-control" formControlName="Product">
+            <option *ngFor="let product of products" [ngValue]="product" value="">
+              {{product.Name}}
+            </option>
+          </select>
+        </td>
+        <td>
+          <input formControlName="Count" class="form-control" type="number">
+        </td>
+        <td>
+          <button [disabled]="newSaleForm.get('SaleProducts')['controls'].length == 0" (click)="deleteRow(i)" class="btn btn-danger">Удалить</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button type="submit" class="btn btn-primary btn-block">Создать</button>
+</form>
+<br/>
+<!--<pre>{{newSaleForm.value | json}}</pre>-->

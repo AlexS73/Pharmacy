@@ -1,1 +1,20 @@
-<p>products works!</p>
+<div class="mb-1">
+  <button class="btn btn-success" (click)="GoToNewProduct()">Создать товар</button>
+</div>
+<table class="table" *ngIf="!loading">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Наименование</th>
+    <th scope="col">Артикул</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of products">
+    <th scope="row">{{product.Id}}</th>
+    <td>{{product.Name}}</td>
+    <td>{{product.Article}}</td>
+  </tr>
+  </tbody>
+</table>
+

@@ -11,11 +11,11 @@ namespace Pharmacy.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductsController : ControllerBase
+    public class ProductController : ControllerBase
     {
         private readonly IProductService productService;
 
-        public ProductsController(IProductService productService)
+        public ProductController(IProductService productService)
         {
             this.productService = productService;
         }

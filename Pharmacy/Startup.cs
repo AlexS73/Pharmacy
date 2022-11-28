@@ -15,6 +15,7 @@ using Pharmacy.BL.Services;
 using Pharmacy.Core.Models;
 using Pharmacy.Entity;
 using System;
+using System.Security.Claims;
 using System.Text;
 
 namespace Pharmacy
@@ -35,7 +36,16 @@ namespace Pharmacy
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<Entity.PharmacyContext>(opt => opt.UseSqlServer(connection));
 
-            services.AddIdentity<User, IdentityRole<int>>()
+            /*services.Configure<IdentityOptions>(options => 
+                options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);*/
+            services.AddIdentity<User, IdentityRole<int>>(options =>
+                {
+                    //options.ClaimsIdentity.EmailClaimType = ClaimTypes.Name;
+                    //options.ClaimsIdentity.UserIdClaimType = ClaimTypes.Name;
+                    
+                    options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
+                    options.ClaimsIdentity.EmailClaimType = ClaimTypes.Email;
+                })
                 .AddEntityFrameworkStores<Entity.PharmacyContext>()
                 .AddDefaultTokenProviders();
 
@@ -64,27 +74,30 @@ namespace Pharmacy
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    // валидация издателя
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     ValidateIssuer = true,
-                    // издатель
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     ValidIssuer = tokenSettings.Issuer,
-                    // валидация потребителя
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     ValidateAudience = true,
-                    // потребитель
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     ValidAudience = tokenSettings.Audience,
-                    // валидация времени жизни
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
                     ValidateLifetime = true,
-                    // установка ключа безопасности
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    // валидация ключа безопасности
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     ValidateIssuerSigningKey = true,
-                    // по умолчанию время жизни 5 минут
-                    ClockSkew = TimeSpan.Zero
+                    // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 5 пїЅпїЅпїЅпїЅпїЅ
+                    ClockSkew = TimeSpan.Zero,
+                    
                 };
             });
             //End Token settings
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(opt=> 
+                opt.JsonSerializerOptions.PropertyNamingPolicy = null);
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

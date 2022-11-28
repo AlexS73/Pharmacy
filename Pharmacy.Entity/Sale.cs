@@ -4,6 +4,6 @@ namespace Pharmacy.Entity
 {
     public class Sale: ProductOperation
     {
-        public virtual IEnumerable<SaleProduct> SaleProducts { get; set; }
+        public virtual ICollection<SaleProduct> SaleProducts { get; set; }
     }
 }

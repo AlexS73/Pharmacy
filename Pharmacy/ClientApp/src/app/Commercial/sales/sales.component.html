@@ -1,18 +1,22 @@
-<table class="table">
-  <thead>
+<div class="mb-1">
+  <button class="btn btn-success" (click)="GoToNewSale()">Создать продажу</button>
+</div>
+  <table class="table">
+    <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Создано</th>
       <th scope="col">Пользователь</th>
       <th scope="col"></th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr *ngFor="let sale of sales">
       <th scope="row">{{sale.Id}}</th>
       <td>{{sale.CreatedOn}}</td>
       <td>{{sale.CreatedBy}}</td>
       <td><a routerLink="/sale/{{sale.Id}}" >Подробно</a></td>
     </tr>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+

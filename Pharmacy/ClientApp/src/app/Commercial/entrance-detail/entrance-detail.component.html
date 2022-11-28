@@ -1,0 +1,32 @@
+<p>Детальная информация:</p>
+<div class="p-2 border">
+  <div class="row">
+    <div class="col-4"><p>Id:</p></div>
+    <div class="col-8"><p>{{entrance.Id}}</p></div>
+    <div class="col-4"><p>Создано:</p></div>
+    <div class="col-8"><p>{{entrance.CreatedOn | date:'medium'}}</p></div>
+    <div class="col-4"><p>Пользователь:</p></div>
+    <div class="col-8"><p>{{entrance.CreatedBy}}</p></div>
+  </div>
+  <div>
+    <p>Товары:</p>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Наименование</th>
+      <th scope="col">Артикул</th>
+      <th scope="col">Количество</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entranceProduct of entrance.EntranceProducts">
+      <th scope="row">{{entranceProduct.Product.Id}}</th>
+      <td>{{entranceProduct.Product.Name}}</td>
+      <td>{{entranceProduct.Product.Article}}</td>
+      <td>{{entranceProduct.Count}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

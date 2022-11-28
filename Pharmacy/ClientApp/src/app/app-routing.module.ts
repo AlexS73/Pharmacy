@@ -11,15 +11,23 @@ import {AdminComponent} from './Admin/admin.component';
 import {WarehouseComponent} from './Warehouse/warehouse.component';
 import {DepartmentsComponent} from './Departments/departments.component';
 import {SaleDetailComponent} from "./Commercial/sale-detail/sale-detail.component";
+import {ProductCreateComponent} from "./Products/product-create/product-create.component";
+import {SaleCreateComponent} from "./Commercial/sale-create/sale-create.component";
+import {EntranceCreateComponent} from "./Commercial/entrance-create/entrance-create.component";
+import {EntranceDetailComponent} from "./Commercial/entrance-detail/entrance-detail.component";
 
 const routes: Routes = [
   {path: '', component: HomePageComponent, canActivate: [ AuthGuardService ]},
   {path: 'registration', component: RegPageComponent, canActivate: [ AuthGuardService ]},
   {path: 'login', component: LoginPageComponent, canActivate: [ AuthGuardService ]},
   { path: 'products', component: ProductsComponent, canActivate: [ AuthGuardService ]},
+  { path: 'product/new', component: ProductCreateComponent, canActivate: [AuthGuardService]},
   { path: 'sales', component: SalesComponent, canActivate: [ AuthGuardService ]},
+  { path: 'sale/new', component: SaleCreateComponent, canActivate: [AuthGuardService]},
   { path: 'sale/:id', component: SaleDetailComponent, canActivate: [AuthGuardService]},
   { path: 'entrances', component: EntrancesComponent, canActivate: [ AuthGuardService ]},
+  { path: 'entrance/new', component: EntranceCreateComponent, canActivate: [ AuthGuardService ]},
+  { path: 'entrance/:id', component: EntranceDetailComponent, canActivate: [AuthGuardService]},
   { path: 'admin', component: AdminComponent, canActivate: [ AuthGuardService ]},
   { path: 'warehouse', component: WarehouseComponent, canActivate: [ AuthGuardService ]},
   { path: 'departments', component: DepartmentsComponent, canActivate: [ AuthGuardService ]},

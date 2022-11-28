@@ -22,25 +22,42 @@ namespace Pharmacy.BL.Services
         
         public async Task<IEnumerable<SaleModel>> GetSales()
         {
-            var result = await this.db.Sales.Select(_=> new SaleModel(_)).ToListAsync();
+            var result = await this.db.Sales
+                .Include(_=>_.User)
+                .Include(_=>_.SaleProducts)
+                .ThenInclude(_=>_.Product)
+                .Select(_=> new SaleModel(_)).ToListAsync();
             return result;
         }
 
         public async Task<IEnumerable<EntranceModel>> GetEntrances()
         {
-            var result = await this.db.Entrances.Select(_=> new EntranceModel(_)).ToListAsync();
+            var result = await this.db.Entrances
+                .Include(_=>_.User)
+                .Include(_=>_.EntranceProducts)
+                .ThenInclude(_=>_.Product)
+                .Select(_=> new EntranceModel(_)).ToListAsync();
             return result;
         }
         
         public async Task<SaleModel> GetSaleById(int id)
         {
-            var result = await db.Sales.FindAsync(id);
+            var result = await db.Sales
+                .Include(_=>_.User)
+                .Include(_=>_.SaleProducts)
+                .ThenInclude(_=>_.Product)
+                .FirstOrDefaultAsync(_=>_.Id == id);
+            
             return new SaleModel(result);
         }
 
         public async Task<EntranceModel> GetEntranceById(int id)
         {
-            var result = await db.Entrances.FindAsync(id);
+            var result = await db.Entrances
+                .Include(_=>_.User)
+                .Include(_=>_.EntranceProducts)
+                .ThenInclude(_=>_.Product)
+                .FirstOrDefaultAsync(_=>_.Id == id);
             return new EntranceModel(result);
         }
         
@@ -53,7 +70,7 @@ namespace Pharmacy.BL.Services
                 {
                     Count = _.Count,
                     ProductId = _.Product.Id,
-                }),
+                }).ToList(),
                 User = user
             };
 
@@ -78,7 +95,7 @@ namespace Pharmacy.BL.Services
                 {
                     Count = _.Count,
                     ProductId = _.Product.Id,
-                }),
+                }).ToList(),
                 User = user
             };
 
@@ -88,9 +105,19 @@ namespace Pharmacy.BL.Services
                 Operation = newSale,
             });
 
-            //db.Sales.Add(newSale);
+            db.Sales.Add(newSale);
             db.WarehouseOperations.AddRange(newOperations);
-            await db.SaveChangesAsync();
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            
 
             return new SaleModel(newSale);
         }

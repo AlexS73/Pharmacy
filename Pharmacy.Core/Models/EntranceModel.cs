@@ -18,8 +18,8 @@ namespace Pharmacy.Core.Models
             this.Id = entrance.Id;
             this.CreatedOn = entrance.CreatedOn;
             this.CreatedBy = entrance.User.UserName;
-            this.EntranceProducts = entrance.EntranceProducts.Select(_ => new EntranceProductModel(_));
+            this.EntranceProducts = entrance.EntranceProducts.Select(_ => new EntranceProductModel(_)).ToList();
         }
-        public IEnumerable<EntranceProductModel> EntranceProducts { get; set; }
+        public ICollection<EntranceProductModel> EntranceProducts { get; set; }
     }
 }

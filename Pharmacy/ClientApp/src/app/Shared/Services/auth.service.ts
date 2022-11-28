@@ -64,12 +64,12 @@ export class AuthService {
 
   private setToken(response){
     if (response){
-      const jwtToken = JSON.parse(atob(response.jwtToken.split('.')[1]));
+      const jwtToken = JSON.parse(atob(response.JwtToken.split('.')[1]));
       const expDate = new Date(jwtToken.exp * 1000);
-      localStorage.setItem('token', response.jwtToken);
+      localStorage.setItem('token', response.JwtToken);
       localStorage.setItem('token-exp', expDate.toString());
       this.startRefreshTokenTimer();
-      this.user = { email: response.userName };
+      this.user = { email: response.UserName };
     }
     else {
       this.user = null;

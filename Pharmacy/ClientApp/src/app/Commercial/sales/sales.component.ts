@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ISale} from "../../Shared/Models/sale.interface";
-import {SaleService} from "../../Shared/Services/sale.service";
+import {CommerceService} from "../../Shared/Services/commerce.service";
+import {Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-sales',
@@ -10,15 +12,19 @@ import {SaleService} from "../../Shared/Services/sale.service";
 export class SalesComponent implements OnInit {
   sales: ISale[];
 
-  constructor(private saleService: SaleService) { }
+  constructor(private commerceService: CommerceService, private router: Router) { }
 
   ngOnInit() {
     this.GetSales();
   }
 
   GetSales(){
-    this.saleService.GetSales().subscribe(response=> {
+    this.commerceService.GetSales().subscribe(response=> {
       this.sales = response;
     })
+  }
+
+  GoToNewSale() {
+    this.router.navigate(['/sale/new'])
   }
 }

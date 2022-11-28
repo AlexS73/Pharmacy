@@ -23,6 +23,12 @@ import {WarehouseComponent} from './Warehouse/warehouse.component';
 import {DepartmentService} from './Shared/Services/department.service';
 import { SaleDetailComponent } from './Commercial/sale-detail/sale-detail.component';
 import {CommerceService} from "./Shared/Services/commerce.service";
+import { ProductCreateComponent } from './Products/product-create/product-create.component';
+import {ProductService} from "./Shared/Services/product.service";
+import { SaleCreateComponent } from './Commercial/sale-create/sale-create.component';
+import {EntranceCreateComponent} from "./Commercial/entrance-create/entrance-create.component";
+import {EntranceDetailComponent} from "./Commercial/entrance-detail/entrance-detail.component";
+import {WarehouseService} from "./Shared/Services/warehouse.service";
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -51,7 +57,12 @@ const INITIALIZER_PROVIDER: Provider = {
     AdminComponent,
     EntrancesComponent,
     WarehouseComponent,
-    SaleDetailComponent
+    SaleDetailComponent,
+    ProductCreateComponent,
+    SaleCreateComponent,
+
+    EntranceCreateComponent,
+    EntranceDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +71,7 @@ const INITIALIZER_PROVIDER: Provider = {
     ReactiveFormsModule,
     NgbModule,
   ],
-  providers: [AuthService, DepartmentService, CommerceService, INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER],
+  providers: [AuthService, DepartmentService, CommerceService, ProductService, WarehouseService, INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,1 +1,22 @@
-<p>entrances works!</p>
+<div class="mb-1">
+  <button class="btn btn-success" (click)="GoToNewEntrance()">Создать поступление</button>
+</div>
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Создано</th>
+    <th scope="col">Пользователь</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let entrance of entrances">
+    <th scope="row">{{entrance.Id}}</th>
+    <td>{{entrance.CreatedOn}}</td>
+    <td>{{entrance.CreatedBy}}</td>
+    <td><a routerLink="/entrance/{{entrance.Id}}" >Подробно</a></td>
+  </tr>
+  </tbody>
+</table>
+
