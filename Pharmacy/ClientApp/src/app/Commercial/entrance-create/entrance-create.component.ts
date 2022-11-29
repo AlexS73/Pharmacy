@@ -17,22 +17,23 @@ export class EntranceCreateComponent implements OnInit {
   constructor(private fb: FormBuilder, private productService: ProductService, private commerceService: CommerceService, private router: Router) { }
 
   ngOnInit(): void {
-    this.productService.GetProducts().subscribe(response=> {
+    this.productService.GetProducts().subscribe(response => {
       this.products = response;
-    })
+    });
 
     this.newEntranceForm = this.fb.group({
+      Supplier: this.fb.control(['']),
       EntranceProducts: this.fb.array([this.initRow()])
     });
   }
 
   get formArr(){
-    return this.newEntranceForm.get("EntranceProducts") as FormArray;
+    return this.newEntranceForm.get('EntranceProducts') as FormArray;
   }
 
   Submit($event: any) {
     $event.preventDefault();
-
+    console.log(this.newEntranceForm.value);
     const result = this.commerceService.CreateEntrance(this.newEntranceForm.value);
 
     result.subscribe(response => {
@@ -41,14 +42,14 @@ export class EntranceCreateComponent implements OnInit {
   }
 
   AddProduct() {
-    this.formArr.push(this.initRow())
+    this.formArr.push(this.initRow());
   }
 
   initRow() {
     return this.fb.group({
       Product: ['', Validators.required],
       Count: ['', Validators.required]
-    })
+    });
   }
 
   deleteRow(i: number) {

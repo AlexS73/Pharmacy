@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pharmacy.Core.Models
 {
-    public class ProductOperationModel
+    public class OperationModel
     {
         public int Id { get; set; }
         public string CreatedBy { get; set; }

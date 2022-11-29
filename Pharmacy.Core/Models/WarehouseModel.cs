@@ -4,14 +4,11 @@ namespace Pharmacy.Core.Models
 {
     public class WarehouseModel
     {
-
         public WarehouseModel(Warehouse warehouse)
         {
-            this.Id = warehouse.Id;
             this.Product = new ProductModel(warehouse.Product);
-            this.Count = warehouse.Count;
+            this.Count = warehouse.Stock;
         }
-        public int Id { get; set; }
         public ProductModel Product { get; set; }
         public int Count { get; set; }
     }

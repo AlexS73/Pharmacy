@@ -13,7 +13,7 @@
   <tbody>
   <tr *ngFor="let entrance of entrances">
     <th scope="row">{{entrance.Id}}</th>
-    <td>{{entrance.CreatedOn}}</td>
+    <td>{{entrance.CreatedOn | date:'medium'}}</td>
     <td>{{entrance.CreatedBy}}</td>
     <td><a routerLink="/entrance/{{entrance.Id}}" >Подробно</a></td>
   </tr>

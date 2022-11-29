@@ -14,7 +14,7 @@ namespace Pharmacy.Entity
         public DbSet<User> User { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Warehouse> Warehouse { get; set; }
-        public DbSet<WarehouseOperation> WarehouseOperations { get; set; }
+        //public DbSet<WarehouseOperation> WarehouseOperations { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductOperation> ProductOperations { get; set; }
         public DbSet<Sale> Sales { get; set; }
@@ -23,7 +23,9 @@ namespace Pharmacy.Entity
         public DbSet<EntranceProduct> EntranceProduct { get; set; }
 
         public PharmacyContext() : base()
-        {}
+        {
+           
+        }
         public PharmacyContext(DbContextOptions<PharmacyContext> options) : base(options)
         { }
 
@@ -36,10 +38,16 @@ namespace Pharmacy.Entity
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Department>().HasData(
+                new Department[] { 
+                    new Department{Id = 1, Name = "Управление"}
+                });
+
             modelBuilder.Entity<Sale>().ToTable("Sales");   
             modelBuilder.Entity<Entrance>().ToTable("Entrances");
-            modelBuilder.Entity<Product>().HasOne(_ => _.Warehouse).WithOne(_ => _.Product);
-
+            modelBuilder.Entity<Product>().HasOne(_ => _.Warehouse).WithOne(_ => _.Product).IsRequired();
+            modelBuilder.Entity<Warehouse>().HasMany(_ => _.Sales).WithOne(_=>_.Warehouse).IsRequired().OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Warehouse>().HasMany(_ => _.Entrances).WithOne(_=>_.Warehouse).IsRequired().OnDelete(DeleteBehavior.NoAction);
             base.OnModelCreating(modelBuilder);
         }
     }

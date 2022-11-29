@@ -2,17 +2,23 @@
 
 namespace Pharmacy.Core.Models
 {
-    public class SaleProductModel
+    public class OperationProductModel
     {
-        public SaleProductModel()
+        public OperationProductModel()
         {
 
         }
-        public SaleProductModel(SaleProduct saleProduct)
+        public OperationProductModel(SaleProduct saleProduct)
         {
             this.Id = saleProduct.Id;
             this.Product = new ProductModel(saleProduct.Product);
             this.Count = saleProduct.Count;
+        }
+        public OperationProductModel(EntranceProduct entrancProduct)
+        {
+            this.Id = entrancProduct.Id;
+            this.Product = new ProductModel(entrancProduct.Product);
+            this.Count = entrancProduct.Count;
         }
         public int Id { get; set; }
         public ProductModel Product { get; set; }

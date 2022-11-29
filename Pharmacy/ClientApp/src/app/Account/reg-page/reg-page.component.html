@@ -9,8 +9,8 @@
     <div class = form-group>
       <label for="depInput">Департамент</label>
       <select id="depInput" class="form-control" formControlName="DepartmentId">
-        <option *ngFor="let department of departments" [ngValue]="department.id">
-          {{department.name}}
+        <option *ngFor="let department of departments" [ngValue]="department.Id">
+          {{department.Name}}
         </option>
       </select>
     </div>

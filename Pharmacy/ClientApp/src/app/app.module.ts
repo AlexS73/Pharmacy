@@ -9,7 +9,7 @@ import { HomePageComponent } from './Home/home-page/home-page.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthService} from './Shared/Services/auth.service';
 import {JwtInterceptor} from './Shared/Services/jwt.interceptor';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {appInitializer} from './Shared/Services/app.initializer';
 import {NavMenuComponent} from './Nav-menu/nav-menu.component';
@@ -64,13 +64,14 @@ const INITIALIZER_PROVIDER: Provider = {
     EntranceCreateComponent,
     EntranceDetailComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    NgbModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        NgbModule,
+        FormsModule,
+    ],
   providers: [AuthService, DepartmentService, CommerceService, ProductService, WarehouseService, INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER],
   bootstrap: [AppComponent]
 })

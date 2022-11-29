@@ -12,9 +12,9 @@ namespace Pharmacy.Controllers
     [ApiController]
     public class ManagementController : ControllerBase
     {
-        private readonly IManagementService managementService;
+        private readonly IAdministrationService managementService;
 
-        public ManagementController(IManagementService managementService)
+        public ManagementController(IAdministrationService managementService)
         {
             this.managementService = managementService;
         }

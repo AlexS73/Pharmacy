@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pharmacy.Entity;
 
 namespace Pharmacy.Entity.Migrations
 {
     [DbContext(typeof(PharmacyContext))]
-    partial class PharmacyContextModelSnapshot : ModelSnapshot
+    [Migration("20221128193946_warehousechanged")]
+    partial class warehousechanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -349,10 +351,10 @@ namespace Pharmacy.Entity.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.Property<int>("Stock")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -361,6 +363,28 @@ namespace Pharmacy.Entity.Migrations
                         .IsUnique();
 
                     b.ToTable("Warehouse");
+                });
+
+            modelBuilder.Entity("Pharmacy.Entity.WarehouseOperation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("OperationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OperationId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("WarehouseOperations");
                 });
 
             modelBuilder.Entity("Pharmacy.Entity.User", b =>
@@ -379,18 +403,12 @@ namespace Pharmacy.Entity.Migrations
                 {
                     b.HasBaseType("Pharmacy.Entity.ProductOperation");
 
-                    b.Property<string>("Supplier")
-                        .HasColumnType("nvarchar(max)");
-
                     b.ToTable("Entrances");
                 });
 
             modelBuilder.Entity("Pharmacy.Entity.Sale", b =>
                 {
                     b.HasBaseType("Pharmacy.Entity.ProductOperation");
-
-                    b.Property<string>("Customer")
-                        .HasColumnType("nvarchar(max)");
 
                     b.ToTable("Sales");
                 });
@@ -518,6 +536,23 @@ namespace Pharmacy.Entity.Migrations
                         .HasForeignKey("Pharmacy.Entity.Warehouse", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Pharmacy.Entity.WarehouseOperation", b =>
+                {
+                    b.HasOne("Pharmacy.Entity.ProductOperation", "Operation")
+                        .WithMany()
+                        .HasForeignKey("OperationId");
+
+                    b.HasOne("Pharmacy.Entity.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Operation");
 
                     b.Navigation("Product");
                 });

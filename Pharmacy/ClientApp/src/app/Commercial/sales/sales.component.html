@@ -13,7 +13,7 @@
     <tbody>
     <tr *ngFor="let sale of sales">
       <th scope="row">{{sale.Id}}</th>
-      <td>{{sale.CreatedOn}}</td>
+      <td>{{sale.CreatedOn | date:'medium'}}</td>
       <td>{{sale.CreatedBy}}</td>
       <td><a routerLink="/sale/{{sale.Id}}" >Подробно</a></td>
     </tr>

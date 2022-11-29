@@ -11,10 +11,25 @@ namespace Pharmacy.BL.Services
     public class WarehouseService: IWarehouseService
     {
         private readonly PharmacyContext db;
-        
+        private readonly IAdministrationService adminService;
+
+        public WarehouseService(PharmacyContext db, IAdministrationService adminService)
+        {
+            this.db = db;
+            this.adminService = adminService;
+        }
+
         public async Task<IEnumerable<WarehouseModel>> GetLeftoversAsync()
         {
-            return await db.Warehouse.Select(_=> new WarehouseModel(_)).ToListAsync();
+            return await db.Warehouse
+                .Include(_=>_.Product)
+                .Select(_=> new WarehouseModel(_))
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<WarehouseModel>> GetLeftoversAsync(string department)
+        {
+            return await adminService.LoadLeftoversAsync(department);
         }
     }
 }

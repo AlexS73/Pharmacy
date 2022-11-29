@@ -11,5 +11,6 @@ export interface ISale
   Id: number;
   CreatedOn: Date;
   CreatedBy: string;
-  SaleProducts: ISaleProduct[]
+  Customer: string;
+  SaleProducts: ISaleProduct[];
 }

@@ -9,7 +9,7 @@ namespace Pharmacy.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WarehouseController: ControllerBase
+    public class WarehouseController : ControllerBase
     {
         private readonly IWarehouseService warehouseService;
         public WarehouseController(IWarehouseService warehouseService)
@@ -30,5 +30,18 @@ namespace Pharmacy.Controllers
             }
         }
 
+        [HttpGet("{department}")]
+        public async Task<ActionResult<IEnumerable<WarehouseModel>>> GetLeftoversForDepartment(string department)
+        {
+            try
+            {
+                var result = await warehouseService.GetLeftoversAsync(department);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex);
+            }
+        }
     }
 }

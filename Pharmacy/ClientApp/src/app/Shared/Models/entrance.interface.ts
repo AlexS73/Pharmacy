@@ -11,5 +11,6 @@ export interface IEntrance
   Id: number;
   CreatedOn: Date;
   CreatedBy: string;
-  EntranceProducts: IEntranceProduct[]
+  Supplier: string;
+  EntranceProducts: IEntranceProduct[];
 }

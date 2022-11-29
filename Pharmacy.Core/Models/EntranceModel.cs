@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Pharmacy.Core.Models
 {
-    public class EntranceModel: ProductOperationModel
+    public class EntranceModel: OperationModel
     {
         public EntranceModel()
         {
@@ -18,8 +18,10 @@ namespace Pharmacy.Core.Models
             this.Id = entrance.Id;
             this.CreatedOn = entrance.CreatedOn;
             this.CreatedBy = entrance.User.UserName;
-            this.EntranceProducts = entrance.EntranceProducts.Select(_ => new EntranceProductModel(_)).ToList();
+            this.EntranceProducts = entrance.EntranceProducts.Select(_ => new OperationProductModel(_)).ToList();
+            this.Supplier = entrance.Supplier;
         }
-        public ICollection<EntranceProductModel> EntranceProducts { get; set; }
+        public ICollection<OperationProductModel> EntranceProducts { get; set; }
+        public string Supplier { get; set; }
     }
 }

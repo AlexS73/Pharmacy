@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Pharmacy.Core.Models
 {
-    public class SaleModel: ProductOperationModel
+    public class SaleModel: OperationModel
     {
         public SaleModel()
         {
@@ -19,8 +19,9 @@ namespace Pharmacy.Core.Models
                 this.Id = sale.Id;
                 this.CreatedOn = sale.CreatedOn;
                 this.CreatedBy = sale.User.UserName;
+                this.Customer = sale.Customer;
             
-                this.SaleProducts = sale.SaleProducts.Select(_ => new SaleProductModel(_)).ToList();
+                this.SaleProducts = sale.SaleProducts.Select(_ => new OperationProductModel(_)).ToList();
             }
             catch (Exception e)
             {
@@ -29,6 +30,7 @@ namespace Pharmacy.Core.Models
             }
 
         }
-        public ICollection<SaleProductModel> SaleProducts { get; set; }
+        public string Customer { get; set; }
+        public ICollection<OperationProductModel> SaleProducts { get; set; }
     }
 }

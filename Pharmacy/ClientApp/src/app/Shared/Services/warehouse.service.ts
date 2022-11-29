@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from "rxjs";
 import {IWarehouse} from "../Models/warehouse.inteface";
 
@@ -9,6 +9,13 @@ export class WarehouseService{
   }
 
   public GetLeftovers(): Observable<IWarehouse[]>{
-    return this.httpClient.get<IWarehouse[]>('/api/warehouse')
+    return this.httpClient.get<IWarehouse[]>('/api/warehouse');
+  }
+
+  public GetLeftoversForDepartment(department: string): Observable<IWarehouse[]>{
+    const params = new HttpParams()
+      .set('department', department);
+
+    return this.httpClient.get<IWarehouse[]>('/api/warehouse', {params});
   }
 }

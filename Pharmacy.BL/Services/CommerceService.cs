@@ -63,54 +63,95 @@ namespace Pharmacy.BL.Services
         
         public async Task<EntranceModel> CreateEntranceAsync(EntranceModel entranceModel, User user)
         {
-            var newEntrance = new Entrance()
-            {
-                CreatedOn = DateTime.UtcNow,
-                EntranceProducts = entranceModel.EntranceProducts.Select(_ => new EntranceProduct()
-                {
-                    Count = _.Count,
-                    ProductId = _.Product.Id,
-                }).ToList(),
-                User = user
-            };
-
-            var newOperations = entranceModel.EntranceProducts.Select(_ => new WarehouseOperation() {
-                ProductId = _.Product.Id,
-                Operation = newEntrance,
-            });
-
-            //db.Entrances.Add(newEntrance);
-            db.WarehouseOperations.AddRange(newOperations);
-            await db.SaveChangesAsync();
-
-            return new EntranceModel(newEntrance);
-        }
-        
-        public async Task<SaleModel> CreateSaleAsync(SaleModel saleModel, User user)
-        {
-            var newSale = new Sale()
-            {
-                CreatedOn = DateTime.UtcNow,
-                SaleProducts = saleModel.SaleProducts.Select(_ => new SaleProduct()
-                {
-                    Count = _.Count,
-                    ProductId = _.Product.Id,
-                }).ToList(),
-                User = user
-            };
-
-            var newOperations = saleModel.SaleProducts.Select(_ => new WarehouseOperation()
-            {
-                ProductId = _.Product.Id,
-                Operation = newSale,
-            });
-
-            db.Sales.Add(newSale);
-            db.WarehouseOperations.AddRange(newOperations);
-
             try
             {
+                var productsDb = db.Products
+                .Include(_ => _.Warehouse)
+                .Where(_ => entranceModel.EntranceProducts.Select(sp => sp.Product.Id).Contains(_.Id))
+                .ToList();
+
+                List<EntranceProduct> productsForEntrance = new();
+                foreach (var sp in entranceModel.EntranceProducts)
+                {
+                    var productDb = productsDb.FirstOrDefault(_ => _.Id == sp.Product.Id);
+                    if (productDb == null)
+                    {
+                        throw new ArgumentNullException($"Product not found; Id: {sp.Product.Id}");
+                    }
+                    if(productDb.Warehouse == null)
+                    {
+                        productDb.Warehouse = new Warehouse();
+                    }
+                    //CheckStock(productDb, sp);
+
+                    productDb.Warehouse.Stock += sp.Count;
+                    productsForEntrance.Add(new EntranceProduct
+                    {
+                        Count = sp.Count,
+                        ProductId = sp.Product.Id,
+                        Warehouse = productDb.Warehouse
+                    });
+                }
+
+                var newEntrance = new Entrance()
+                {
+                    CreatedOn = DateTime.UtcNow,
+                    EntranceProducts = productsForEntrance,
+                    User = user,
+                    Supplier = entranceModel.Supplier, 
+                };
+
+                db.Entrances.Add(newEntrance);
+
                 await db.SaveChangesAsync();
+                return new EntranceModel(newEntrance);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public async Task<SaleModel> CreateSaleAsync(SaleModel saleModel, User user)
+        {
+            try
+            {
+                var productsDb = db.Products
+                .Include(_ => _.Warehouse)
+                .Where(_ => saleModel.SaleProducts.Select(sp => sp.Product.Id).Contains(_.Id))
+                .ToList();
+
+                List <SaleProduct> productsForSale = new();
+                foreach (var sp in saleModel.SaleProducts)
+                {
+                    var productDb = productsDb.FirstOrDefault(_ => _.Id == sp.Product.Id);
+                    if (productsDb == null)
+                    {
+                        throw new ArgumentNullException($"Product not found; Id: {sp.Product.Id}");
+                    }
+                    CheckStock(productDb, sp);
+
+                    productDb.Warehouse.Stock -= sp.Count;
+                    productsForSale.Add(new SaleProduct {
+                        Count = sp.Count,
+                        ProductId = sp.Product.Id,
+                        Warehouse = productDb.Warehouse,
+                    });
+                }
+
+                var newSale = new Sale()
+                {
+                    CreatedOn = DateTime.UtcNow,
+                    SaleProducts = productsForSale,
+                    User = user,
+                    Customer = saleModel.Customer
+                };
+
+                db.Sales.Add(newSale);
+
+                await db.SaveChangesAsync();
+                return new SaleModel(newSale);
             }
             catch (Exception e)
             {
@@ -118,8 +159,18 @@ namespace Pharmacy.BL.Services
                 throw;
             }
             
+        }
 
-            return new SaleModel(newSale);
+        private void CheckStock(Product product, OperationProductModel productOperation)
+        {
+            if (product.Warehouse == null)
+            {
+                throw new ArgumentNullException($"Product doesn't have warehouse; Id: {product.Id}");
+            }
+            if (product.Warehouse.Stock < productOperation.Count)
+            {
+                throw new ArgumentNullException($"Product is not enough in the balance; Id: {product.Id}");
+            }
         }
     }
 }

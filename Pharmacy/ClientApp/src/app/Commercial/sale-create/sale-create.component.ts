@@ -22,12 +22,13 @@ export class SaleCreateComponent implements OnInit {
     })
 
     this.newSaleForm = this.fb.group({
+      Customer: this.fb.control(['']),
       SaleProducts: this.fb.array([this.initRow()])
     });
   }
 
   get formArr(){
-    return this.newSaleForm.get("SaleProducts") as FormArray;
+    return this.newSaleForm.get('SaleProducts') as FormArray;
   }
 
   Submit($event: any) {

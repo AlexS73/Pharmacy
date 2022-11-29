@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 
 namespace Pharmacy.BL.Services
 {
-    public class ManagementService: IManagementService
+    public class AdministrationService: IAdministrationService
     {
         private readonly PharmacyContext db;
         private readonly HttpClient httpClient;
         private readonly DepartmentSettings departmentSettings;
         private readonly IProductService productService;
 
-        public ManagementService(PharmacyContext pharmacyContext, IHttpClientFactory httpClientFactory,IProductService productService, IOptions<DepartmentSettings> departmentSettings)
+        public AdministrationService(PharmacyContext pharmacyContext, IHttpClientFactory httpClientFactory,IProductService productService, IOptions<DepartmentSettings> departmentSettings)
         {
             this.db = pharmacyContext;
             this.httpClient = httpClientFactory.CreateClient();
@@ -41,6 +41,17 @@ namespace Pharmacy.BL.Services
             var newProducts = existedProducts.Except(products).ToList();
 
             await productService.SaveProductsAsync(newProducts);
+        }
+
+        public async Task<IEnumerable<WarehouseModel>> LoadLeftoversAsync(string department)
+        {
+            var uri = departmentSettings.DepartmentUrls[department] + "/api/warehouse";
+
+            var request = new HttpRequestMessage(HttpMethod.Get, uri);
+            var result = await httpClient.SendAsync(request);
+            var warehouse = await result.Content.ReadFromJsonAsync<IEnumerable<WarehouseModel>>();
+            return warehouse;
+
         }
     }
 }

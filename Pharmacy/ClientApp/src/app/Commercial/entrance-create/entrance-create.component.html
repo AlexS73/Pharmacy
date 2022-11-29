@@ -4,6 +4,14 @@
 </div>
 <hr>
 <form class="newSaleForm" action="#" [formGroup]="newEntranceForm" (ngSubmit)="Submit($event)">
+  <div class="form-group row">
+    <div class="col">
+      <label for="supplierInput">Поставщик</label>
+    </div>
+    <div class="col">
+      <input id="supplierInput" type="text" class="form-control" formControlName="Supplier">
+    </div>
+  </div>
     <table class="table">
     <thead>
       <tr>

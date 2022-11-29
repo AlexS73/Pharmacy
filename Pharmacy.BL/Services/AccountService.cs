@@ -47,7 +47,7 @@ namespace Pharmacy.BL.Services
 
         public async Task<AuthenticateResponse> RefreshToken(string refreshToken)
         {
-            var user = db.User.SingleOrDefault(u => u.RefreshTokens.Any(t => t.Token == refreshToken));
+            var user = db.User.Include(_ => _.Department).SingleOrDefault(u => u.RefreshTokens.Any(t => t.Token == refreshToken));
 
             // return null if no user found with token
             if (user == null) return null;
@@ -84,6 +84,7 @@ namespace Pharmacy.BL.Services
 
             User createdUser = db.User
                 .Include(_ => _.RefreshTokens)
+                .Include(_ => _.Department)
                 .FirstOrDefault(_ => _.UserName == newUser.UserName);
 
             // генерация refresh при успешной регистрации
