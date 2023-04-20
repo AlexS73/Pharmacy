@@ -8,11 +8,11 @@ namespace Pharmacy.Entity
     public class Warehouse
     {
         public int Id { get; set; }
-        public virtual Product Product { get; set; }
-        public int ProductId { get; set; }
-        public virtual ICollection<SaleProduct> Sales { get; set; }
-        public virtual ICollection<EntranceProduct> Entrances { get; set; }
-
-        public int Stock { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public int DepartmentId { get; set; }
+        public virtual Department Department { get; set; }
+        public virtual IEnumerable<WarehouseOperation> Operations { get; set; }
+        public virtual IEnumerable<ProductStock> ProductStocks { get; set; }
     }
 }

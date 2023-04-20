@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,10 +22,11 @@ namespace Pharmacy.BL.Services
 
         public async Task<IEnumerable<WarehouseModel>> GetLeftoversAsync()
         {
-            return await db.Warehouse
-                .Include(_=>_.Product)
-                .Select(_=> new WarehouseModel(_))
-                .ToListAsync();
+            throw new NotImplementedException();
+            //return await db.Warehouse
+            //    .Include(_=>_.Product)
+            //    .Select(_=> new WarehouseModel(_))
+            //    .ToListAsync();
         }
 
         public async Task<IEnumerable<WarehouseModel>> GetLeftoversAsync(string department)

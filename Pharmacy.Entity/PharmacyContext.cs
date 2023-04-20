@@ -14,13 +14,14 @@ namespace Pharmacy.Entity
         public DbSet<User> User { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Warehouse> Warehouse { get; set; }
-        //public DbSet<WarehouseOperation> WarehouseOperations { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductOperation> ProductOperations { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<Entrance> Entrances { get; set; }
         public DbSet<SaleProduct> SaleProduct { get; set; }
         public DbSet<EntranceProduct> EntranceProduct { get; set; }
+        public DbSet<ProductStock> ProductStocks { get; set; }
+        public DbSet<Characteristic> Characteristics { get; set; }
+        public DbSet<ProductPrice> ProductPrices { get; set; }
 
         public PharmacyContext() : base()
         {
@@ -45,9 +46,7 @@ namespace Pharmacy.Entity
 
             modelBuilder.Entity<Sale>().ToTable("Sales");   
             modelBuilder.Entity<Entrance>().ToTable("Entrances");
-            modelBuilder.Entity<Product>().HasOne(_ => _.Warehouse).WithOne(_ => _.Product).IsRequired();
-            modelBuilder.Entity<Warehouse>().HasMany(_ => _.Sales).WithOne(_=>_.Warehouse).IsRequired().OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Warehouse>().HasMany(_ => _.Entrances).WithOne(_=>_.Warehouse).IsRequired().OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Warehouse>().HasMany(_ => _.Operations).WithOne(_ => _.Warehouse).HasForeignKey(_ => _.WarehouseId).OnDelete(DeleteBehavior.Restrict);
             base.OnModelCreating(modelBuilder);
         }
     }

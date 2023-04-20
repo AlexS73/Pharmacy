@@ -19,6 +19,21 @@ namespace Pharmacy.Entity.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CharacteristicProduct", b =>
+                {
+                    b.Property<int>("CharacteristicsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CharacteristicsId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("CharacteristicProduct");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
                 {
                     b.Property<int>("Id")
@@ -222,6 +237,24 @@ namespace Pharmacy.Entity.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Pharmacy.Entity.Characteristic", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Characteristics");
+                });
+
             modelBuilder.Entity("Pharmacy.Entity.Department", b =>
                 {
                     b.Property<int>("Id")
@@ -260,16 +293,11 @@ namespace Pharmacy.Entity.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("WarehouseId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("EntranceId");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("WarehouseId");
 
                     b.ToTable("EntranceProduct");
                 });
@@ -284,6 +312,9 @@ namespace Pharmacy.Entity.Migrations
                     b.Property<string>("Article")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -292,27 +323,32 @@ namespace Pharmacy.Entity.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Pharmacy.Entity.ProductOperation", b =>
+            modelBuilder.Entity("Pharmacy.Entity.ProductPrice", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WarehouseId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ProductId");
 
-                    b.ToTable("ProductOperations");
+                    b.HasIndex("WarehouseId");
+
+                    b.ToTable("ProductPrices");
                 });
 
-            modelBuilder.Entity("Pharmacy.Entity.SaleProduct", b =>
+            modelBuilder.Entity("Pharmacy.Entity.ProductStock", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -325,9 +361,6 @@ namespace Pharmacy.Entity.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SaleId")
-                        .HasColumnType("int");
-
                     b.Property<int>("WarehouseId")
                         .HasColumnType("int");
 
@@ -335,9 +368,35 @@ namespace Pharmacy.Entity.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("SaleId");
-
                     b.HasIndex("WarehouseId");
+
+                    b.ToTable("ProductStocks");
+                });
+
+            modelBuilder.Entity("Pharmacy.Entity.SaleProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SaleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SaleId");
 
                     b.ToTable("SaleProduct");
                 });
@@ -349,18 +408,49 @@ namespace Pharmacy.Entity.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ProductId")
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Stock")
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId")
+                        .IsUnique();
+
+                    b.ToTable("Warehouse");
+                });
+
+            modelBuilder.Entity("Pharmacy.Entity.WarehouseOperation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TypeOfOperation")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WarehouseId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
-                    b.ToTable("Warehouse");
+                    b.HasIndex("WarehouseId");
+
+                    b.ToTable("WarehouseOperation");
                 });
 
             modelBuilder.Entity("Pharmacy.Entity.User", b =>
@@ -377,7 +467,7 @@ namespace Pharmacy.Entity.Migrations
 
             modelBuilder.Entity("Pharmacy.Entity.Entrance", b =>
                 {
-                    b.HasBaseType("Pharmacy.Entity.ProductOperation");
+                    b.HasBaseType("Pharmacy.Entity.WarehouseOperation");
 
                     b.Property<string>("Supplier")
                         .HasColumnType("nvarchar(max)");
@@ -387,12 +477,30 @@ namespace Pharmacy.Entity.Migrations
 
             modelBuilder.Entity("Pharmacy.Entity.Sale", b =>
                 {
-                    b.HasBaseType("Pharmacy.Entity.ProductOperation");
+                    b.HasBaseType("Pharmacy.Entity.WarehouseOperation");
 
                     b.Property<string>("Customer")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Sum")
+                        .HasColumnType("decimal(18,2)");
+
                     b.ToTable("Sales");
+                });
+
+            modelBuilder.Entity("CharacteristicProduct", b =>
+                {
+                    b.HasOne("Pharmacy.Entity.Characteristic", null)
+                        .WithMany()
+                        .HasForeignKey("CharacteristicsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Pharmacy.Entity.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -460,28 +568,47 @@ namespace Pharmacy.Entity.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Pharmacy.Entity.Warehouse", "Warehouse")
-                        .WithMany("Entrances")
-                        .HasForeignKey("WarehouseId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                    b.Navigation("Entrance");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Pharmacy.Entity.ProductPrice", b =>
+                {
+                    b.HasOne("Pharmacy.Entity.Product", "Product")
+                        .WithMany("Prices")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Entrance");
+                    b.HasOne("Pharmacy.Entity.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
 
                     b.Navigation("Warehouse");
                 });
 
-            modelBuilder.Entity("Pharmacy.Entity.ProductOperation", b =>
+            modelBuilder.Entity("Pharmacy.Entity.ProductStock", b =>
                 {
-                    b.HasOne("Pharmacy.Entity.User", "User")
+                    b.HasOne("Pharmacy.Entity.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.HasOne("Pharmacy.Entity.Warehouse", "Warehouse")
+                        .WithMany("ProductStocks")
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("Pharmacy.Entity.SaleProduct", b =>
@@ -498,28 +625,39 @@ namespace Pharmacy.Entity.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Pharmacy.Entity.Warehouse", "Warehouse")
-                        .WithMany("Sales")
-                        .HasForeignKey("WarehouseId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.Navigation("Product");
 
                     b.Navigation("Sale");
-
-                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("Pharmacy.Entity.Warehouse", b =>
                 {
-                    b.HasOne("Pharmacy.Entity.Product", "Product")
+                    b.HasOne("Pharmacy.Entity.Department", "Department")
                         .WithOne("Warehouse")
-                        .HasForeignKey("Pharmacy.Entity.Warehouse", "ProductId")
+                        .HasForeignKey("Pharmacy.Entity.Warehouse", "DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("Pharmacy.Entity.WarehouseOperation", b =>
+                {
+                    b.HasOne("Pharmacy.Entity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Pharmacy.Entity.Warehouse", "Warehouse")
+                        .WithMany("Operations")
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+
+                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("Pharmacy.Entity.User", b =>
@@ -575,7 +713,7 @@ namespace Pharmacy.Entity.Migrations
 
             modelBuilder.Entity("Pharmacy.Entity.Entrance", b =>
                 {
-                    b.HasOne("Pharmacy.Entity.ProductOperation", null)
+                    b.HasOne("Pharmacy.Entity.WarehouseOperation", null)
                         .WithOne()
                         .HasForeignKey("Pharmacy.Entity.Entrance", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
@@ -584,7 +722,7 @@ namespace Pharmacy.Entity.Migrations
 
             modelBuilder.Entity("Pharmacy.Entity.Sale", b =>
                 {
-                    b.HasOne("Pharmacy.Entity.ProductOperation", null)
+                    b.HasOne("Pharmacy.Entity.WarehouseOperation", null)
                         .WithOne()
                         .HasForeignKey("Pharmacy.Entity.Sale", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
@@ -594,18 +732,20 @@ namespace Pharmacy.Entity.Migrations
             modelBuilder.Entity("Pharmacy.Entity.Department", b =>
                 {
                     b.Navigation("Users");
+
+                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("Pharmacy.Entity.Product", b =>
                 {
-                    b.Navigation("Warehouse");
+                    b.Navigation("Prices");
                 });
 
             modelBuilder.Entity("Pharmacy.Entity.Warehouse", b =>
                 {
-                    b.Navigation("Entrances");
+                    b.Navigation("Operations");
 
-                    b.Navigation("Sales");
+                    b.Navigation("ProductStocks");
                 });
 
             modelBuilder.Entity("Pharmacy.Entity.Entrance", b =>

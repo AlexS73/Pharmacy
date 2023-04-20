@@ -1,11 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pharmacy.Entity
 {
-    public class Sale: ProductOperation
+    public class Sale: WarehouseOperation
     {
         public string Customer { get; set; }
-        public virtual ICollection<SaleProduct> SaleProducts { get; set; }
+        public virtual IEnumerable<SaleProduct> SaleProducts { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public double Sum { get; set; }
     }
     public class SaleProduct
     {
@@ -14,7 +18,8 @@ namespace Pharmacy.Entity
         public int SaleId { get; set; }
         public virtual Product Product { get; set; }
         public int ProductId { get; set; }
-        public virtual Warehouse Warehouse { get; set; }
         public int Count { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public double Price { get; set; }
     }
 }
