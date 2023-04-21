@@ -19,6 +19,8 @@
         <th>№</th>
         <th scope="col">Продукт</th>
         <th scope="col">Количество</th>
+        <th scope="col">Цена</th>
+        <th scope="col">Сумма</th>
         <th scope="col">#</th>
       </tr>
     </thead>
@@ -34,6 +36,12 @@
         </td>
         <td>
           <input formControlName="Count" class="form-control" type="number">
+        </td>
+        <td>
+          <input formControlName="Price" class="form-control" disabled type="number"> 
+        </td>
+        <td>
+            {{0}}
         </td>
         <td>
           <button [disabled]="newSaleForm.get('SaleProducts')['controls'].length == 0" (click)="deleteRow(i)" class="btn btn-danger">Удалить</button>

@@ -24,4 +24,15 @@ namespace Pharmacy.Core.Models
         public ProductModel Product { get; set; }
         public int Count { get; set; }
     }
+
+    public class SaleProductModel: OperationProductModel
+    {
+        
+        public SaleProductModel(SaleProduct saleProduct) : base(saleProduct)
+        {
+            this.Price = saleProduct.Price;
+        }
+
+        public double Price { get; set; }
+    }
 }

@@ -29,6 +29,7 @@ import { SaleCreateComponent } from './Commercial/sale-create/sale-create.compon
 import {EntranceCreateComponent} from "./Commercial/entrance-create/entrance-create.component";
 import {EntranceDetailComponent} from "./Commercial/entrance-detail/entrance-detail.component";
 import {WarehouseService} from "./Shared/Services/warehouse.service";
+import { PriceService } from './Shared/Services/price.service';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -72,7 +73,7 @@ const INITIALIZER_PROVIDER: Provider = {
         NgbModule,
         FormsModule,
     ],
-  providers: [AuthService, DepartmentService, CommerceService, ProductService, WarehouseService, INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER],
+  providers: [AuthService, DepartmentService, CommerceService, ProductService, WarehouseService, PriceService, INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

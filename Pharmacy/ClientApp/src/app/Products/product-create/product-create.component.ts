@@ -21,6 +21,8 @@ export class ProductCreateComponent implements OnInit {
       'Article': new FormControl('',[
         Validators.required
       ]),
+      'Description': new FormControl('',[
+      ]),
     })
   }
 

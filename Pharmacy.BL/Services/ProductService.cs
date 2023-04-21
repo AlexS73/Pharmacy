@@ -24,7 +24,8 @@ namespace Pharmacy.BL.Services
             var productsModel = await db.Products.Select(_=> new ProductModel { 
                 Id = _.Id,
                 Name = _.Name,
-                Article = _.Article
+                Article = _.Article,
+                Description = _.Description
             }).AsNoTracking().ToListAsync();
 
             return productsModel;
@@ -43,7 +44,8 @@ namespace Pharmacy.BL.Services
             {
                 Id = product.Id,
                 Name = product.Name,
-                Article = product.Article
+                Article = product.Article,
+                Description = product.Description
             };
         }
 
@@ -55,6 +57,7 @@ namespace Pharmacy.BL.Services
             {
                 product.Name = productModel.Name;
                 product.Article = productModel.Article;
+                product.Description = product.Description;
             }
             else
             {
@@ -62,7 +65,8 @@ namespace Pharmacy.BL.Services
                 {
                     Id = productModel.Id,
                     Name = productModel.Name,
-                    Article = productModel.Article
+                    Article = productModel.Article,
+                    Description = productModel.Description
                 };
                 db.Add(product);
             }
@@ -83,6 +87,7 @@ namespace Pharmacy.BL.Services
                 {
                     product.Name = productModel.Name;
                     product.Article = productModel.Article;
+                    product.Description = productModel.Description;
                     //db.Entry(product).State = EntityState.Modified; //?
                 }
                 else
@@ -91,7 +96,8 @@ namespace Pharmacy.BL.Services
                     {
                         Id = productModel.Id,
                         Name = productModel.Name,
-                        Article = productModel.Article
+                        Article = productModel.Article,
+                        Description = productModel.Description
                     };
                     db.Add(product);
                     result.Add(new ProductModel(product));

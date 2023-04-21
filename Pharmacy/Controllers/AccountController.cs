@@ -54,15 +54,24 @@ namespace Pharmacy.Controllers
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken()
         {
-            var refreshToken = Request.Cookies["refreshToken"];
-            var response = await accountService.RefreshToken(refreshToken);
+            try
+            {
+                var refreshToken = Request.Cookies["refreshToken"];
+                var response = await accountService.RefreshToken(refreshToken);
 
-            if (response == null)
-                return ValidationProblem("Invalid token");
+                if (response == null)
+                    return ValidationProblem("Invalid token");
 
-            setTokenCookie(response.RefreshToken);
+                setTokenCookie(response.RefreshToken);
 
-            return Ok(response);
+                return Ok(response);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
 

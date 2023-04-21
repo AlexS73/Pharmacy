@@ -4,6 +4,8 @@ import {ProductService} from "../../Shared/Services/product.service";
 import {IProduct} from "../../Shared/Models/product.interface";
 import {CommerceService} from "../../Shared/Services/commerce.service";
 import {Router} from "@angular/router";
+import { PriceService } from 'src/app/Shared/Services/price.service';
+import { IPrice } from 'src/app/Shared/Models/price.interface';
 
 @Component({
   selector: 'app-sale-create',
@@ -13,12 +15,17 @@ import {Router} from "@angular/router";
 export class SaleCreateComponent implements OnInit {
   newSaleForm: FormGroup;
   products: IProduct[];
+  prices: IPrice[];
 
-  constructor(private fb: FormBuilder, private productService: ProductService, private commerceService: CommerceService, private router: Router) { }
+  constructor(private fb: FormBuilder, private productService: ProductService, private commerceService: CommerceService, private router: Router, private priceService: PriceService) { }
 
   ngOnInit(): void {
     this.productService.GetProducts().subscribe(response=> {
       this.products = response;
+    })
+
+    this.priceService.GetPrices().subscribe(response => {
+      this.prices = response;
     })
 
     this.newSaleForm = this.fb.group({
@@ -49,7 +56,8 @@ export class SaleCreateComponent implements OnInit {
   initRow() {
     return this.fb.group({
       Product: ['', Validators.required],
-      Count: ['', Validators.required]
+      Count: ['', Validators.required],
+      Price: ['']
     })
   }
 
