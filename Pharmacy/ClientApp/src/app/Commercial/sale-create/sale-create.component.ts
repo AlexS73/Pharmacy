@@ -54,11 +54,43 @@ export class SaleCreateComponent implements OnInit {
   }
 
   initRow() {
-    return this.fb.group({
+    var row = this.fb.group({
       Product: ['', Validators.required],
       Count: ['', Validators.required],
-      Price: ['']
+      Price: ['', Validators.required],
+      Sum: ['']
     })
+
+    row.get('Product').valueChanges.subscribe(val=>{
+      this.updateProductPrice(row)
+    })
+
+    row.get('Count').valueChanges.subscribe(val => {
+      this.updateSum(row);
+    })
+
+    row.get('Price').valueChanges.subscribe(val => {
+      this.updateSum(row);
+    })
+
+    return row;
+  }
+
+  updateProductPrice(row: any){
+    const product: IProduct = row.get('Product').value;
+    const priceObj = this.prices.find(p=> p.ProductId == product.Id)
+    const price = priceObj ? priceObj.Price : 0; // если объект цены найден, получаем его цену, иначе - 0
+    row.get('Price').setValue(price); // устанавливаем цену продукта в соответствующее поле формы
+  }
+
+  updateSum(row: FormGroup){
+    const count = row.get('Count').value;
+    const price = row.get('Price').value;
+    const sum = count * price;
+  
+    row.patchValue({
+      Sum: sum
+    });
   }
 
   deleteRow(i: number) {
