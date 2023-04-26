@@ -33,6 +33,7 @@ import { PriceService } from './Shared/Services/price.service';
 import { PriceEditComponent } from './Price/price-edit/price-edit.component';
 import { PriceNewComponent } from './Price/price-new/price-new.component';
 import { PriceListComponent } from './Price/price-list/price-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -78,6 +79,7 @@ const INITIALIZER_PROVIDER: Provider = {
         ReactiveFormsModule,
         NgbModule,
         FormsModule,
+        BrowserAnimationsModule,
     ],
   providers: [AuthService, DepartmentService, CommerceService, ProductService, WarehouseService, PriceService, INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER],
   bootstrap: [AppComponent]
