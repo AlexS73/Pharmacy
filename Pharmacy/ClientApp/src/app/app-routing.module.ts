@@ -15,6 +15,7 @@ import {ProductCreateComponent} from "./Products/product-create/product-create.c
 import {SaleCreateComponent} from "./Commercial/sale-create/sale-create.component";
 import {EntranceCreateComponent} from "./Commercial/entrance-create/entrance-create.component";
 import {EntranceDetailComponent} from "./Commercial/entrance-detail/entrance-detail.component";
+import { PriceListComponent } from './Price/price-list/price-list.component';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent, canActivate: [ AuthGuardService ]},
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate: [ AuthGuardService ]},
   { path: 'warehouse', component: WarehouseComponent, canActivate: [ AuthGuardService ]},
   { path: 'departments', component: DepartmentsComponent, canActivate: [ AuthGuardService ]},
+  { path: 'prices', component: PriceListComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({

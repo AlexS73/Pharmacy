@@ -13,28 +13,34 @@ namespace Pharmacy.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PricesController : ControllerBase
+    public class PriceController : ControllerBase
     {
         private readonly IPriceService priceService;
         private readonly UserManager<User> userManager;
 
-        public PricesController(IPriceService priceService, UserManager<User> userManager)
+        public PriceController(IPriceService priceService, UserManager<User> userManager)
         {
             this.priceService = priceService;
             this.userManager = userManager;
         }
 
         [Route("/all")]
-        public async Task<IEnumerable<PriceModel>> GetPrices()
+        public async Task<IEnumerable<ProductPriceModel>> GetPrices()
         {
             return await priceService.GetPrices();
         }
 
         
-        public async Task<IEnumerable<PriceModel>> GetPricesByUserDepartment()
+        public async Task<IEnumerable<ProductPriceModel>> GetPricesByUserDepartment()
         {
             var user = await userManager.GetUserAsync(this.User);
             return await priceService.GetPricesByDepartment(user.DepartmentId);
+        }
+
+        [HttpPost]
+        public async Task<ProductPriceModel> SavePrice(ProductPriceModel price)
+        {
+            return await priceService.Save(price);
         }
 
     }

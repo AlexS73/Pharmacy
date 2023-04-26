@@ -24,7 +24,7 @@ export class SaleCreateComponent implements OnInit {
       this.products = response;
     })
 
-    this.priceService.GetPrices().subscribe(response => {
+    this.priceService.Get().subscribe(response => {
       this.prices = response;
     })
 
@@ -91,6 +91,12 @@ export class SaleCreateComponent implements OnInit {
     row.patchValue({
       Sum: sum
     });
+  }
+
+  isProductSelected(product: IProduct, rowIndex: number): boolean {
+    return this.newSaleForm.value.SaleProducts
+      .filter((item, index) => index !== rowIndex)
+      .some(item => item.Product === product);
   }
 
   deleteRow(i: number) {

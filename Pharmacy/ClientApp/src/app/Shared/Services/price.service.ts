@@ -9,7 +9,11 @@ export class PriceService{
     constructor(private httpClient: HttpClient) {       
     }
 
-    public GetPrices(): Observable<IPrice[]>{
-        return this.httpClient.get<IPrice[]>('/api/prices')
+    public Get(): Observable<IPrice[]>{
+        return this.httpClient.get<IPrice[]>('/api/price')
     }
+
+    public Save(price: IPrice): Observable<IPrice> {
+        return this.httpClient.post<IPrice>('/api/price', price)
+      }
 }

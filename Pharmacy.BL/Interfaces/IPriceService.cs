@@ -9,9 +9,10 @@ namespace Pharmacy.BL.Interfaces
 {
     public interface IPriceService
     {
-        Task<IEnumerable<PriceModel>> GetPrices();
-        Task<IEnumerable<PriceModel>> GetPricesByDepartment(int departmentId);
-        Task<IEnumerable<PriceModel>> SavePrices(PriceModel price);
+        Task<IEnumerable<ProductPriceModel>> GetPrices();
+        Task<IEnumerable<ProductPriceModel>> GetPricesByDepartment(int departmentId);
+        Task<ProductPriceModel> Save(ProductPriceModel price);
+        Task<IEnumerable<ProductPriceModel>> SavePrices(ProductPriceModel price);
 
     }
 }

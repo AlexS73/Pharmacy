@@ -30,6 +30,9 @@ import {EntranceCreateComponent} from "./Commercial/entrance-create/entrance-cre
 import {EntranceDetailComponent} from "./Commercial/entrance-detail/entrance-detail.component";
 import {WarehouseService} from "./Shared/Services/warehouse.service";
 import { PriceService } from './Shared/Services/price.service';
+import { PriceEditComponent } from './Price/price-edit/price-edit.component';
+import { PriceNewComponent } from './Price/price-new/price-new.component';
+import { PriceListComponent } from './Price/price-list/price-list.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -63,7 +66,10 @@ const INITIALIZER_PROVIDER: Provider = {
     SaleCreateComponent,
 
     EntranceCreateComponent,
-    EntranceDetailComponent
+    EntranceDetailComponent,
+    PriceEditComponent,
+    PriceNewComponent,
+    PriceListComponent
   ],
     imports: [
         BrowserModule,

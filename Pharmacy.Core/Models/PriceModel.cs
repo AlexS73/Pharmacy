@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Pharmacy.Core.Models
 {
-    public class PriceModel
+    public class ProductPriceModel
     {
-        public PriceModel(ProductPrice price)
+        public ProductPriceModel(ProductPrice price)
         {
             this.Id = price.Id;
             this.ProductId = price.ProductId;
