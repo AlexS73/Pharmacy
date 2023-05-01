@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { IPrice } from 'src/app/Shared/Models/price.interface';
+import { IProductPrice } from 'src/app/Shared/Models/price.interface';
 import { PriceService } from 'src/app/Shared/Services/price.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { IProduct } from 'src/app/Shared/Models/product.interface';
 
 @Component({
   selector: 'app-price-edit',
@@ -10,13 +11,12 @@ import { PriceService } from 'src/app/Shared/Services/price.service';
   styleUrls: ['./price-edit.component.scss']
 })
 export class PriceEditComponent implements OnInit {
-
-  @Input()
-  productPrice: IPrice;
   
   editPriceForm: FormGroup;
   
-  constructor(private priceService: PriceService, private fb: FormBuilder, private router: Router) { }
+  constructor(private priceService: PriceService, private fb: FormBuilder, 
+    public dialogRef: MatDialogRef<PriceEditComponent>,
+    @Inject(MAT_DIALOG_DATA) public productPrice: IProductPrice) { }
 
   ngOnInit(): void {
     this.editPriceForm = this.fb.group({
@@ -30,7 +30,8 @@ export class PriceEditComponent implements OnInit {
     const result = this.priceService.Save(this.editPriceForm.value);
 
     result.subscribe(response => {
-      this.router.navigate(['/prices']);
+      console.log('responce', response);
+      this.dialogRef.close();
     });
   }
 

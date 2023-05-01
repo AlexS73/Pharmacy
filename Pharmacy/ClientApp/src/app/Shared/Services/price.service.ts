@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { IPrice } from "../Models/price.interface";
+import { IProductPrice } from "../Models/price.interface";
 
 @Injectable()
 export class PriceService{
@@ -9,11 +9,11 @@ export class PriceService{
     constructor(private httpClient: HttpClient) {       
     }
 
-    public Get(): Observable<IPrice[]>{
-        return this.httpClient.get<IPrice[]>('/api/price')
+    public Get(): Observable<IProductPrice[]>{
+        return this.httpClient.get<IProductPrice[]>('/api/price')
     }
 
-    public Save(price: IPrice): Observable<IPrice> {
-        return this.httpClient.post<IPrice>('/api/price', price)
+    public Save(price: IProductPrice): Observable<IProductPrice> {
+        return this.httpClient.post<IProductPrice>('/api/price', price)
       }
 }

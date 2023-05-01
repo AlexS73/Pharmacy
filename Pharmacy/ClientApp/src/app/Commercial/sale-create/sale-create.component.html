@@ -30,7 +30,7 @@
         <td>
           <select id="productInput" class="form-control" formControlName="Product">
             <option *ngFor="let product of products" [ngValue]="product" [disabled]="isProductSelected(product, i)" value="">
-              {{product.Name}}
+              <p>{{product.Name}}; {{product.Article}}</p>
             </option>
           </select>
         </td>

@@ -38,9 +38,26 @@ namespace Pharmacy.Controllers
         }
 
         [HttpPost]
-        public async Task<ProductPriceModel> SavePrice(ProductPriceModel price)
+        public async Task<ProductPriceModel> SavePrice(ProductPriceModel productPrice)
         {
-            return await priceService.Save(price);
+            try
+            {
+
+                if (productPrice.Id != 0)
+                {
+                    return await priceService.Edit(productPrice);
+                }
+                else
+                {
+                    return await priceService.Create(productPrice);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw ;
+            }
+
         }
 
     }

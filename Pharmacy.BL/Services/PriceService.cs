@@ -34,28 +34,24 @@ namespace Pharmacy.BL.Services
                 .ToListAsync();
         }
 
-        public async Task<ProductPriceModel> Save(ProductPriceModel productPrice)
+        public async Task<ProductPriceModel> Create(ProductPriceModel productPrice)
         {
-            if (productPrice.Id != 0)
+            var newProductPrice = new ProductPrice()
             {
-               var priceInDb = await db.ProductPrices.FindAsync(productPrice.Id);
-               priceInDb.Price = productPrice.Price;
-               await db.SaveChangesAsync();
-               return new ProductPriceModel(priceInDb);
-            }
-            else
-            {
-                var newProductPrice = new ProductPrice()
-                {
-                    Price = productPrice.Price,
-                    ProductId = productPrice.ProductId,
-                    WarehouseId = productPrice.WarehouseId
-                };
-                await db.ProductPrices.AddAsync(newProductPrice);
-                await db.SaveChangesAsync();
-                return new ProductPriceModel(newProductPrice);
-
-            }
+                Price = productPrice.Price,
+                ProductId = productPrice.Product.Id,
+                WarehouseId = productPrice.WarehouseId
+            };
+            await db.ProductPrices.AddAsync(newProductPrice);
+            await db.SaveChangesAsync();
+            return new ProductPriceModel(newProductPrice);
+        }
+        public async Task<ProductPriceModel> Edit(ProductPriceModel productPrice)
+        {
+            var priceInDb = await db.ProductPrices.FindAsync(productPrice.Id);
+            priceInDb.Price = productPrice.Price;
+            await db.SaveChangesAsync();
+            return new ProductPriceModel(priceInDb);
         }
 
         public Task<IEnumerable<ProductPriceModel>> SavePrices(ProductPriceModel price)

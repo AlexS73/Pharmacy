@@ -9,7 +9,7 @@ import {SalesComponent} from './Commercial/sales/sales.component';
 import {EntrancesComponent} from './Commercial/entrances/entrances.component';
 import {AdminComponent} from './Admin/admin.component';
 import {WarehouseComponent} from './Warehouse/warehouse.component';
-import {DepartmentsComponent} from './Departments/departments.component';
+import {DepartmentsComponent} from './Department/department-list/departments.component';
 import {SaleDetailComponent} from "./Commercial/sale-detail/sale-detail.component";
 import {ProductCreateComponent} from "./Products/product-create/product-create.component";
 import {SaleCreateComponent} from "./Commercial/sale-create/sale-create.component";

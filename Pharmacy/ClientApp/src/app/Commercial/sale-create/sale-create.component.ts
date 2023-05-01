@@ -5,7 +5,7 @@ import {IProduct} from "../../Shared/Models/product.interface";
 import {CommerceService} from "../../Shared/Services/commerce.service";
 import {Router} from "@angular/router";
 import { PriceService } from 'src/app/Shared/Services/price.service';
-import { IPrice } from 'src/app/Shared/Models/price.interface';
+import { IProductPrice } from 'src/app/Shared/Models/price.interface';
 
 @Component({
   selector: 'app-sale-create',
@@ -15,7 +15,7 @@ import { IPrice } from 'src/app/Shared/Models/price.interface';
 export class SaleCreateComponent implements OnInit {
   newSaleForm: FormGroup;
   products: IProduct[];
-  prices: IPrice[];
+  prices: IProductPrice[];
 
   constructor(private fb: FormBuilder, private productService: ProductService, private commerceService: CommerceService, private router: Router, private priceService: PriceService) { }
 
@@ -78,7 +78,7 @@ export class SaleCreateComponent implements OnInit {
 
   updateProductPrice(row: any){
     const product: IProduct = row.get('Product').value;
-    const priceObj = this.prices.find(p=> p.ProductId == product.Id)
+    const priceObj = this.prices.find(p=> p.Product.Id == product.Id)
     const price = priceObj ? priceObj.Price : 0; // если объект цены найден, получаем его цену, иначе - 0
     row.get('Price').setValue(price); // устанавливаем цену продукта в соответствующее поле формы
   }

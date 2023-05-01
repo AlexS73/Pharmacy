@@ -26,12 +26,14 @@ namespace Pharmacy.BL.Services
             if(department != null)
             {
                 department.Name = departmentModel.Name;
+                department.Address = departmentModel.Address;
             }
             else
             {
                 department = new Department()
                 {
-                    Name = departmentModel.Name
+                    Name = departmentModel.Name,
+                    Address = departmentModel.Address
                 };
                 db.Add(department);
             }
@@ -49,20 +51,12 @@ namespace Pharmacy.BL.Services
             {
                 return null;
             }
-            return new DepartmentModel()
-            {
-                Id = dbDepartment.Id,
-                Name = dbDepartment.Name
-            };
+            return new DepartmentModel(dbDepartment);
         }
 
         public async Task<IEnumerable<DepartmentModel>> GetDepartmentsAsync()
         {
-            return await db.Departments.Select(_=> new DepartmentModel()
-            {
-                Id = _.Id,
-                Name = _.Name
-            }).ToListAsync();
+            return await db.Departments.Select(_=> new DepartmentModel(_)).ToListAsync();
         }
     }
 }

@@ -12,10 +12,10 @@ namespace Pharmacy.Core.Models
 
         public WarehouseModel(Warehouse warehouse)
         {
-            //this.Product = new ProductModel(warehouse.Product);
-            //this.Count = warehouse.Stock;
+            this.Id = warehouse.Id;
+            this.Name = warehouse.Name;
+            this.Address = warehouse.Address;
+            this.DepartmentId = warehouse.DepartmentId;
         }
-
-
     }
 }

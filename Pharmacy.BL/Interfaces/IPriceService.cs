@@ -11,7 +11,8 @@ namespace Pharmacy.BL.Interfaces
     {
         Task<IEnumerable<ProductPriceModel>> GetPrices();
         Task<IEnumerable<ProductPriceModel>> GetPricesByDepartment(int departmentId);
-        Task<ProductPriceModel> Save(ProductPriceModel price);
+        Task<ProductPriceModel> Create(ProductPriceModel price);
+        Task<ProductPriceModel> Edit(ProductPriceModel price);
         Task<IEnumerable<ProductPriceModel>> SavePrices(ProductPriceModel price);
 
     }

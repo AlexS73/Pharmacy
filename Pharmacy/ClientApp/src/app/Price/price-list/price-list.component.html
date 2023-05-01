@@ -1,4 +1,5 @@
 <p>Цены товаров</p>
+<button class="btn btn-success" (click)="newPrice()">Новая цена</button>
 <table class="table">
     <thead>
         <tr>
@@ -8,18 +9,12 @@
             <th>#</th>
         </tr>
     </thead>
-
     <tbody>
-
         <tr *ngFor="let price of prices">
-            <td>{{price.Product.Name}}; Арт:{{price.Product.Article}}</td>
+            <td>{{price.ProductModel.Name}}; Арт:{{price.ProductModel.Article}}</td>
             <td>{{price.Price}}</td>
             <td class="col-1"><button type="button" (click)="edit(price)" class="btn btn-warning btn-block">Ред.</button></td>
             <td class="col-1"><button type="button" (click)="remove(price.Id)" class="btn btn-danger btn-block">X</button></td>
         </tr>
-        <td>Бинт; а1</td>
-        <td>12</td>
-        <td class="col-1"><button type="button" (click)="edit(1)" class="btn btn-warning btn-block">Ред.</button></td>
-        <td class="col-1"><button type="button" (click)="remove(1)" class="btn btn-danger btn-block">X</button></td>
     </tbody>
 </table>

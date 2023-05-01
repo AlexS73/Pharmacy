@@ -14,7 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {appInitializer} from './Shared/Services/app.initializer';
 import {NavMenuComponent} from './Nav-menu/nav-menu.component';
 import {ProductsComponent} from './Products/products.component';
-import {DepartmentsComponent} from './Departments/departments.component';
+import {DepartmentsComponent} from './Department/department-list/departments.component';
 import {SalesComponent} from './Commercial/sales/sales.component';
 import {ProductDetailComponent} from './Product-detail/product-detail.component';
 import {AdminComponent} from './Admin/admin.component';
@@ -34,10 +34,23 @@ import { PriceEditComponent } from './Price/price-edit/price-edit.component';
 import { PriceNewComponent } from './Price/price-new/price-new.component';
 import { PriceListComponent } from './Price/price-list/price-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { NotificationComponent } from './Notification/notification.component';
+import { HttpErrorInterceptor } from './Shared/Services/http-error.interceptor';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { DepartmentNewComponent } from './Department/department-new/department-new.component';
+import { DepartmentEditComponent } from './Department/department-edit/department-edit.component';
 
-const INTERCEPTOR_PROVIDER: Provider = {
+
+const JWT_INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
   useClass: JwtInterceptor,
+  multi: true
+};
+
+const HTTPERROR_INTERCEPTOR_PROVIDER: Provider = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: HttpErrorInterceptor,
   multi: true
 };
 
@@ -70,7 +83,10 @@ const INITIALIZER_PROVIDER: Provider = {
     EntranceDetailComponent,
     PriceEditComponent,
     PriceNewComponent,
-    PriceListComponent
+    PriceListComponent,
+    NotificationComponent,
+    DepartmentNewComponent,
+    DepartmentEditComponent
   ],
     imports: [
         BrowserModule,
@@ -80,8 +96,13 @@ const INITIALIZER_PROVIDER: Provider = {
         NgbModule,
         FormsModule,
         BrowserAnimationsModule,
+        MatDialogModule,
+        MatSnackBarModule
     ],
-  providers: [AuthService, DepartmentService, CommerceService, ProductService, WarehouseService, PriceService, INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER],
+  entryComponents: [
+    PriceEditComponent
+  ],
+  providers: [AuthService, DepartmentService, CommerceService, ProductService, WarehouseService, PriceService, JWT_INTERCEPTOR_PROVIDER, HTTPERROR_INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER, NotificationComponent, MatSnackBar],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

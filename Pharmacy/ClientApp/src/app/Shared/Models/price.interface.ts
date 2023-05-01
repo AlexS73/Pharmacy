@@ -1,8 +1,7 @@
 import { IProduct } from "./product.interface";
 
-export interface IPrice{
+export interface IProductPrice{
     Id: number;
-    ProductId: number;
     Product: IProduct
     Price: number;
   }

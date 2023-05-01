@@ -1,1 +1,29 @@
-<p>price-new works!</p>
+<div mat-dialog-content>
+    <form class="editPriceForm" action="#" [formGroup]="newPriceForm" (ngSubmit)="Submit($event)">
+  
+      <div class="form-group">
+        <label for="nameInput">Продукт</label>
+        <select id="productInput" class="form-control" formControlName="Product">
+            <option *ngFor="let product of products" [ngValue]="product" value="">
+              <p>{{product.Name}}; {{product.Article}}</p> 
+            </option>
+        </select>
+      </div>
+    
+      <div class="form-group">
+        <label for="priceInput">Цена</label>
+        <input id="priceInput" type="number" class="form-control" formControlName="Price">
+      </div>
+
+      <div class="form-group">
+        <label for="warehouseInput">Склад</label>
+        <select id="warehouseInput" class="form-control" formControlName="WarehouseId">
+          <option *ngFor="let warehouse of warehouses" [ngValue]="warehouse" value="">
+            <p>{{warehouse.Name}}</p> 
+          </option>
+      </select>
+      </div>
+    
+      <button type="submit" class="btn btn-primary btn-block">Сохранить</button>
+  </form>
+  </div>
