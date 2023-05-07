@@ -4,5 +4,5 @@ export interface IDepartment{
   Id: number;
   Name: string;
   Address: string;
-  Warehouse: IWarehouse
+  WarehouseId: number;
 }

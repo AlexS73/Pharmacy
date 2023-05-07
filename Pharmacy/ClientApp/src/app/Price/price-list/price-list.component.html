@@ -5,14 +5,16 @@
         <tr>
             <th>Товар</th>
             <th>Цена</th>
+            <th>Склад</th>
             <th>#</th>
             <th>#</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let price of prices">
-            <td>{{price.ProductModel.Name}}; Арт:{{price.ProductModel.Article}}</td>
+            <td>{{price.Product.Name}}; Арт:{{price.Product.Article}}</td>
             <td>{{price.Price}}</td>
+            <td>{{price.Warehouse.Name}}</td>
             <td class="col-1"><button type="button" (click)="edit(price)" class="btn btn-warning btn-block">Ред.</button></td>
             <td class="col-1"><button type="button" (click)="remove(price.Id)" class="btn btn-danger btn-block">X</button></td>
         </tr>

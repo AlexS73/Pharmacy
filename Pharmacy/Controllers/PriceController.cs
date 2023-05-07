@@ -38,7 +38,7 @@ namespace Pharmacy.Controllers
         }
 
         [HttpPost]
-        public async Task<ProductPriceModel> SavePrice(ProductPriceModel productPrice)
+        public async Task<ActionResult<ProductPriceModel>> SavePrice(ProductPriceModel productPrice)
         {
             try
             {

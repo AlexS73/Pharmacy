@@ -19,7 +19,7 @@ import {SalesComponent} from './Commercial/sales/sales.component';
 import {ProductDetailComponent} from './Product-detail/product-detail.component';
 import {AdminComponent} from './Admin/admin.component';
 import {EntrancesComponent} from './Commercial/entrances/entrances.component';
-import {WarehouseComponent} from './Warehouse/warehouse.component';
+import {WarehouseComponent} from './Warehouse/warehouse-list/warehouse.component';
 import {DepartmentService} from './Shared/Services/department.service';
 import { SaleDetailComponent } from './Commercial/sale-detail/sale-detail.component';
 import {CommerceService} from "./Shared/Services/commerce.service";
@@ -40,6 +40,8 @@ import { HttpErrorInterceptor } from './Shared/Services/http-error.interceptor';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { DepartmentNewComponent } from './Department/department-new/department-new.component';
 import { DepartmentEditComponent } from './Department/department-edit/department-edit.component';
+import { WarehouseNewComponent } from './Warehouse/warehouse-new/warehouse-new.component';
+import { WarehouseEditComponent } from './Warehouse/warehouse-edit/warehouse-edit.component';
 
 
 const JWT_INTERCEPTOR_PROVIDER: Provider = {
@@ -86,7 +88,9 @@ const INITIALIZER_PROVIDER: Provider = {
     PriceListComponent,
     NotificationComponent,
     DepartmentNewComponent,
-    DepartmentEditComponent
+    DepartmentEditComponent,
+    WarehouseNewComponent,
+    WarehouseEditComponent
   ],
     imports: [
         BrowserModule,

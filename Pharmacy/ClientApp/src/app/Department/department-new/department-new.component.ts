@@ -31,7 +31,6 @@ export class DepartmentNewComponent implements OnInit {
     result.subscribe(response => {
       this.dialogRef.close(response);
     });
-    
   }
 
 }

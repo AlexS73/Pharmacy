@@ -18,7 +18,7 @@
       <div class="form-group">
         <label for="warehouseInput">Склад</label>
         <select id="warehouseInput" class="form-control" formControlName="WarehouseId">
-          <option *ngFor="let warehouse of warehouses" [ngValue]="warehouse" value="">
+          <option *ngFor="let warehouse of warehouses" [ngValue]="warehouse.Id" value="">
             <p>{{warehouse.Name}}</p> 
           </option>
       </select>

@@ -28,6 +28,7 @@ namespace Pharmacy.BL.Services
         {
             return await db.ProductPrices
                 .Include(_=> _.Warehouse)
+                .Include(_=> _.Product)
                 .Where(_=> _.Warehouse.DepartmentId == departmentId)
                 .AsNoTracking()
                 .Select(_ => new ProductPriceModel(_))

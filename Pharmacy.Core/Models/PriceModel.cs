@@ -17,13 +17,17 @@ namespace Pharmacy.Core.Models
         public ProductPriceModel(ProductPrice price)
         {
             this.Id = price.Id;
+            this.ProductId = price.ProductId;
             this.Product = new ProductModel(price.Product);
             this.Price = price.Price;
             this.WarehouseId = price.WarehouseId;
+            this.Warehouse = new WarehouseModel(price.Warehouse);
         }
         public int Id { get; set; }
+        public int ProductId { get; set; }
         public ProductModel Product { get; set; }
         public int WarehouseId { get; set; }
+        public WarehouseModel Warehouse { get; set; }
         public decimal Price { get; set; }
     }
 }

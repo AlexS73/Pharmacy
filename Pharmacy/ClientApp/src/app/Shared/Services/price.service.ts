@@ -14,6 +14,7 @@ export class PriceService{
     }
 
     public Save(price: IProductPrice): Observable<IProductPrice> {
+        console.log('save', price);
         return this.httpClient.post<IProductPrice>('/api/price', price)
       }
 }

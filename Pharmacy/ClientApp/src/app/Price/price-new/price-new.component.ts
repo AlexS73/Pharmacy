@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IProduct } from 'src/app/Shared/Models/product.interface';
 import { IWarehouse } from 'src/app/Shared/Models/warehouse.inteface';
@@ -25,17 +25,18 @@ export class PriceNewComponent implements OnInit {
     public dialogRef: MatDialogRef<PriceNewComponent>) { }
 
   ngOnInit(): void {
+    this.warehouseServices.Get().subscribe(res=> {
+      this.warehouses = res;
+    })
+
     this.productService.GetProducts().subscribe(res=> {
       this.products = res;
     });
 
     this.newPriceForm = this.fb.group({
-      Product: this.fb.control(['']),
-      Price: this.fb.control([])
-    })
-
-    this.warehouseServices.Get().subscribe(res=> {
-      this.warehouses = res;
+      Product: this.fb.control([''], Validators.required),
+      Price: this.fb.control([], Validators.required),
+      WarehouseId: this.fb.control([],Validators.required)
     })
   }
 

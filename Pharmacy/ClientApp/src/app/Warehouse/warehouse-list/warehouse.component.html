@@ -1,0 +1,20 @@
+<button class="btn btn-success" (click)="newWarehouse()">Новый склад</button>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Наименование</th>
+            <th>Адрес</th>
+            <th>Подразделение</th>
+            <th>#</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let warehouse of warehouses">
+            <td>{{warehouse.Name}}</td>
+            <td>{{warehouse.Address}}</td>
+            <td>{{ getDepartmentNameById(warehouse.DepartmentId) }}</td>
+            <td class="col-1"><button type="button" (click)="edit(warehouse)" class="btn btn-warning btn-block">Ред.</button></td>
+        </tr>
+    </tbody>
+</table>
