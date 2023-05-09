@@ -55,13 +55,13 @@ export class SaleCreateComponent implements OnInit {
 
   initRow() {
     var row = this.fb.group({
-      Product: ['', Validators.required],
+      ProductId: ['', Validators.required],
       Count: [1, [Validators.required, Validators.min(1)]],
       Price: [0, Validators.required],
       Sum: ['']
     })
 
-    row.get('Product').valueChanges.subscribe(val=>{
+    row.get('ProductId').valueChanges.subscribe(val=>{
       this.updateProductPrice(row)
     })
 
@@ -77,8 +77,8 @@ export class SaleCreateComponent implements OnInit {
   }
 
   updateProductPrice(row: any){
-    const product: IProduct = row.get('Product').value;
-    const priceObj = this.prices.find(p=> p.Product.Id == product.Id)
+    const productId: number = row.get('ProductId').value;
+    const priceObj = this.prices.find(p=> p.Product.Id === productId)
     const price = priceObj ? priceObj.Price : 0; // если объект цены найден, получаем его цену, иначе - 0
     row.get('Price').setValue(price); // устанавливаем цену продукта в соответствующее поле формы
   }

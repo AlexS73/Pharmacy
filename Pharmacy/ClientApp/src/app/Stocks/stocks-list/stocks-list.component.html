@@ -1,0 +1,17 @@
+<table class="table" *ngIf="!stocksLoading">
+    <thead>
+        <tr>
+            <th>Продукт</th>
+            <th>Склад</th>
+            <th>Остаток</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let stock of stocks">
+            <td>{{stock.Product.Name}}</td>
+            <td>{{stock.Warehouse.Name}}</td>
+            <td>{{stock.Count}}</td>
+        </tr>
+    </tbody>
+</table>

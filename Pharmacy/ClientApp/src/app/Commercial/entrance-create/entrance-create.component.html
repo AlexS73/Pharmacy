@@ -25,8 +25,8 @@
       <tr *ngFor="let itemEntranceProduct of newEntranceForm.get('EntranceProducts')['controls']; let i=index;let l=last" [formGroupName]="i">
         <td>{{i+1}}</td>
         <td>
-          <select id="productInput" class="form-control" formControlName="Product">
-            <option *ngFor="let product of products" [ngValue]="product" value="">
+          <select id="productInput" class="form-control" formControlName="ProductId">
+            <option *ngFor="let product of products" [ngValue]="product.Id" [disabled]="isProductSelected(product, i)" value="">
               {{product.Name}}
             </option>
           </select>

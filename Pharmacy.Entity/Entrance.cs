@@ -6,7 +6,7 @@ namespace Pharmacy.Entity
     public class Entrance: WarehouseOperation
     {
         public string Supplier { get; set; }
-        public virtual IEnumerable<EntranceProduct> EntranceProducts { get; set; }
+        public virtual ICollection<EntranceProduct> EntranceProducts { get; set; }
     }
     public class EntranceProduct
     {

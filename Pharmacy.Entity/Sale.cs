@@ -7,7 +7,7 @@ namespace Pharmacy.Entity
     public class Sale: WarehouseOperation
     {
         public string Customer { get; set; }
-        public virtual IEnumerable<SaleProduct> SaleProducts { get; set; }
+        public virtual ICollection<SaleProduct> SaleProducts { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public double Sum { get; set; }
     }

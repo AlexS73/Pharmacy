@@ -9,6 +9,8 @@
     <div class="col-8"><p>{{sale.CreatedBy}}</p></div>
     <div class="col-4"><p>Покупатель:</p></div>
     <div class="col-8"><p>{{sale.Customer}}</p></div>
+    <div class="col-4"><p><b>Сумма:</b></p></div>
+    <div class="col-8"><p><b>{{ getSaleProductsSum() }}</b> </p></div>
   </div>
   <div>
     <p>Товары:</p>
@@ -20,6 +22,7 @@
       <th scope="col">Наименование</th>
       <th scope="col">Артикул</th>
       <th scope="col">Количество</th>
+      <th scope="col">Цена</th>
     </tr>
     </thead>
     <tbody>
@@ -28,6 +31,7 @@
       <td>{{saledProduct.Product.Name}}</td>
       <td>{{saledProduct.Product.Article}}</td>
       <td>{{saledProduct.Count}}</td>
+      <td>{{saledProduct.Price}}</td>
     </tr>
     </tbody>
   </table>

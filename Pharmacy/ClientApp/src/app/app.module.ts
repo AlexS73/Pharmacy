@@ -49,6 +49,8 @@ import { CharacteristicService } from './Shared/Services/characteristic.service'
 import { CharacteristicTypeListComponent } from './Characteristic/characteristic-type-list/characteristic-type-list.component';
 import { CharacteristicTypeNewComponent } from './Characteristic/characteristic-type-new/characteristic-type-new.component';
 import { CharacteristicTypeEditComponent } from './Characteristic/characteristic-type-edit/characteristic-type-edit.component';
+import { StocksListComponent } from './Stocks/stocks-list/stocks-list.component';
+import { StockService } from './Shared/Services/stock.service';
 
 
 const JWT_INTERCEPTOR_PROVIDER: Provider = {
@@ -106,7 +108,9 @@ const INITIALIZER_PROVIDER: Provider = {
     
     CharacteristicTypeListComponent,
     CharacteristicTypeNewComponent,
-    CharacteristicTypeEditComponent
+    CharacteristicTypeEditComponent,
+
+    StocksListComponent
   ],
     imports: [
         BrowserModule,
@@ -122,7 +126,7 @@ const INITIALIZER_PROVIDER: Provider = {
   entryComponents: [
     PriceEditComponent
   ],
-  providers: [AuthService, DepartmentService, CommerceService, ProductService, WarehouseService, PriceService, CharacteristicService, JWT_INTERCEPTOR_PROVIDER, HTTPERROR_INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER, NotificationComponent, MatSnackBar],
+  providers: [AuthService, DepartmentService, CommerceService, ProductService, WarehouseService, PriceService, CharacteristicService, JWT_INTERCEPTOR_PROVIDER, HTTPERROR_INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER, NotificationComponent, MatSnackBar, StockService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -17,6 +17,7 @@ import {EntranceCreateComponent} from "./Commercial/entrance-create/entrance-cre
 import {EntranceDetailComponent} from "./Commercial/entrance-detail/entrance-detail.component";
 import { PriceListComponent } from './Price/price-list/price-list.component';
 import { CharacteristicTypeListComponent } from './Characteristic/characteristic-type-list/characteristic-type-list.component';
+import { StocksListComponent } from './Stocks/stocks-list/stocks-list.component';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent, canActivate: [ AuthGuardService ]},
@@ -33,7 +34,8 @@ const routes: Routes = [
   { path: 'warehouse', component: WarehouseComponent, canActivate: [ AuthGuardService ]},
   { path: 'departments', component: DepartmentsComponent, canActivate: [ AuthGuardService ]},
   { path: 'prices', component: PriceListComponent, canActivate: [AuthGuardService]},
-  { path: 'characteristic-type', component: CharacteristicTypeListComponent, canActivate: [AuthGuardService]}
+  { path: 'characteristic-type', component: CharacteristicTypeListComponent, canActivate: [AuthGuardService]},
+  { path: 'stocks', component: StocksListComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({
