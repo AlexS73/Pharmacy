@@ -51,7 +51,10 @@ export class PriceListComponent implements OnInit {
     })
 
     dialogNew.afterClosed().subscribe(res => {
-      this.prices.push(res);
+      if(res){
+        this.prices.push(res);
+      }
+      
     })
   }
 

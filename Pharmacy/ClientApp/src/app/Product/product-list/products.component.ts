@@ -46,7 +46,10 @@ export class ProductsComponent implements OnInit {
     })
 
     dialogNew.afterClosed().subscribe(res=> {
-      this.products.push(res);
+      if(res){
+        this.products.push(res);
+      }
+      
     })
   }
  

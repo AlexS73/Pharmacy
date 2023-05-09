@@ -54,7 +54,10 @@ namespace Pharmacy.BL.Services
         }
         public async Task<ProductPriceModel> Edit(ProductPriceModel productPrice)
         {
-            var priceInDb = await db.ProductPrices.FindAsync(productPrice.Id);
+            var priceInDb = await db.ProductPrices
+                .Include(_=>_.Product)
+                .Include(_=>_.Warehouse)
+                .Where(_=>_.Id == productPrice.Id).FirstOrDefaultAsync();
             priceInDb.Price = productPrice.Price;
             await db.SaveChangesAsync();
             return new ProductPriceModel(priceInDb);

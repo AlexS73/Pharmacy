@@ -21,7 +21,8 @@ export class PriceEditComponent implements OnInit {
   ngOnInit(): void {
     this.editPriceForm = this.fb.group({
       Id: this.fb.control(this.productPrice.Id, Validators.required),
-      Product: this.fb.control(`${this.productPrice.Product.Name}; Арт:${this.productPrice.Product.Article}`),
+      //Product: this.fb.control(`${this.productPrice.Product.Name}; Арт:${this.productPrice.Product.Article}`),
+      ProductId: this.fb.control(this.productPrice.ProductId, Validators.required),
       Price: this.fb.control([this.productPrice.Price])
     })
   }
@@ -32,8 +33,7 @@ export class PriceEditComponent implements OnInit {
     const result = this.priceService.Save(this.editPriceForm.value);
 
     result.subscribe(response => {
-      console.log('responce', response);
-      this.dialogRef.close();
+      this.dialogRef.close(response);
     });
   }
 
