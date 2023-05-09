@@ -42,12 +42,9 @@ export class PriceNewComponent implements OnInit {
 
   Submit($event: any) {
     $event.preventDefault();
-
     const result = this.priceService.Save(this.newPriceForm.value);
-
     result.subscribe(response => {
-      console.log('responce', response);
-      this.dialogRef.close();
+      this.dialogRef.close(response);
     });
     
   }

@@ -56,8 +56,8 @@ export class SaleCreateComponent implements OnInit {
   initRow() {
     var row = this.fb.group({
       Product: ['', Validators.required],
-      Count: ['', Validators.required],
-      Price: ['', Validators.required],
+      Count: [1, [Validators.required, Validators.min(1)]],
+      Price: [0, Validators.required],
       Sum: ['']
     })
 

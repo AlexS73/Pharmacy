@@ -48,7 +48,7 @@ export class EntranceCreateComponent implements OnInit {
   initRow() {
     return this.fb.group({
       Product: ['', Validators.required],
-      Count: ['', Validators.required]
+      Count: [1, Validators.min(1)]
     });
   }
 

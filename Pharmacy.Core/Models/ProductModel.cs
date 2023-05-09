@@ -25,5 +25,6 @@ namespace Pharmacy.Core.Models
         public string Name { get; set; }
         public string Article { get; set; }
         public string Description { get; set; }
+        public IEnumerable<CharacteristicModel> Characteristics { get; set; }
     }
 }

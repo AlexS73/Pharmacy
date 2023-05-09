@@ -79,7 +79,7 @@ namespace Pharmacy.BL.Services
             //        {
             //            throw new ArgumentNullException($"Product not found; Id: {sp.Product.Id}");
             //        }
-            //        if(productDb.Warehouse == null)
+            //        if (productDb.Warehouse == null)
             //        {
             //            productDb.Warehouse = new Warehouse();
             //        }
@@ -99,7 +99,7 @@ namespace Pharmacy.BL.Services
             //        CreatedOn = DateTime.UtcNow,
             //        EntranceProducts = productsForEntrance,
             //        User = user,
-            //        Supplier = entranceModel.Supplier, 
+            //        Supplier = entranceModel.Supplier,
             //    };
 
             //    db.Entrances.Add(newEntrance);

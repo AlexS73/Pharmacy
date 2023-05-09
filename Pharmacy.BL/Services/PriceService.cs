@@ -45,7 +45,12 @@ namespace Pharmacy.BL.Services
             };
             await db.ProductPrices.AddAsync(newProductPrice);
             await db.SaveChangesAsync();
-            return new ProductPriceModel(newProductPrice);
+            var res = await db.ProductPrices
+                .Include(_ => _.Warehouse)
+                .Include(_ => _.Product)
+                .Where(_ => _.Id == newProductPrice.Id).FirstOrDefaultAsync();
+                
+            return new ProductPriceModel(res);
         }
         public async Task<ProductPriceModel> Edit(ProductPriceModel productPrice)
         {
@@ -58,6 +63,13 @@ namespace Pharmacy.BL.Services
         public Task<IEnumerable<ProductPriceModel>> SavePrices(ProductPriceModel price)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task Remove(int priceId)
+        {
+            var dbPrice = await db.ProductPrices.FindAsync(priceId);
+            db.ProductPrices.Remove(dbPrice);
+            await db.SaveChangesAsync();
         }
     }
 }

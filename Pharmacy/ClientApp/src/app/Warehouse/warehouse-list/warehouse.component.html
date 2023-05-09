@@ -1,5 +1,8 @@
-<button class="btn btn-success" (click)="newWarehouse()">Новый склад</button>
-<table class="table">
+<div class="mb-1">
+    <button class="btn btn-success" (click)="newWarehouse()">Новый склад</button>
+</div>
+
+<table class="table" *ngIf="!departmentLoading && !warehouseLoading">
     <thead>
         <tr>
             <th>Наименование</th>

@@ -1,5 +1,5 @@
 import { Component, Input, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IProductPrice } from 'src/app/Shared/Models/price.interface';
 import { PriceService } from 'src/app/Shared/Services/price.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -20,6 +20,8 @@ export class PriceEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.editPriceForm = this.fb.group({
+      Id: this.fb.control(this.productPrice.Id, Validators.required),
+      Product: this.fb.control(`${this.productPrice.Product.Name}; Арт:${this.productPrice.Product.Article}`),
       Price: this.fb.control([this.productPrice.Price])
     })
   }

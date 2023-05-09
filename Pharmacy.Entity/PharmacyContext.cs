@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Pharmacy.Entity
 {
@@ -22,6 +17,7 @@ namespace Pharmacy.Entity
         public DbSet<ProductStock> ProductStocks { get; set; }
         public DbSet<Characteristic> Characteristics { get; set; }
         public DbSet<ProductPrice> ProductPrices { get; set; }
+        public DbSet<CharacteristicType> CharacteristicTypes { get; set; }
 
         public PharmacyContext() : base()
         {
@@ -43,6 +39,14 @@ namespace Pharmacy.Entity
                 new Department[] { 
                     new Department{Id = 1, Name = "Управление"}
                 });
+
+            modelBuilder.Entity<CharacteristicType>().HasData(
+                new CharacteristicType[]
+                {
+                    new CharacteristicType() { Id = 1, Name = "Категория" },
+                    new CharacteristicType() { Id = 2, Name = "Срок годности"}
+                });
+            modelBuilder.Entity<Characteristic>().HasKey(_ => new {_.TypeId, _.Value });
 
             modelBuilder.Entity<Sale>().ToTable("Sales");   
             modelBuilder.Entity<Entrance>().ToTable("Entrances");

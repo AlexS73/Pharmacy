@@ -4,15 +4,19 @@ namespace Pharmacy.Entity
 {
     public class Characteristic
     {
-        public int Id { get; set; }
-        public CharacteristicType Type { get; set; }
+        //public int Id { get; set; }
+        public virtual CharacteristicType Type { get; set; }
+        public int TypeId { get; set; }
         public string Value { get; set; }
         public virtual IEnumerable<Product> Products { get; set; }
     }
 
-    public enum CharacteristicType
+    public class CharacteristicType
     {
-        Category = 1,
-        ExpirationDate = 2
+        public int Id { get; set; }
+        public string Name { get; set; }
+        //Category = 1,
+        //ExpirationDate = 2
     }
+
 }

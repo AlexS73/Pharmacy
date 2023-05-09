@@ -13,8 +13,6 @@ import { PriceNewComponent } from '../price-new/price-new.component';
 })
 export class PriceListComponent implements OnInit {
 
-
-
   prices: IProductPrice[]
 
   constructor(private priceService: PriceService, public dialog: MatDialog) { }
@@ -22,23 +20,38 @@ export class PriceListComponent implements OnInit {
   ngOnInit(): void {
     this.priceService.Get().subscribe(result => {
       this.prices = result;
-      console.log('prices',this.prices);
     })
   }
 
-  remove(arg0: any) {
-    console.log('remove');
+  remove(priceId: number) {
+    this.priceService.Remove(priceId).subscribe(res=>{
+      console.log('res remove', res);
+      this.prices = this.prices.filter(_=> _.Id != priceId);
+    })
+
   }
+
   edit(productPrice: IProductPrice) {
     const dialogEdit = this.dialog.open(PriceEditComponent, {
       width: '250px',
       data: productPrice
     })
+
+    dialogEdit.afterClosed().subscribe(result => {
+      if (result) {
+        const index = this.prices.findIndex(d => d.Id === result.Id);
+        this.prices[index] = result;
+      }
+    })
   }
 
   newPrice(){
-    const dialogEdit = this.dialog.open(PriceNewComponent, {
+    const dialogNew = this.dialog.open(PriceNewComponent, {
       width: '250px'
+    })
+
+    dialogNew.afterClosed().subscribe(res => {
+      this.prices.push(res);
     })
   }
 

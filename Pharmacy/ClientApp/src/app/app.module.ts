@@ -13,17 +13,16 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {appInitializer} from './Shared/Services/app.initializer';
 import {NavMenuComponent} from './Nav-menu/nav-menu.component';
-import {ProductsComponent} from './Products/products.component';
+
 import {DepartmentsComponent} from './Department/department-list/departments.component';
 import {SalesComponent} from './Commercial/sales/sales.component';
-import {ProductDetailComponent} from './Product-detail/product-detail.component';
 import {AdminComponent} from './Admin/admin.component';
 import {EntrancesComponent} from './Commercial/entrances/entrances.component';
 import {WarehouseComponent} from './Warehouse/warehouse-list/warehouse.component';
 import {DepartmentService} from './Shared/Services/department.service';
 import { SaleDetailComponent } from './Commercial/sale-detail/sale-detail.component';
 import {CommerceService} from "./Shared/Services/commerce.service";
-import { ProductCreateComponent } from './Products/product-create/product-create.component';
+
 import {ProductService} from "./Shared/Services/product.service";
 import { SaleCreateComponent } from './Commercial/sale-create/sale-create.component';
 import {EntranceCreateComponent} from "./Commercial/entrance-create/entrance-create.component";
@@ -42,6 +41,14 @@ import { DepartmentNewComponent } from './Department/department-new/department-n
 import { DepartmentEditComponent } from './Department/department-edit/department-edit.component';
 import { WarehouseNewComponent } from './Warehouse/warehouse-new/warehouse-new.component';
 import { WarehouseEditComponent } from './Warehouse/warehouse-edit/warehouse-edit.component';
+
+import { ProductsComponent } from './Product/product-list/products.component';
+import { ProductEditComponent } from './Product/product-edit/product-edit.component';
+import { ProductNewComponent } from './Product/product-new/product-new.component';
+import { CharacteristicService } from './Shared/Services/characteristic.service';
+import { CharacteristicTypeListComponent } from './Characteristic/characteristic-type-list/characteristic-type-list.component';
+import { CharacteristicTypeNewComponent } from './Characteristic/characteristic-type-new/characteristic-type-new.component';
+import { CharacteristicTypeEditComponent } from './Characteristic/characteristic-type-edit/characteristic-type-edit.component';
 
 
 const JWT_INTERCEPTOR_PROVIDER: Provider = {
@@ -70,27 +77,36 @@ const INITIALIZER_PROVIDER: Provider = {
     RegPageComponent,
     HomePageComponent,
     NavMenuComponent,
-    ProductsComponent,
-    ProductDetailComponent,
+
     SalesComponent,
     DepartmentsComponent,
     AdminComponent,
     EntrancesComponent,
     WarehouseComponent,
     SaleDetailComponent,
-    ProductCreateComponent,
-    SaleCreateComponent,
 
+    SaleCreateComponent,
     EntranceCreateComponent,
     EntranceDetailComponent,
+
     PriceEditComponent,
     PriceNewComponent,
     PriceListComponent,
+
     NotificationComponent,
     DepartmentNewComponent,
     DepartmentEditComponent,
+    
     WarehouseNewComponent,
-    WarehouseEditComponent
+    WarehouseEditComponent,
+
+    ProductsComponent,
+    ProductEditComponent,
+    ProductNewComponent,
+    
+    CharacteristicTypeListComponent,
+    CharacteristicTypeNewComponent,
+    CharacteristicTypeEditComponent
   ],
     imports: [
         BrowserModule,
@@ -106,7 +122,7 @@ const INITIALIZER_PROVIDER: Provider = {
   entryComponents: [
     PriceEditComponent
   ],
-  providers: [AuthService, DepartmentService, CommerceService, ProductService, WarehouseService, PriceService, JWT_INTERCEPTOR_PROVIDER, HTTPERROR_INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER, NotificationComponent, MatSnackBar],
+  providers: [AuthService, DepartmentService, CommerceService, ProductService, WarehouseService, PriceService, CharacteristicService, JWT_INTERCEPTOR_PROVIDER, HTTPERROR_INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER, NotificationComponent, MatSnackBar],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

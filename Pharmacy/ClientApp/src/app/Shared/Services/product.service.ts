@@ -14,6 +14,7 @@ export class ProductService{
   }
 
   public CreateProduct(product: IProduct): Observable<IProduct>{
+    
     return this.httpClient.post<IProduct>('/api/product', product);
   }
 }

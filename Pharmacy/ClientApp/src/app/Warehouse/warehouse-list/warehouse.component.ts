@@ -15,18 +15,24 @@ import { DepartmentService } from 'src/app/Shared/Services/department.service';
 export class WarehouseComponent implements OnInit {
   warehouses: IWarehouse[];
   departments: IDepartment[];
+  departmentLoading: boolean = false;
+  warehouseLoading: boolean = false;
 
   constructor(private readonly warehouseService: WarehouseService, private departmentService: DepartmentService, public dialog: MatDialog) { }
 
   ngOnInit() {
-
+    this.departmentLoading = true;
+    this.warehouseLoading = true;
     this.departmentService.Get().subscribe(res => {
       this.departments = res;
+      this.departmentLoading = false;
     })
 
     this.warehouseService.Get().subscribe(res=>{
       this.warehouses = res;
+      this.warehouseLoading = false;
     })
+    
   }
 
   newWarehouse(){

@@ -5,6 +5,7 @@ using Pharmacy.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -52,6 +53,7 @@ namespace Pharmacy.BL.Services
         public async Task<ProductModel> SaveProductAsync(ProductModel productModel)
         {
             var product = await db.Products.FirstOrDefaultAsync(_ => _.Id == productModel.Id);
+            var charTypes = await db.CharacteristicTypes.ToListAsync();
 
             if (product != null)
             {
@@ -63,12 +65,36 @@ namespace Pharmacy.BL.Services
             {
                 product = new Product()
                 {
-                    Id = productModel.Id,
+                    //Id = productModel.Id,
                     Name = productModel.Name,
                     Article = productModel.Article,
-                    Description = productModel.Description
+                    Description = productModel.Description,
                 };
+
                 db.Add(product);
+            }
+
+            foreach (var characteristic in productModel.Characteristics)
+            {
+                var charType = charTypes.Find(_ => _.Id == characteristic.TypeId);
+
+                var dbChar = db.Characteristics.FirstOrDefault(_ => _.Type == charType && _.Value == characteristic.Value);
+
+                if (dbChar != null)
+                {
+                    dbChar.Products.Append(product);
+                }
+                else
+                {
+                    var newCharacteristic = new Characteristic()
+                    {
+                        Type = charType,
+                        Value = characteristic.Value,
+                        Products = new List<Product>()
+                    };
+                    newCharacteristic.Products.Append(product);
+                    db.Characteristics.Add(newCharacteristic);
+                }
             }
 
             await db.SaveChangesAsync();

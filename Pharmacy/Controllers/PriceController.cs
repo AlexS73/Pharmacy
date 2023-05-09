@@ -24,7 +24,7 @@ namespace Pharmacy.Controllers
             this.userManager = userManager;
         }
 
-        [Route("/all")]
+        [Route("all")]
         public async Task<IEnumerable<ProductPriceModel>> GetPrices()
         {
             return await priceService.GetPrices();
@@ -57,7 +57,14 @@ namespace Pharmacy.Controllers
                 Console.WriteLine(ex);
                 throw ;
             }
+        }
 
+        [Route("remove")]
+        [HttpPost]
+        public async Task<ActionResult> RemovePrice(int priceId)
+        { 
+            await priceService.Remove(priceId);
+            return Ok();
         }
 
     }

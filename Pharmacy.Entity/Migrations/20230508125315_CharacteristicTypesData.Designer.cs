@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pharmacy.Entity;
 
 namespace Pharmacy.Entity.Migrations
 {
     [DbContext(typeof(PharmacyContext))]
-    partial class PharmacyContextModelSnapshot : ModelSnapshot
+    [Migration("20230508125315_CharacteristicTypesData")]
+    partial class CharacteristicTypesData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,18 +23,15 @@ namespace Pharmacy.Entity.Migrations
 
             modelBuilder.Entity("CharacteristicProduct", b =>
                 {
+                    b.Property<int>("CharacteristicsId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProductsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CharacteristicsTypeId")
-                        .HasColumnType("int");
+                    b.HasKey("CharacteristicsId", "ProductsId");
 
-                    b.Property<string>("CharacteristicsValue")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ProductsId", "CharacteristicsTypeId", "CharacteristicsValue");
-
-                    b.HasIndex("CharacteristicsTypeId", "CharacteristicsValue");
+                    b.HasIndex("ProductsId");
 
                     b.ToTable("CharacteristicProduct");
                 });
@@ -242,13 +241,20 @@ namespace Pharmacy.Entity.Migrations
 
             modelBuilder.Entity("Pharmacy.Entity.Characteristic", b =>
                 {
-                    b.Property<int>("TypeId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("TypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TypeId", "Value");
+                    b.HasKey("Id");
+
+                    b.HasIndex("TypeId");
 
                     b.ToTable("Characteristics");
                 });
@@ -518,15 +524,15 @@ namespace Pharmacy.Entity.Migrations
 
             modelBuilder.Entity("CharacteristicProduct", b =>
                 {
-                    b.HasOne("Pharmacy.Entity.Product", null)
+                    b.HasOne("Pharmacy.Entity.Characteristic", null)
                         .WithMany()
-                        .HasForeignKey("ProductsId")
+                        .HasForeignKey("CharacteristicsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Pharmacy.Entity.Characteristic", null)
+                    b.HasOne("Pharmacy.Entity.Product", null)
                         .WithMany()
-                        .HasForeignKey("CharacteristicsTypeId", "CharacteristicsValue")
+                        .HasForeignKey("ProductsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -586,9 +592,7 @@ namespace Pharmacy.Entity.Migrations
                 {
                     b.HasOne("Pharmacy.Entity.CharacteristicType", "Type")
                         .WithMany()
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TypeId");
 
                     b.Navigation("Type");
                 });

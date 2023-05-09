@@ -14,6 +14,6 @@ namespace Pharmacy.BL.Interfaces
         Task<ProductPriceModel> Create(ProductPriceModel price);
         Task<ProductPriceModel> Edit(ProductPriceModel price);
         Task<IEnumerable<ProductPriceModel>> SavePrices(ProductPriceModel price);
-
+        Task Remove(int priceId);
     }
 }
