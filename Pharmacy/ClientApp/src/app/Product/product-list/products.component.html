@@ -8,6 +8,7 @@
     <th scope="col">Наименование</th>
     <th scope="col">Артикул</th>
     <th scope="col">Описание</th>
+    <th scope="col">#</th>
   </tr>
   </thead>
   <tbody>
@@ -16,6 +17,7 @@
     <td>{{product.Name}}</td>
     <td>{{product.Article}}</td>
     <td>{{product.Description}}</td>
+    <td class="col-1"><button type="button" (click)="edit(product)" class="btn btn-warning btn-block">Ред.</button></td>
   </tr>
   </tbody>
 </table>

@@ -26,15 +26,27 @@ export class ProductsComponent implements OnInit {
   }
 
   edit(product: IProduct) {
+    console.log('edit product', product);
     const dialogEdit = this.dialog.open(ProductEditComponent, {
       width: '500px',
       data: product
     })
+
+    dialogEdit.afterClosed().subscribe(result => {
+      if (result) {
+        const index = this.products.findIndex(d => d.Id === result.Id);
+        this.products[index] = result;
+      }
+    })
   }
 
   newProduct(){
-    const dialogEdit = this.dialog.open(ProductNewComponent, {
+    const dialogNew = this.dialog.open(ProductNewComponent, {
       width: '500px'
+    })
+
+    dialogNew.afterClosed().subscribe(res=> {
+      this.products.push(res);
     })
   }
  

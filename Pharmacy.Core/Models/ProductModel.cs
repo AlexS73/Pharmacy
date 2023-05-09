@@ -20,6 +20,7 @@ namespace Pharmacy.Core.Models
             this.Name = product.Name;
             this.Article = product.Article;
             this.Description = product.Description;
+            this.Characteristics = product.Characteristics?.Select(_ => new CharacteristicModel(_));
         }
         public int Id { get; set; }
         public string Name { get; set; }

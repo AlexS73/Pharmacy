@@ -46,7 +46,8 @@ namespace Pharmacy.Entity
                     new CharacteristicType() { Id = 1, Name = "Категория" },
                     new CharacteristicType() { Id = 2, Name = "Срок годности"}
                 });
-            modelBuilder.Entity<Characteristic>().HasKey(_ => new {_.TypeId, _.Value });
+
+            modelBuilder.Entity<Characteristic>().Property(_ => _.Value).IsRequired();
 
             modelBuilder.Entity<Sale>().ToTable("Sales");   
             modelBuilder.Entity<Entrance>().ToTable("Entrances");

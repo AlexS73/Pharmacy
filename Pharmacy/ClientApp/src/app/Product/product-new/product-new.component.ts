@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ICharacteresticModel, ICharacteresticTypeModel } from 'src/app/Shared/Models/characteristictype.enum';
+import { ICharacteresticModel, ICharacteresticTypeModel } from 'src/app/Shared/Models/characteristictype.interface';
 import { CharacteristicService } from 'src/app/Shared/Services/characteristic.service';
 import { ProductService } from 'src/app/Shared/Services/product.service';
 
@@ -36,9 +36,9 @@ export class ProductNewComponent implements OnInit {
 
   Submit($event: any) {
     $event.preventDefault();
-    const result = this.productService.CreateProduct(this.newProductForm.value);
+    const result = this.productService.SaveProduct(this.newProductForm.value);
     result.subscribe(response => {
-      this.dialogRef.close();
+      this.dialogRef.close(response);
     })
   }
 

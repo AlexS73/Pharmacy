@@ -8,7 +8,7 @@ namespace Pharmacy.Entity
         public string Name { get; set; }
         public string Article { get; set; }
         public string Description { get; set; }
-        public virtual IEnumerable<ProductPrice> Prices { get; set; }
-        public virtual IEnumerable<Characteristic> Characteristics { get; set; }
+        public virtual ICollection<ProductPrice> Prices { get; set; }
+        public virtual ICollection<Characteristic> Characteristics { get; set; }
     }
 }

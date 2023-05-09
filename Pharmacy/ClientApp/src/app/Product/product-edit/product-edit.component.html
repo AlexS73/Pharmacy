@@ -1,1 +1,63 @@
-<p>product-edit works!</p>
+<form class="newProductForm" action="#" [formGroup]="editProductForm" (ngSubmit)="Submit($event)">
+
+    <div class="form-group" hidden>
+        <label for="idInput">Id</label>
+        <input id="idInput" class="form-control" disabled="true" formControlName="Id"/>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="nameInput">Наименование</label>
+          <input id="nameInput" type="text" class="form-control" formControlName="Name">
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="articleInput">Артикул</label>
+          <input id="articleInput" type="text" class="form-control" formControlName="Article">
+        </div>
+      </div>
+    </div>
+  
+      <div class="form-group">
+        <label for="descriptionInput">Описание</label>
+        <textarea id="descriptionInput" class="form-control" formControlName="Description"></textarea>
+      </div>
+    
+      <label for="Characteristics">Характеристики</label>
+      <table id="Characteristics" class="table">
+        <thead>
+          <tr>
+            <th>№</th>
+            <th scope="col">Тип</th>
+            <th scope="col">Значение</th>
+            <th>#</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="Characteristics">
+          <tr *ngFor="let itemProduct of editProductForm.get('Characteristics')['controls']; let i=index;let l=last" [formGroupName]="i">
+            <td>{{i+1}}</td>
+            <td>
+              <select id="characteristicInput" class="form-control" formControlName="TypeId">
+                <option *ngFor="let type of characteristicTypes" [ngValue]="type.Id" [disabled]="isCharacteristicSelected(type, i)" >
+                  <p>{{type.Name}}</p>
+                </option>
+              </select>
+            </td>
+            <td>
+              <input formControlName="Value" class="form-control" type="text">
+            </td>
+            <td>
+              <button [disabled]="editProductForm.get('Characteristics')['controls'].length == 0" (click)="deleteRow(i)" class="btn btn-danger">Х</button>
+            </td>
+          </tr>
+          <tr>
+            <button class="btn btn-primary" type="button" (click)="AddCharacteristic()">+</button>
+          </tr>
+        </tbody>
+      </table>
+  
+      <button type="submit" class="btn btn-primary btn-block">Сохранить</button>
+    </form>
+    

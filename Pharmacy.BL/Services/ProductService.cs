@@ -22,12 +22,20 @@ namespace Pharmacy.BL.Services
 
         public async Task<IEnumerable<ProductModel>> GetAllProductsAsync()
         {
-            var productsModel = await db.Products.Select(_=> new ProductModel { 
-                Id = _.Id,
-                Name = _.Name,
-                Article = _.Article,
-                Description = _.Description
-            }).AsNoTracking().ToListAsync();
+            //var productsModel = await db.Products
+            //    .Select(_=> new ProductModel { 
+            //    Id = _.Id,
+            //    Name = _.Name,
+            //    Article = _.Article,
+            //    Description = _.Description
+            //}).AsNoTracking().ToListAsync();
+
+            var productsModel = await db.Products
+                .Include(_=> _.Characteristics)
+                //.ThenInclude(_=>_.Type)
+                .AsNoTracking()
+                .Select(_ => new ProductModel(_))
+                .ToListAsync();
 
             return productsModel;
         }
@@ -59,10 +67,11 @@ namespace Pharmacy.BL.Services
             {
                 product.Name = productModel.Name;
                 product.Article = productModel.Article;
-                product.Description = product.Description;
+                product.Description = productModel.Description;
             }
             else
             {
+
                 product = new Product()
                 {
                     //Id = productModel.Id,
@@ -74,15 +83,16 @@ namespace Pharmacy.BL.Services
                 db.Add(product);
             }
 
+            product.Characteristics = new List<Characteristic>();
+
             foreach (var characteristic in productModel.Characteristics)
             {
                 var charType = charTypes.Find(_ => _.Id == characteristic.TypeId);
-
                 var dbChar = db.Characteristics.FirstOrDefault(_ => _.Type == charType && _.Value == characteristic.Value);
-
+                
                 if (dbChar != null)
                 {
-                    dbChar.Products.Append(product);
+                    product.Characteristics.Add(dbChar);
                 }
                 else
                 {
@@ -92,8 +102,8 @@ namespace Pharmacy.BL.Services
                         Value = characteristic.Value,
                         Products = new List<Product>()
                     };
-                    newCharacteristic.Products.Append(product);
-                    db.Characteristics.Add(newCharacteristic);
+
+                    product.Characteristics.Add(newCharacteristic);
                 }
             }
 

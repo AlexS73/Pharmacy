@@ -17,7 +17,7 @@ namespace Pharmacy.Core.Models
         public CharacteristicModel(Characteristic characteristic)
         {
             //this.Id = characteristic.Id;
-            this.Type = new CharacteristicTypeModel(characteristic.Type);
+            //this.Type = new CharacteristicTypeModel(characteristic.Type);
             this.TypeId = characteristic.TypeId;
             this.Value = characteristic.Value;
         }

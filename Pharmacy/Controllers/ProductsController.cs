@@ -51,8 +51,17 @@ namespace Pharmacy.Controllers
         [HttpPost]
         public async Task<ActionResult<ProductModel>> SaveProduct(ProductModel product)
         {
-            var updatedProduct = await productService.SaveProductAsync(product);
-            return updatedProduct;
+            try
+            {
+                var updatedProduct = await productService.SaveProductAsync(product);
+                return updatedProduct;
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+
         }
     }
 }

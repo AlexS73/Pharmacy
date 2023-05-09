@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ICharacteresticModel, ICharacteresticTypeModel } from 'src/app/Shared/Models/characteristictype.enum';
+import { ICharacteresticModel, ICharacteresticTypeModel } from 'src/app/Shared/Models/characteristictype.interface';
 import { CharacteristicService } from 'src/app/Shared/Services/characteristic.service';
 import { CharacteristicTypeNewComponent } from '../characteristic-type-new/characteristic-type-new.component';
 

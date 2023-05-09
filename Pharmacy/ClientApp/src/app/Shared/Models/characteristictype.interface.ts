@@ -1,5 +1,6 @@
 export interface ICharacteresticModel{
     Type: ICharacteresticTypeModel,
+    TypeId: number,
     Value: string
 }
 
