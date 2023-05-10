@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {ISale} from "../Models/sale.interface";
 import {Observable} from "rxjs";
 import {IProduct} from "../Models/product.interface";
+import { IProductView } from "../Models/productview.interface";
 
 @Injectable()
 export class ProductService{
@@ -14,8 +15,11 @@ export class ProductService{
   }
 
   public SaveProduct(product: IProduct): Observable<IProduct>{
-    console.log('save product', product);
     return this.httpClient.post<IProduct>('/api/product', product);
+  }
+
+  public GetViewProducts(): Observable<IProductView[]>{
+    return this.httpClient.get<IProductView[]>('/api/product/view');
   }
 
 }

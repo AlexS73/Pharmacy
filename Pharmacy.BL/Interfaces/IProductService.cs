@@ -13,5 +13,6 @@ namespace Pharmacy.BL.Interfaces
         Task<IEnumerable<ProductModel>> SaveProductsAsync(IEnumerable<ProductModel> products);
         Task<IEnumerable<ProductModel>> GetAllProductsAsync();
         Task<ProductModel> GetProductByIdAsync(int id);
+        Task<IEnumerable<ProductViewModel>> GetViewProducts(int departmentId);
     }
 }

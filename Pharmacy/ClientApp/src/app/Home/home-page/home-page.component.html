@@ -1,1 +1,25 @@
-<p>home works!</p>
+<div class="row">
+  <div *ngFor="let product of products" class="col">
+    <mat-card class="example-card">
+      <mat-card-title-group>
+        <mat-card-title>{{product.Name}}</mat-card-title>
+        <mat-card-subtitle>Артикул: {{product.Article}}</mat-card-subtitle>
+        <mat-card-subtitle>Категория: {{product.Category}}</mat-card-subtitle>
+        <img mat-card-md-image src="/images/product.png" alt="product.png">
+      </mat-card-title-group>
+      <mat-card-content>
+        {{product.Description}}
+      </mat-card-content>
+      <mat-card-footer>
+        <div class="row cardfooter">
+          <div class="col">
+            <p>Цена: {{product.Price > 0 ? product.Price : '-'}}</p>
+          </div>
+          <div class="col">
+            <p>Остаток: {{product.Stock}}</p>
+          </div>
+        </div>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>

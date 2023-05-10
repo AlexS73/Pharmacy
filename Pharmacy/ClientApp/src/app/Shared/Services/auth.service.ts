@@ -31,10 +31,11 @@ export class AuthService {
   }
 
   LogOut(){
-    this.http.post<any>(`/api/Account/revoke-token`, {}, { withCredentials: true }).subscribe();
-    this.stopRefreshTokenTimer();
-    this.setToken(null);
-    this.router.navigate(['/login']);
+    this.http.post<any>(`/api/Account/revoke-token`, {}, { withCredentials: true }).subscribe(res=>{
+      this.stopRefreshTokenTimer();
+      this.setToken(null);
+      this.router.navigate(['/login']);
+    });
   }
 
   RefreshToken(){
@@ -69,6 +70,7 @@ export class AuthService {
       localStorage.setItem('token', response.JwtToken);
       localStorage.setItem('token-exp', expDate.toString());
       this.startRefreshTokenTimer();
+      console.log('setToken responce', response);
       this.user = { email: response.UserName };
     }
     else {

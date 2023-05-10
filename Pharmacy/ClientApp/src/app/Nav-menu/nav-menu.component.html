@@ -1,8 +1,5 @@
 <header>
-  <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
-    <div class="container">
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
       <a class="navbar-brand" [routerLink]="['/']">ИС Аптека</a>
       <button
         class="navbar-toggler"
@@ -16,7 +13,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div
-        class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
+        class="navbar-collapse collapse d-sm-inline-flex justify-content-center"
         [ngClass]="{ show: isExpanded }"
       >
         <ul class="navbar-nav flex-grow">
@@ -74,6 +71,11 @@
           </li>
         </ul>
       </div>
-    </div>
+      <nav class="navbar-text">
+        <span>{{email}}</span>
+      </nav>
+      <nav class="navbar-text">
+        <a href="#" (click)="logout()">Выйти</a>
+      </nav>
   </nav>
 </header>

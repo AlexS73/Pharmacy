@@ -12,7 +12,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req).pipe(
             catchError((error: HttpErrorResponse)=>{
-                this.notificationComponent.showNotification(error.message, 'error', 'Закрыть', 10000);
+                
+                if(!error.url.endsWith('refresh-token'))
+                    this.notificationComponent.showNotification(error.message, 'error', 'Закрыть', 10000);
                 return throwError(error);
             })
         )

@@ -6,18 +6,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Pharmacy.Entity;
 
 namespace Pharmacy.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
         private readonly IProductService productService;
+        private readonly UserManager<User> userManager;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, UserManager<User> userManager)
         {
             this.productService = productService;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -62,6 +68,21 @@ namespace Pharmacy.Controllers
                 throw;
             }
 
+        }
+
+        [HttpGet("view")]
+        [ResponseCache(Duration = 60)]
+        public async Task<ActionResult<ProductViewModel>> GetProductView()
+        {
+            var currentUser = await userManager.GetUserAsync(User);
+            var product = await productService.GetViewProducts(currentUser.DepartmentId);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(product);
         }
     }
 }

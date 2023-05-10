@@ -22,14 +22,6 @@ namespace Pharmacy.BL.Services
 
         public async Task<IEnumerable<ProductModel>> GetAllProductsAsync()
         {
-            //var productsModel = await db.Products
-            //    .Select(_=> new ProductModel { 
-            //    Id = _.Id,
-            //    Name = _.Name,
-            //    Article = _.Article,
-            //    Description = _.Description
-            //}).AsNoTracking().ToListAsync();
-
             var productsModel = await db.Products
                 .Include(_=> _.Characteristics)
                 //.ThenInclude(_=>_.Type)
@@ -144,5 +136,59 @@ namespace Pharmacy.BL.Services
 
             return result;
         }
+
+        public async Task<IEnumerable<ProductViewModel>> GetViewProducts(int departmentId)
+        {
+            var typeCategory = db.CharacteristicTypes.First(_ => _.Name == "Категория");
+            var warehouse = await db.Warehouse.FirstAsync(_ => _.DepartmentId == departmentId);
+
+            var prices = await db.ProductPrices
+                .Where(p=> p.WarehouseId == warehouse.Id)
+                .AsNoTracking()
+                .ToListAsync();
+
+            try
+            {
+                var products = await db.ProductStocks
+                    .Include(ps => ps.Warehouse)
+                    .Include(ps => ps.Product)
+                    .ThenInclude(p => p.Characteristics)
+                    .AsNoTracking()
+                    .Where(ps => ps.WarehouseId == warehouse.Id)
+                    .Select(ps => new ProductViewModel()
+                    {
+                        Id = ps.ProductId,
+                        Name = ps.Product.Name,
+                        Article = ps.Product.Article,
+                        Description = ps.Product.Description,
+                        Warehouse = new WarehouseModel(ps.Warehouse),
+                        Stock = ps.Count,
+                        //Price = prices.FirstOrDefault(price => price.ProductId == ps.ProductId && price.WarehouseId == ps.WarehouseId) == null ? -1 :
+                        //    prices.First(price => price.ProductId == ps.ProductId && price.WarehouseId == ps.WarehouseId).Price,
+                        Category = ps.Product.Characteristics.FirstOrDefault(c => c.Type == typeCategory) == null ? "" :
+                            ps.Product.Characteristics.First(c => c.Type == typeCategory).Value
+
+                    }).ToListAsync();
+
+                foreach (var product in products)
+                {
+                    product.Price =
+                        prices.FirstOrDefault(price =>
+                            price.ProductId == product.Id && price.WarehouseId == product.Warehouse.Id) == null
+                            ? -1
+                            : prices.First(price =>
+                                price.ProductId == product.Id && price.WarehouseId == product.Warehouse.Id).Price;
+                }
+
+                return products;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+
     }
 }

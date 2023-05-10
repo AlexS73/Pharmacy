@@ -51,6 +51,7 @@ import { CharacteristicTypeNewComponent } from './Characteristic/characteristic-
 import { CharacteristicTypeEditComponent } from './Characteristic/characteristic-type-edit/characteristic-type-edit.component';
 import { StocksListComponent } from './Stocks/stocks-list/stocks-list.component';
 import { StockService } from './Shared/Services/stock.service';
+import { MatCardModule } from '@angular/material/card';
 
 
 const JWT_INTERCEPTOR_PROVIDER: Provider = {
@@ -121,7 +122,8 @@ const INITIALIZER_PROVIDER: Provider = {
         FormsModule,
         BrowserAnimationsModule,
         MatDialogModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatCardModule
     ],
   entryComponents: [
     PriceEditComponent
