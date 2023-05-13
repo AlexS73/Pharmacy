@@ -39,43 +39,48 @@
             >Поступления</a
             >
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/warehouse']"
-            >Склад</a
-            >
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/departments']"
-            >Подразделения</a
-            >
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/prices']"
-            >Цены</a
-            >
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/stocks']"
-            >Остатки</a
-            >
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/characteristic-type']"
-            >Типы характеристик</a
-            >
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/admin']"
-            >Администрирование</a
-            >
-          </li>
+          <ng-container *ngIf="this.authService.IsAdmin">
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/warehouse']"
+              >Склад</a
+              >
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/departments']"
+              >Подразделения</a
+              >
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/prices']"
+              >Цены</a
+              >
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/stocks']"
+              >Остатки</a
+              >
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/characteristic-type']"
+              >Типы характеристик</a
+              >
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/admin']"
+              >Администрирование</a
+              >
+            </li>
+          </ng-container>
         </ul>
       </div>
-      <nav class="navbar-text">
-        <span>{{email}}</span>
-      </nav>
-      <nav class="navbar-text">
-        <a href="#" (click)="logout()">Выйти</a>
-      </nav>
+      <div class="row">
+        <nav class="col navbar-text">
+          <a (click)="accountDetail()">{{email}}</a>
+        </nav>
+        <nav class="col navbar-text">
+          <a href="#" (click)="logout()">Выйти</a>
+        </nav>
+      </div>
+
   </nav>
 </header>

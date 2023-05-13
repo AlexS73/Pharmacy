@@ -52,6 +52,8 @@ import { CharacteristicTypeEditComponent } from './Characteristic/characteristic
 import { StocksListComponent } from './Stocks/stocks-list/stocks-list.component';
 import { StockService } from './Shared/Services/stock.service';
 import { MatCardModule } from '@angular/material/card';
+import { AccountDetailComponent } from './Account/detail/account-detail.component';
+import { AccountService } from './Shared/Services/account.service';
 
 
 const JWT_INTERCEPTOR_PROVIDER: Provider = {
@@ -111,7 +113,8 @@ const INITIALIZER_PROVIDER: Provider = {
     CharacteristicTypeNewComponent,
     CharacteristicTypeEditComponent,
 
-    StocksListComponent
+    StocksListComponent,
+    AccountDetailComponent
   ],
     imports: [
         BrowserModule,
@@ -128,7 +131,22 @@ const INITIALIZER_PROVIDER: Provider = {
   entryComponents: [
     PriceEditComponent
   ],
-  providers: [AuthService, DepartmentService, CommerceService, ProductService, WarehouseService, PriceService, CharacteristicService, JWT_INTERCEPTOR_PROVIDER, HTTPERROR_INTERCEPTOR_PROVIDER, INITIALIZER_PROVIDER, NotificationComponent, MatSnackBar, StockService],
+  providers: [
+    AuthService, 
+    DepartmentService, 
+    CommerceService, 
+    ProductService, 
+    WarehouseService, 
+    PriceService, 
+    CharacteristicService,
+    AccountService, 
+    StockService,
+    JWT_INTERCEPTOR_PROVIDER, 
+    HTTPERROR_INTERCEPTOR_PROVIDER, 
+    INITIALIZER_PROVIDER, 
+    NotificationComponent, 
+    MatSnackBar, 
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

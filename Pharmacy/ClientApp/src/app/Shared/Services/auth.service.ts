@@ -2,13 +2,14 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {map, tap} from "rxjs/operators";
+import { IUser } from "../Models/user.interface";
 
 const defaultPath = '/';
 
 @Injectable()
 export class AuthService {
 
-  private user = null;
+  private user: IUser = null;
   private _lastAuthenticatedPath: string = defaultPath;
   private refreshTokenTimeout;
 
@@ -71,7 +72,7 @@ export class AuthService {
       localStorage.setItem('token-exp', expDate.toString());
       this.startRefreshTokenTimer();
       console.log('setToken responce', response);
-      this.user = { email: response.UserName };
+      this.user = response.User;
     }
     else {
       this.user = null;
@@ -81,6 +82,10 @@ export class AuthService {
 
   public get GetUser(){
     return this.user;
+  }
+
+  public get IsAdmin(){
+    return this.user.Roles.includes('administrator');
   }
 
   private startRefreshTokenTimer(){

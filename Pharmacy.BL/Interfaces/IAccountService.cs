@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,5 +16,6 @@ namespace Pharmacy.BL.Interfaces
 
         Task<AuthenticateResponse> RefreshToken(string refreshToken);
         bool RevokeToken(string token);
+        Task<UserModel> GetCurrentUserAsync(ClaimsPrincipal user);
     }
 }

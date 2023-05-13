@@ -1,0 +1,27 @@
+<div mat-dialog-content>
+    <div class="row">
+        <div class="col-4"><p>Имя:</p></div>
+        <div class="col-8"><p>{{user.Name}}</p></div>
+        <div class="col-4"><p>Имя пользователя:</p></div>
+        <div class="col-8"><p>{{user.UserName}}</p></div>
+        <div class="col-4"><p>Email:</p></div>
+        <div class="col-8"><p>{{user.Email}}</p></div>
+        <div class="col-4"><p>Подразделение:</p></div>
+        <div class="col-8"><p>{{user.Department.Name}}</p></div>
+      </div>
+      <div>
+        <p>Роли:</p>
+      </div>
+      <table class="table">
+        <!-- <thead>
+        <tr>
+          <th scope="col">Название</th>
+        </tr>
+        </thead> -->
+        <tbody>
+          <tr *ngFor="let role of user.Roles">
+          <td>{{role}}</td>
+        </tr>
+        </tbody>
+      </table>
+</div>

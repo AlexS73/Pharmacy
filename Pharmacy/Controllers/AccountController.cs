@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Pharmacy.Entity;
 
 namespace Pharmacy.Controllers
 {
@@ -15,10 +17,20 @@ namespace Pharmacy.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountService accountService;
+        private readonly UserManager<User> userManager;
 
         public AccountController(IAccountService accountService)
         {
             this.accountService = accountService;
+            this.userManager = userManager;
+        }
+
+        [HttpGet("currentUser")]
+        [Authorize]
+        [ResponseCache(Duration = 60)]
+        public async Task<UserModel> GetCurrentUser()
+        {
+            return await accountService.GetCurrentUserAsync(User);
         }
 
         [AllowAnonymous]
