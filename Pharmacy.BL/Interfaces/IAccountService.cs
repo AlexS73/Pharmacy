@@ -16,6 +16,6 @@ namespace Pharmacy.BL.Interfaces
 
         Task<AuthenticateResponse> RefreshToken(string refreshToken);
         bool RevokeToken(string token);
-        Task<UserModel> GetCurrentUserAsync(ClaimsPrincipal user);
+        
     }
 }

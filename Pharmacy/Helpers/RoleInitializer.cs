@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Identity;
 using Pharmacy.Entity;
 using System.Threading.Tasks;
 
@@ -28,6 +29,7 @@ namespace Pharmacy.Helpers
                     await userManager.AddToRoleAsync(admin, "administrator");
                     await userManager.AddToRoleAsync(admin, "user");
                 }
+
             }
         }
     }

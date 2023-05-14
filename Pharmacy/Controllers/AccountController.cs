@@ -17,22 +17,12 @@ namespace Pharmacy.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountService accountService;
-        private readonly UserManager<User> userManager;
 
         public AccountController(IAccountService accountService)
         {
             this.accountService = accountService;
-            this.userManager = userManager;
         }
-
-        [HttpGet("currentUser")]
-        [Authorize]
-        [ResponseCache(Duration = 60)]
-        public async Task<UserModel> GetCurrentUser()
-        {
-            return await accountService.GetCurrentUserAsync(User);
-        }
-
+        
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] AuthenticateRequest model)

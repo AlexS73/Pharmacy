@@ -1,0 +1,18 @@
+<table class="table" *ngIf="!loading">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Имя пользователя</th>
+      <th scope="col">Подразделение</th>
+      <th scope="col">#</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let user of users">
+      <th scope="row">{{user.Id}}</th>
+      <td>{{user.UserName}}</td>
+      <td>{{user.Department.Name}}</td>
+      <td class="col-1"><button type="button" (click)="edit(user)" class="btn btn-warning btn-block">Ред.</button></td>
+    </tr>
+    </tbody>
+  </table>

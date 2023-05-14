@@ -16,7 +16,6 @@ import {NavMenuComponent} from './Nav-menu/nav-menu.component';
 
 import {DepartmentsComponent} from './Department/department-list/departments.component';
 import {SalesComponent} from './Commercial/sales/sales.component';
-import {AdminComponent} from './Admin/admin.component';
 import {EntrancesComponent} from './Commercial/entrances/entrances.component';
 import {WarehouseComponent} from './Warehouse/warehouse-list/warehouse.component';
 import {DepartmentService} from './Shared/Services/department.service';
@@ -52,8 +51,11 @@ import { CharacteristicTypeEditComponent } from './Characteristic/characteristic
 import { StocksListComponent } from './Stocks/stocks-list/stocks-list.component';
 import { StockService } from './Shared/Services/stock.service';
 import { MatCardModule } from '@angular/material/card';
-import { AccountDetailComponent } from './Account/detail/account-detail.component';
-import { AccountService } from './Shared/Services/account.service';
+import { UserEditComponent } from './Account/user-edit/user-edit.component';
+import { UsersListComponent } from './Account/users-list/users-list.component';
+import { UserService } from './Shared/Services/user.service';
+import { UserDetailComponent } from './Account/user-detail/user-detail.component';
+
 
 
 const JWT_INTERCEPTOR_PROVIDER: Provider = {
@@ -85,7 +87,6 @@ const INITIALIZER_PROVIDER: Provider = {
 
     SalesComponent,
     DepartmentsComponent,
-    AdminComponent,
     EntrancesComponent,
     WarehouseComponent,
     SaleDetailComponent,
@@ -114,7 +115,10 @@ const INITIALIZER_PROVIDER: Provider = {
     CharacteristicTypeEditComponent,
 
     StocksListComponent,
-    AccountDetailComponent
+    
+    UserEditComponent,
+    UsersListComponent,
+    UserDetailComponent
   ],
     imports: [
         BrowserModule,
@@ -126,7 +130,7 @@ const INITIALIZER_PROVIDER: Provider = {
         BrowserAnimationsModule,
         MatDialogModule,
         MatSnackBarModule,
-        MatCardModule
+        MatCardModule,
     ],
   entryComponents: [
     PriceEditComponent
@@ -139,8 +143,8 @@ const INITIALIZER_PROVIDER: Provider = {
     WarehouseService, 
     PriceService, 
     CharacteristicService,
-    AccountService, 
     StockService,
+    UserService,
     JWT_INTERCEPTOR_PROVIDER, 
     HTTPERROR_INTERCEPTOR_PROVIDER, 
     INITIALIZER_PROVIDER, 

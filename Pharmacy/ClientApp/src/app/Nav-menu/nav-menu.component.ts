@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../Shared/Services/auth.service";
 import { MatDialog } from '@angular/material/dialog';
-import { AccountDetailComponent } from '../Account/detail/account-detail.component';
+import { UserEditComponent } from '../Account/user-edit/user-edit.component';
+import { UserDetailComponent } from '../Account/user-detail/user-detail.component';
 
 @Component({
   selector: 'app-nav-menu',
@@ -36,7 +37,7 @@ export class NavMenuComponent implements OnInit {
   }
 
   accountDetail(){
-    this.matDialog.open(AccountDetailComponent, {
+    this.matDialog.open(UserDetailComponent, {
       width: '500px'
     })
   }

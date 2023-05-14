@@ -43,6 +43,7 @@ namespace Pharmacy.BL.Services
             await db.SaveChangesAsync();
 
             var roles = await userManager.GetRolesAsync(user);
+            
 
             var currentUserModel = new UserModel(user)
             {
@@ -52,22 +53,7 @@ namespace Pharmacy.BL.Services
             return new AuthenticateResponse(currentUserModel, jwtToken, refreshToken.Token);
         }
 
-        public async Task<UserModel> GetCurrentUserAsync(ClaimsPrincipal user)
-        {
-            var currentUserId = userManager.GetUserId(user);
-            var currentUser = await db.User
-                .Include(_=>_.Department)
-                .FirstAsync(_=>_.Id == int.Parse(currentUserId));
 
-            var roles = await userManager.GetRolesAsync(currentUser);
-
-            var currentUserModel = new UserModel(currentUser)
-            {
-                Roles = roles
-            };
-
-            return currentUserModel;
-        }
 
         public async Task<AuthenticateResponse> RefreshToken(string refreshToken)
         {

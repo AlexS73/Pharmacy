@@ -7,7 +7,6 @@ import {AuthGuardService} from './Shared/Services/auth.guard.service';
 import {ProductsComponent} from './Product/product-list/products.component';
 import {SalesComponent} from './Commercial/sales/sales.component';
 import {EntrancesComponent} from './Commercial/entrances/entrances.component';
-import {AdminComponent} from './Admin/admin.component';
 import {WarehouseComponent} from './Warehouse/warehouse-list/warehouse.component';
 import {DepartmentsComponent} from './Department/department-list/departments.component';
 import {SaleDetailComponent} from "./Commercial/sale-detail/sale-detail.component";
@@ -18,6 +17,7 @@ import {EntranceDetailComponent} from "./Commercial/entrance-detail/entrance-det
 import { PriceListComponent } from './Price/price-list/price-list.component';
 import { CharacteristicTypeListComponent } from './Characteristic/characteristic-type-list/characteristic-type-list.component';
 import { StocksListComponent } from './Stocks/stocks-list/stocks-list.component';
+import { UsersListComponent } from './Account/users-list/users-list.component';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent, canActivate: [ AuthGuardService ]},
@@ -30,12 +30,12 @@ const routes: Routes = [
   { path: 'entrances', component: EntrancesComponent, canActivate: [ AuthGuardService ]},
   { path: 'entrance/new', component: EntranceCreateComponent, canActivate: [ AuthGuardService ]},
   { path: 'entrance/:id', component: EntranceDetailComponent, canActivate: [AuthGuardService]},
-  { path: 'admin', component: AdminComponent, canActivate: [ AuthGuardService ]},
   { path: 'warehouse', component: WarehouseComponent, canActivate: [ AuthGuardService ]},
   { path: 'departments', component: DepartmentsComponent, canActivate: [ AuthGuardService ]},
   { path: 'prices', component: PriceListComponent, canActivate: [AuthGuardService]},
   { path: 'characteristic-type', component: CharacteristicTypeListComponent, canActivate: [AuthGuardService]},
-  { path: 'stocks', component: StocksListComponent, canActivate: [AuthGuardService]}
+  { path: 'stocks', component: StocksListComponent, canActivate: [AuthGuardService]},
+  { path: 'users', component: UsersListComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({
