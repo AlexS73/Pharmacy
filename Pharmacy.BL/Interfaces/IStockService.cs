@@ -11,5 +11,6 @@ namespace Pharmacy.BL.Interfaces
     public interface IStockService
     {
         Task<IEnumerable<ProductStockModel>> Get();
+        Task<IEnumerable<ProductStockModel>> GetByDepartment(int departmentId);
     }
 }

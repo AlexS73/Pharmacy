@@ -14,7 +14,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             catchError((error: HttpErrorResponse)=>{
                 
                 if(!error.url.endsWith('refresh-token'))
-                    this.notificationComponent.showNotification(error.message, 'error', 'Закрыть', 10000);
+                    console.log('error', error);
+                    this.notificationComponent.showNotification(error.error? error.error: error.message , 'error', 'Закрыть', 10000);
                 return throwError(error);
             })
         )

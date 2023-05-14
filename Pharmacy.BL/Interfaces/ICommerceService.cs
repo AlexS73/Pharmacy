@@ -14,9 +14,12 @@ namespace Pharmacy.BL.Interfaces
 
         Task<EntranceModel> CreateEntranceAsync(EntranceModel entranceModel, User user);
         Task<IEnumerable<SaleModel>> GetSales();
+        Task<IEnumerable<SaleModel>> GetSalesByDepartment(int departmentId);
         Task<IEnumerable<EntranceModel>> GetEntrances();
-        
+        Task<IEnumerable<EntranceModel>> GetEntrancesByDepartment(int departmentId);
+
         Task<SaleModel> GetSaleById(int id);
         Task<EntranceModel> GetEntranceById(int id);
+        
     }
 }

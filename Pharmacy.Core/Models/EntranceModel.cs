@@ -20,6 +20,7 @@ namespace Pharmacy.Core.Models
             this.CreatedBy = entrance.User.UserName;
             this.EntranceProducts = entrance.EntranceProducts.Select(_ => new OperationProductModel(_)).ToList();
             this.Supplier = entrance.Supplier;
+            this.Department = new DepartmentModel(entrance.Warehouse.Department);
         }
         public ICollection<OperationProductModel> EntranceProducts { get; set; }
         public string Supplier { get; set; }

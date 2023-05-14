@@ -55,7 +55,24 @@ import { UserEditComponent } from './Account/user-edit/user-edit.component';
 import { UsersListComponent } from './Account/users-list/users-list.component';
 import { UserService } from './Shared/Services/user.service';
 import { UserDetailComponent } from './Account/user-detail/user-detail.component';
+import { ReportService } from './Shared/Services/report.service';
+import { EntranceReportComponent } from './Reports/entrance-report/entrance-report.component';
+import { SaleReportComponent } from './Reports/sale-report/sale-report.component';
 
+import { MatCommonModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
 
 
 const JWT_INTERCEPTOR_PROVIDER: Provider = {
@@ -118,7 +135,10 @@ const INITIALIZER_PROVIDER: Provider = {
     
     UserEditComponent,
     UsersListComponent,
-    UserDetailComponent
+    UserDetailComponent,
+
+    EntranceReportComponent,
+    SaleReportComponent
   ],
     imports: [
         BrowserModule,
@@ -128,9 +148,25 @@ const INITIALIZER_PROVIDER: Provider = {
         NgbModule,
         FormsModule,
         BrowserAnimationsModule,
+
+        MatCommonModule,
         MatDialogModule,
         MatSnackBarModule,
         MatCardModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatInputModule,
+        MatNativeDateModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatMenuModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatListModule
+
     ],
   entryComponents: [
     PriceEditComponent
@@ -145,6 +181,7 @@ const INITIALIZER_PROVIDER: Provider = {
     CharacteristicService,
     StockService,
     UserService,
+    ReportService,
     JWT_INTERCEPTOR_PROVIDER, 
     HTTPERROR_INTERCEPTOR_PROVIDER, 
     INITIALIZER_PROVIDER, 

@@ -1,3 +1,4 @@
+import { IDepartment } from "./department.interface";
 import {IProduct} from "./product.interface";
 
 interface ISaleProduct {
@@ -15,4 +16,5 @@ export interface ISale
   Customer: string;
   Sum: null;
   SaleProducts: ISaleProduct[];
+  Department: IDepartment;
 }

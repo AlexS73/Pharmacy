@@ -7,6 +7,7 @@
     <th scope="col">#</th>
     <th scope="col">Создано</th>
     <th scope="col">Пользователь</th>
+    <th scope="col">Подразделение</th>
     <th scope="col"></th>
   </tr>
   </thead>
@@ -15,6 +16,7 @@
     <th scope="row">{{entrance.Id}}</th>
     <td>{{entrance.CreatedOn | date:'medium'}}</td>
     <td>{{entrance.CreatedBy}}</td>
+    <td>{{entrance.Department.Name}}</td>
     <td><a routerLink="/entrance/{{entrance.Id}}" >Подробно</a></td>
   </tr>
   </tbody>

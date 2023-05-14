@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Pharmacy.Controllers
 {
@@ -24,19 +25,19 @@ namespace Pharmacy.Controllers
             this.userManager = userManager;
         }
 
-        [Route("all")]
+        [HttpGet]
         public async Task<IEnumerable<ProductPriceModel>> GetPrices()
         {
-            return await priceService.GetPrices();
+            var currentUser = await userManager.GetUserAsync(this.User);
+            if (await userManager.IsInRoleAsync(currentUser,"administrator"))
+            {
+                return await priceService.GetPrices();
+            }
+            
+            return await priceService.GetPricesByDepartment(currentUser.DepartmentId);
         }
 
-        
-        public async Task<IEnumerable<ProductPriceModel>> GetPricesByUserDepartment()
-        {
-            var user = await userManager.GetUserAsync(this.User);
-            return await priceService.GetPricesByDepartment(user.DepartmentId);
-        }
-
+        [Authorize(Roles = "administrator")]
         [HttpPost]
         public async Task<ActionResult<ProductPriceModel>> SavePrice(ProductPriceModel productPrice)
         {
@@ -60,6 +61,7 @@ namespace Pharmacy.Controllers
         }
 
         [Route("remove")]
+        [Authorize(Roles = "administrator")]
         [HttpPost]
         public async Task<ActionResult> RemovePrice(int priceId)
         { 

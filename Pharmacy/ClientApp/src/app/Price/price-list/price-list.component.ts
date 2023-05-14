@@ -5,6 +5,7 @@ import { PriceService } from 'src/app/Shared/Services/price.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { PriceEditComponent } from '../price-edit/price-edit.component';
 import { PriceNewComponent } from '../price-new/price-new.component';
+import { AuthService } from 'src/app/Shared/Services/auth.service';
 
 @Component({
   selector: 'app-price-list',
@@ -13,11 +14,13 @@ import { PriceNewComponent } from '../price-new/price-new.component';
 })
 export class PriceListComponent implements OnInit {
 
-  prices: IProductPrice[]
+  prices: IProductPrice[];
+  isAdmin: boolean;
 
-  constructor(private priceService: PriceService, public dialog: MatDialog) { }
+  constructor(private priceService: PriceService, public dialog: MatDialog, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.IsAdmin;
     this.priceService.Get().subscribe(result => {
       this.prices = result;
     })

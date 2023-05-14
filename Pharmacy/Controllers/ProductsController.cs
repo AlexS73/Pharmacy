@@ -84,5 +84,15 @@ namespace Pharmacy.Controllers
 
             return Ok(product);
         }
+
+        [HttpGet("categories")]
+        public async Task<ActionResult<IEnumerable<ProductModel>>> GetProductCategories()
+        {
+
+            var result = await productService.GetCategories();
+            return Ok(result);
+
+        }
+
     }
 }

@@ -62,7 +62,11 @@ namespace Pharmacy.Controllers
                 var response = await accountService.RefreshToken(refreshToken);
 
                 if (response == null)
-                    return ValidationProblem("Invalid token");
+                {
+                    //return ValidationProblem("Invalid token");
+                    return NoContent(); //Ok();
+                }
+                    
 
                 setTokenCookie(response.RefreshToken);
 

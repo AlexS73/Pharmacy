@@ -33,7 +33,7 @@ namespace Pharmacy.BL.Services
             {
                 warehouse.DepartmentId = warehouseModel.Id;
                 warehouse.Name = warehouseModel.Name;
-                warehouse.Address = warehouse.Address;
+                warehouse.Address = warehouseModel.Address;
             }
             else
             {

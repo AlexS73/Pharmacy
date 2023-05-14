@@ -112,8 +112,9 @@ namespace Pharmacy.BL.Services
             db.Update(createdUser);
             await db.SaveChangesAsync();
 
+            await userManager.AddToRoleAsync(createdUser, "user");
             var roles = await userManager.GetRolesAsync(createdUser);
-
+            
             var currentUserModel = new UserModel(createdUser)
             {
                 Roles = roles

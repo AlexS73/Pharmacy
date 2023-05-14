@@ -93,11 +93,19 @@ export class SaleCreateComponent implements OnInit {
     });
   }
 
-  isProductSelected(product: IProduct, rowIndex: number): boolean {
-    return this.newSaleForm.value.SaleProducts
-      .filter((item, index) => index !== rowIndex)
-      .some(item => item.Product === product);
-  }
+  // isProductSelected(product: IProduct, rowIndex: number): boolean {
+  //   console.log('isProductSelected product',product);
+  //   console.log('rowIndex', rowIndex);
+  //   console.log('this.newSaleForm.value.SaleProducts',this.newSaleForm.value.SaleProducts);
+  //   return this.newSaleForm.value.SaleProducts
+  //     .filter((item, index) => index !== rowIndex)
+  //     .some(item => item.Product === product);
+  // }
+
+  // productSelecting(product: IProduct, rowIndex: number){
+  //   console.log('productSelecting');
+  // }
+
 
   deleteRow(i: number) {
     this.formArr.removeAt(i);

@@ -61,6 +61,7 @@ namespace Pharmacy
             services.AddScoped<IPriceService, PriceService>();
             services.AddScoped<ICharacteristicService, CharacteristicService>();
             services.AddScoped<IStockService, StockService>();
+            services.AddScoped<IReportService, ReportService>();
 
             //Token settings
             var tokenSettingsSection = Configuration.GetSection("TokenSettings");

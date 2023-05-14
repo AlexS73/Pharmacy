@@ -48,7 +48,6 @@ export class ProductEditComponent implements OnInit {
   initRows(characteristics: ICharacteresticModel[]):FormArray {
     const rows = [];
     for(const characteristic of characteristics){
-      console.log('initrows', characteristic)
       const row = this.fb.group({
         TypeId: [characteristic.TypeId, Validators.required],
         Value: [characteristic.Value, Validators.required]

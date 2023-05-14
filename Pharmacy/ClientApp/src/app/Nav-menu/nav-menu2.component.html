@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+    <span>ИС Аптека</span>
+    <span class="spacer"></span>
+    <mat-nav-list>
+        <mat-list-item routerLink="/products" routerLinkActive="active">Продукты</mat-list-item>
+        <mat-list-item routerLink="/sales" routerLinkActive="active">Продажи</mat-list-item>
+        <mat-list-item routerLink="/entrances" routerLinkActive="active">Поступления</mat-list-item>
+        <mat-list-item routerLink="/warehouse" routerLinkActive="active">Склады</mat-list-item>
+        <mat-list-item routerLink="/departments" routerLinkActive="active">Подразделения</mat-list-item>
+        <mat-list-item routerLink="/prices" routerLinkActive="active">Цены</mat-list-item>
+        <mat-list-item routerLink="/stocks" routerLinkActive="active">Остатки</mat-list-item>
+        <mat-list-item routerLink="/characteristic-type" routerLinkActive="active">Типы характеристик</mat-list-item>
+        <mat-list-item routerLink="/users" routerLinkActive="active">Пользователи</mat-list-item>
+      </mat-nav-list>
+    <a mat-button [matMenuTriggerFor]="reportsMenu">Отчеты</a>
+    <mat-menu #reportsMenu="matMenu">
+      <a mat-menu-item routerLink="/reports/entrance">Отчет по поступлениям</a>
+      <a mat-menu-item routerLink="/reports/sale">Отчет по продажам</a>
+    </mat-menu>
+    <a mat-button (click)="accountDetail()">{{email}}</a>
+    <a mat-button href="#" (click)="logout()">Выйти</a>
+  </mat-toolbar>
+  
+
+  

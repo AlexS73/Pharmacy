@@ -21,7 +21,12 @@ namespace Pharmacy.BL.Services
 
         public async Task<IEnumerable<ProductPriceModel>> GetPrices()
         {
-            return await db.ProductPrices.AsNoTracking().Select(_=> new ProductPriceModel(_)).ToListAsync();
+            return await db.ProductPrices
+                .Include(_ => _.Warehouse)
+                .Include(_ => _.Product)
+                .AsNoTracking()
+                .Select(_ => new ProductPriceModel(_))
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<ProductPriceModel>> GetPricesByDepartment(int departmentId)

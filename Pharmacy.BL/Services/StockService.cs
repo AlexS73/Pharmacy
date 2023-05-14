@@ -27,5 +27,16 @@ namespace Pharmacy.BL.Services
                 .Select(_ => new ProductStockModel(_))
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<ProductStockModel>> GetByDepartment(int departmentId)
+        {
+            return await this.db.ProductStocks
+                .Include(_ => _.Product)
+                .Include(_ => _.Warehouse)
+                .Where(_=>_.Warehouse.DepartmentId == departmentId)
+                .AsNoTracking()
+                .Select(_ => new ProductStockModel(_))
+                .ToListAsync();
+        }
     }
 }

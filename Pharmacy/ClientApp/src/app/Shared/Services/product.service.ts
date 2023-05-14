@@ -22,4 +22,9 @@ export class ProductService{
     return this.httpClient.get<IProductView[]>('/api/product/view');
   }
 
+  public GetCategories(): Observable<string[]>{
+    return this.httpClient.get<string[]>('/api/product/categories')
+  }
+  
+
 }

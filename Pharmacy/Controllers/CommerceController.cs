@@ -31,16 +31,36 @@ namespace Pharmacy.Controllers
         [Route("sales")]
         public async Task<IEnumerable<SaleModel>> GetSales()
         {
-            IEnumerable<SaleModel> sales = await commerceService.GetSales();
-            return sales;
+            var currentUser = await userManager.GetUserAsync(User);
+            if (await userManager.IsInRoleAsync(currentUser, "administrator"))
+            {
+                IEnumerable<SaleModel> sales = await commerceService.GetSales();
+                return sales;
+            }
+            else
+            {
+                IEnumerable<SaleModel> sales = await commerceService.GetSalesByDepartment(currentUser.DepartmentId);
+                return sales;
+            }
+            
         }
         
         [HttpGet]
         [Route("entrances")]
         public async Task<IEnumerable<EntranceModel>> GetEntrances()
         {
-            IEnumerable<EntranceModel> entrances = await commerceService.GetEntrances();
-            return entrances;
+            var currentUser = await userManager.GetUserAsync(User);
+            if (await userManager.IsInRoleAsync(currentUser, "administrator"))
+            {
+                IEnumerable<EntranceModel> entrances = await commerceService.GetEntrances();
+                return entrances;
+            }
+            else
+            {
+                IEnumerable<EntranceModel> entrances = await commerceService.GetEntrancesByDepartment(currentUser.DepartmentId);
+                return entrances;
+            }
+            
         }
         
         [HttpGet]
@@ -53,7 +73,7 @@ namespace Pharmacy.Controllers
         
         [HttpGet]
         [Route("entrance/{id}")]
-        public async Task<EntranceModel> GetEntranceById(int id)
+        public async Task<ActionResult<EntranceModel>> GetEntranceById(int id)
         {
             EntranceModel entrance = await commerceService.GetEntranceById(id);
             return entrance;
@@ -61,12 +81,21 @@ namespace Pharmacy.Controllers
         
         [HttpPost]
         [Route("sale")]
-        public async Task<SaleModel> CreateSale(SaleModel saleModel)
+        public async Task<ActionResult<SaleModel>> CreateSale(SaleModel saleModel)
         {
-            var user = await userManager.GetUserAsync(this.User);
+            try
+            {
+                var user = await userManager.GetUserAsync(this.User);
 
-            var newSale = await commerceService.CreateSaleAsync(saleModel, user);
-            return newSale;
+                var newSale = await commerceService.CreateSaleAsync(saleModel, user);
+                return newSale;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return BadRequest(e.Message);
+            }
+
         }
 
         [HttpPost]

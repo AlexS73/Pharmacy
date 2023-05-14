@@ -11,5 +11,6 @@ namespace Pharmacy.Core.Models
         public int Id { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
+        public DepartmentModel Department { get; set; }
     }
 }

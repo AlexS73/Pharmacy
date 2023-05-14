@@ -1,4 +1,4 @@
-<div class="mb-1">
+<div class="mb-1" [hidden]="!isAdmin">
     <button class="btn btn-success" (click)="newPrice()">Новая цена</button>
 </div>
 
@@ -17,8 +17,8 @@
             <td>{{price.Product.Name}}; Арт:{{price.Product.Article}}</td>
             <td>{{price.Price}}</td>
             <td>{{price.Warehouse.Name}}</td>
-            <td class="col-1"><button type="button" (click)="edit(price)" class="btn btn-warning btn-block">Ред.</button></td>
-            <td class="col-1"><button type="button" (click)="remove(price.Id)" class="btn btn-danger btn-block">X</button></td>
+            <td class="col-1"><button type="button" [disabled]="!isAdmin" (click)="edit(price)" class="btn btn-warning btn-block">Ред.</button></td>
+            <td class="col-1"><button type="button" [disabled]="!isAdmin" (click)="remove(price.Id)" class="btn btn-danger btn-block">X</button></td>
         </tr>
     </tbody>
 </table>

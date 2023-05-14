@@ -52,7 +52,7 @@ namespace Pharmacy.BL.Services
 
         public async Task<ProductModel> SaveProductAsync(ProductModel productModel)
         {
-            var product = await db.Products.FirstOrDefaultAsync(_ => _.Id == productModel.Id);
+            var product = await db.Products.Include(_=>_.Characteristics).FirstOrDefaultAsync(_ => _.Id == productModel.Id);
             var charTypes = await db.CharacteristicTypes.ToListAsync();
 
             if (product != null)
@@ -81,10 +81,12 @@ namespace Pharmacy.BL.Services
             {
                 var charType = charTypes.Find(_ => _.Id == characteristic.TypeId);
                 var dbChar = db.Characteristics.FirstOrDefault(_ => _.Type == charType && _.Value == characteristic.Value);
+
                 
                 if (dbChar != null)
                 {
-                    product.Characteristics.Add(dbChar);
+                    if(!product.Characteristics.Contains(dbChar))
+                        product.Characteristics.Add(dbChar);
                 }
                 else
                 {
@@ -139,8 +141,13 @@ namespace Pharmacy.BL.Services
 
         public async Task<IEnumerable<ProductViewModel>> GetViewProducts(int departmentId)
         {
-            var typeCategory = db.CharacteristicTypes.First(_ => _.Name == "Категория");
-            var warehouse = await db.Warehouse.FirstAsync(_ => _.DepartmentId == departmentId);
+            var typeCategory = await db.CharacteristicTypes.FirstOrDefaultAsync(_ => _.Name == "Категория");
+            var warehouse = await db.Warehouse.FirstOrDefaultAsync(_ => _.DepartmentId == departmentId);
+
+            if (warehouse == null || typeCategory == null)
+            {
+                return new List<ProductViewModel>();
+            }
 
             var prices = await db.ProductPrices
                 .Where(p=> p.WarehouseId == warehouse.Id)
@@ -189,6 +196,13 @@ namespace Pharmacy.BL.Services
             }
         }
 
-
+        public async Task<IEnumerable<string>> GetCategories()
+        {
+            return await db.Characteristics
+                .Include(_ => _.Type)
+                .Where(_ => _.Type.Name == "Категория")
+                .Select(_ => _.Value)
+                .ToListAsync();
+        }
     }
 }
