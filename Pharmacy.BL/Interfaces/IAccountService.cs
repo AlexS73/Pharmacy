@@ -11,11 +11,8 @@ namespace Pharmacy.BL.Interfaces
     public interface IAccountService
     {
         Task<AuthenticateResponse> Authenticate(AuthenticateRequest model);
-
         Task<AuthenticateResponse> Registration(RegistrationRequest model);
-
         Task<AuthenticateResponse> RefreshToken(string refreshToken);
         bool RevokeToken(string token);
-        
     }
 }

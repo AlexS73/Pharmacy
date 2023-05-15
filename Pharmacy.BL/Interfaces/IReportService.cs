@@ -10,7 +10,6 @@ namespace Pharmacy.BL.Interfaces
     public interface IReportService
     {
         Task<SaleReportModel> GenerateSaleReportAsync(DateTime? from, DateTime? to, int? departmentId);
-
         Task<EntranceReportModel> GenerateEntranceReportAsync(DateTime? from, DateTime? to, int? departmentId);
     }
 }

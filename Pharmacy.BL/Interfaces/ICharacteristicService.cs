@@ -11,6 +11,5 @@ namespace Pharmacy.BL.Interfaces
     {
         Task<IEnumerable<CharacteristicTypeModel>> GetTypes();
         Task<CharacteristicTypeModel> SaveType(CharacteristicTypeModel type);
-
     }
 }

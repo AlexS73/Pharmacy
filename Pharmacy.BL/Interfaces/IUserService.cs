@@ -12,7 +12,6 @@ namespace Pharmacy.BL.Interfaces
     public interface IUserService
     {
         User GetById(int id);
-
         Task<ClaimsIdentity> GetIdentity(User user);
         Task<ICollection<UserModel>> GetUsersAsync();
         Task<UserModel> GetCurrentUserAsync(ClaimsPrincipal user);
