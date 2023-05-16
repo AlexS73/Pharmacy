@@ -1,0 +1,26 @@
+<div mat-dialog-content>
+  <form *ngIf="!loading" class="editUserForm" [formGroup]="editUserForm" (ngSubmit)="Submit($event)" action="#">
+
+    <div class="form-group" hidden>
+      <label for="idInput">Id</label>
+      <input id="idInput" class="form-control" disabled="true" formControlName="Id"/>
+    </div>
+    <div class="form-group">
+      <label for="userNameInput">Имя пользователя</label>
+      <input id="userNameInput" class="form-control" disabled="true" formControlName="UserName"/>
+    </div>
+
+    <div>
+      <p>Роли:</p>
+    </div>
+    <div *ngFor="let role of roles">
+      <label>
+        <input type="checkbox" [checked]="isChecked(role)" [value]="role" (change)="toggleRole(role)">
+        {{ role }}
+      </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block">Сохранить</button>
+
+  </form>
+</div>

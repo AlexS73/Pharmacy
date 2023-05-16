@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Pharmacy.Entity
 {
-    public class Entrance: ProductOperation
+    public class Entrance: WarehouseOperation
     {
         public string Supplier { get; set; }
         public virtual ICollection<EntranceProduct> EntranceProducts { get; set; }
@@ -14,7 +15,6 @@ namespace Pharmacy.Entity
         public int EntranceId { get; set; }
         public virtual Product Product { get; set; }
         public int ProductId { get; set; }
-        public virtual Warehouse Warehouse { get; set; }
         public int Count { get; set; }
     }
 }

@@ -10,18 +10,20 @@ namespace Pharmacy.Core.Models
 {
     public class AuthenticateResponse
     {
-        public AuthenticateResponse(User user, string jwtToken, string refreshToken)
+        public AuthenticateResponse(UserModel user, string jwtToken, string refreshToken)
         {
-            Id = user.Id;
-            UserName = user.UserName;
-            Department = user.Department.Name;
+            //Id = user.Id;
+            //UserName = user.UserName;
+            //Department = user.Department.Name;
+            this.User = user;
             JwtToken = jwtToken;
             RefreshToken = refreshToken;
         }
 
-        public int Id { get; set; }
-        public string UserName { get; set; }
-        public string Department { get; set; }
+        public UserModel User { get; set; }
+        //public int Id { get; set; }
+        //public string UserName { get; set; }
+        //public string Department { get; set; }
         public string JwtToken { get; set; }
 
         [JsonIgnore] //возвращается в http only cookie

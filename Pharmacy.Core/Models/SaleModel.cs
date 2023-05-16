@@ -14,23 +14,17 @@ namespace Pharmacy.Core.Models
 
         public SaleModel(Sale sale)
         {
-            try
-            {
-                this.Id = sale.Id;
-                this.CreatedOn = sale.CreatedOn;
-                this.CreatedBy = sale.User.UserName;
-                this.Customer = sale.Customer;
-            
-                this.SaleProducts = sale.SaleProducts.Select(_ => new OperationProductModel(_)).ToList();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-
+            this.Id = sale.Id;
+            this.CreatedOn = sale.CreatedOn;
+            this.CreatedBy = sale.User.UserName;
+            this.Customer = sale.Customer;
+        
+            this.SaleProducts = sale.SaleProducts.Select(_ => new SaleProductModel(_)).ToList();
+            this.Sum = sale.Sum;
+            this.Department = new DepartmentModel(sale.Warehouse.Department);
         }
+        public double Sum { get; set; }
         public string Customer { get; set; }
-        public ICollection<OperationProductModel> SaleProducts { get; set; }
+        public ICollection<SaleProductModel> SaleProducts { get; set; }
     }
 }

@@ -47,9 +47,15 @@ export class EntranceCreateComponent implements OnInit {
 
   initRow() {
     return this.fb.group({
-      Product: ['', Validators.required],
-      Count: ['', Validators.required]
+      ProductId: ['', Validators.required],
+      Count: [1, Validators.min(1)]
     });
+  }
+
+  isProductSelected(product: IProduct, rowIndex: number): boolean {
+    return this.newEntranceForm.value.EntranceProducts
+      .filter((item, index) => index !== rowIndex)
+      .some(item => item.Product === product);
   }
 
   deleteRow(i: number) {

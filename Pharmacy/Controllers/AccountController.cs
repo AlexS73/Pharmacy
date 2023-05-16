@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Pharmacy.Entity;
 
 namespace Pharmacy.Controllers
 {
@@ -20,7 +22,7 @@ namespace Pharmacy.Controllers
         {
             this.accountService = accountService;
         }
-
+        
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] AuthenticateRequest model)
@@ -54,15 +56,28 @@ namespace Pharmacy.Controllers
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken()
         {
-            var refreshToken = Request.Cookies["refreshToken"];
-            var response = await accountService.RefreshToken(refreshToken);
+            try
+            {
+                var refreshToken = Request.Cookies["refreshToken"];
+                var response = await accountService.RefreshToken(refreshToken);
 
-            if (response == null)
-                return ValidationProblem("Invalid token");
+                if (response == null)
+                {
+                    //return ValidationProblem("Invalid token");
+                    return NoContent(); //Ok();
+                }
+                    
 
-            setTokenCookie(response.RefreshToken);
+                setTokenCookie(response.RefreshToken);
 
-            return Ok(response);
+                return Ok(response);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
 

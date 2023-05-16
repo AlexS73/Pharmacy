@@ -22,4 +22,8 @@ export class SaleDetailComponent implements OnInit {
       .subscribe(data=> this.commerceService.GetSale(+data)
         .subscribe(response => this.sale = response));
   }
+
+  getSaleProductsSum(): number {
+    return this.sale.SaleProducts.reduce(function (acc, sp) { return acc + sp.Price; }, 0);
+  }
 }

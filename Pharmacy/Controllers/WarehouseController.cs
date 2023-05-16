@@ -16,12 +16,13 @@ namespace Pharmacy.Controllers
         {
             this.warehouseService = warehouseService;
         }
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<WarehouseModel>>> GetLeftovers()
+        public async Task<ActionResult<IEnumerable<WarehouseModel>>> Get()
         {
             try
             {
-                var result = await warehouseService.GetLeftoversAsync();
+                var result = await warehouseService.GetAsync();
                 return Ok(result);
             }
             catch (Exception ex)
@@ -30,12 +31,12 @@ namespace Pharmacy.Controllers
             }
         }
 
-        [HttpGet("{department}")]
-        public async Task<ActionResult<IEnumerable<WarehouseModel>>> GetLeftoversForDepartment(string department)
+        [HttpPost]
+        public async Task<ActionResult<IEnumerable<WarehouseModel>>> Save(WarehouseModel warehouseModel)
         {
             try
             {
-                var result = await warehouseService.GetLeftoversAsync(department);
+                var result = await warehouseService.SaveAsync(warehouseModel);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -43,5 +44,33 @@ namespace Pharmacy.Controllers
                 return NotFound(ex);
             }
         }
+
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<WarehouseModel>>> GetLeftovers()
+        //{
+        //    try
+        //    {
+        //        var result = await warehouseService.GetLeftoversAsync();
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return NotFound(ex);
+        //    }
+        //}
+
+        //[HttpGet("{department}")]
+        //public async Task<ActionResult<IEnumerable<WarehouseModel>>> GetLeftoversForDepartment(string department)
+        //{
+        //    try
+        //    {
+        //        var result = await warehouseService.GetLeftoversAsync(department);
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return NotFound(ex);
+        //    }
+        //}
     }
 }

@@ -2,13 +2,14 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {map, tap} from "rxjs/operators";
+import { IUser } from "../Models/user.interface";
 
 const defaultPath = '/';
 
 @Injectable()
 export class AuthService {
 
-  private user = null;
+  private user: IUser = null;
   private _lastAuthenticatedPath: string = defaultPath;
   private refreshTokenTimeout;
 
@@ -31,10 +32,11 @@ export class AuthService {
   }
 
   LogOut(){
-    this.http.post<any>(`/api/Account/revoke-token`, {}, { withCredentials: true }).subscribe();
-    this.stopRefreshTokenTimer();
-    this.setToken(null);
-    this.router.navigate(['/login']);
+    this.http.post<any>(`/api/Account/revoke-token`, {}, { withCredentials: true }).subscribe(res=>{
+      this.stopRefreshTokenTimer();
+      this.setToken(null);
+      this.router.navigate(['/login']);
+    });
   }
 
   RefreshToken(){
@@ -69,7 +71,8 @@ export class AuthService {
       localStorage.setItem('token', response.JwtToken);
       localStorage.setItem('token-exp', expDate.toString());
       this.startRefreshTokenTimer();
-      this.user = { email: response.UserName };
+      console.log('setToken responce', response);
+      this.user = response.User;
     }
     else {
       this.user = null;
@@ -79,6 +82,10 @@ export class AuthService {
 
   public get GetUser(){
     return this.user;
+  }
+
+  public get IsAdmin(){
+    return this.user.Roles.includes('administrator');
   }
 
   private startRefreshTokenTimer(){

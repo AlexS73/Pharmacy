@@ -6,6 +6,7 @@ using Pharmacy.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -41,9 +42,18 @@ namespace Pharmacy.BL.Services
             db.Update(user);
             await db.SaveChangesAsync();
 
+            var roles = await userManager.GetRolesAsync(user);
+            
 
-            return new AuthenticateResponse(user, jwtToken, refreshToken.Token);
+            var currentUserModel = new UserModel(user)
+            {
+                Roles = roles
+            };
+
+            return new AuthenticateResponse(currentUserModel, jwtToken, refreshToken.Token);
         }
+
+
 
         public async Task<AuthenticateResponse> RefreshToken(string refreshToken)
         {
@@ -68,7 +78,14 @@ namespace Pharmacy.BL.Services
             // generate new jwt
             var jwtToken = await tokenService.GenerateJwtToken(user);
 
-            return new AuthenticateResponse(user, jwtToken, newRefreshToken.Token);
+            var roles = await userManager.GetRolesAsync(user);
+
+            var currentUserModel = new UserModel(user)
+            {
+                Roles = roles
+            };
+
+            return new AuthenticateResponse(currentUserModel, jwtToken, newRefreshToken.Token);
         }
 
         public async Task<AuthenticateResponse> Registration(RegistrationRequest model)
@@ -95,8 +112,15 @@ namespace Pharmacy.BL.Services
             db.Update(createdUser);
             await db.SaveChangesAsync();
 
+            await userManager.AddToRoleAsync(createdUser, "user");
+            var roles = await userManager.GetRolesAsync(createdUser);
+            
+            var currentUserModel = new UserModel(createdUser)
+            {
+                Roles = roles
+            };
 
-            return new AuthenticateResponse(createdUser, jwtToken, refreshToken.Token);
+            return new AuthenticateResponse(currentUserModel, jwtToken, refreshToken.Token);
         }
 
         public bool RevokeToken(string token)

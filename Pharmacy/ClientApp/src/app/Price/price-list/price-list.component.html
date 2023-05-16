@@ -1,0 +1,24 @@
+<div class="mb-1" [hidden]="!isAdmin">
+    <button class="btn btn-success" (click)="newPrice()">Новая цена</button>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Товар</th>
+            <th>Цена</th>
+            <th>Склад</th>
+            <th>#</th>
+            <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let price of prices">
+            <td>{{price.Product.Name}}; Арт:{{price.Product.Article}}</td>
+            <td>{{price.Price}}</td>
+            <td>{{price.Warehouse.Name}}</td>
+            <td class="col-1"><button type="button" [disabled]="!isAdmin" (click)="edit(price)" class="btn btn-warning btn-block">Ред.</button></td>
+            <td class="col-1"><button type="button" [disabled]="!isAdmin" (click)="remove(price.Id)" class="btn btn-danger btn-block">X</button></td>
+        </tr>
+    </tbody>
+</table>

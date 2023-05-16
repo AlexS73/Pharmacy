@@ -20,7 +20,7 @@ export class RegPageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.departmetnService.GetDepartments()
+    this.departmetnService.Get()
       .subscribe(response => {
         this.departments = response;
       });

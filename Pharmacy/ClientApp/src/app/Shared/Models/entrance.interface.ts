@@ -1,3 +1,4 @@
+import { IDepartment } from "./department.interface";
 import {IProduct} from "./product.interface";
 
 interface IEntranceProduct {
@@ -13,4 +14,5 @@ export interface IEntrance
   CreatedBy: string;
   Supplier: string;
   EntranceProducts: IEntranceProduct[];
+  Department: IDepartment;
 }

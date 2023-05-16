@@ -1,0 +1,24 @@
+<div mat-dialog-content>
+    <form class="editWarehouseForm" action="#" [formGroup]="editWarehouseForm" (ngSubmit)="Submit($event)"> 
+      <div class="form-group">
+        <label for="nameInput">Название</label>
+        <input id="nameInput" type="text" class="form-control" formControlName="Name">
+      </div>
+    
+      <div class="form-group">
+        <label for="addressInput">Адрес</label>
+        <input id="addressInput" type="text" class="form-control" formControlName="Address">
+      </div>
+
+      <!-- <div class="form-group">
+        <label for="departmentInput">Подразделение</label>
+        <select id="departmentInput" class="form-control" formControlName="DepartmentId">
+            <option *ngFor="let department of departments" [ngValue]="department.Id" value="">
+              {{department.Name}}
+            </option>
+          </select>
+      </div> -->
+    
+      <button type="submit" class="btn btn-primary btn-block">Сохранить</button>
+  </form>
+  </div>

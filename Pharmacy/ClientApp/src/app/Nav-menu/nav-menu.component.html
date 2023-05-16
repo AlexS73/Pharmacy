@@ -1,8 +1,5 @@
 <header>
-  <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
-    <div class="container">
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
       <a class="navbar-brand" [routerLink]="['/']">ИС Аптека</a>
       <button
         class="navbar-toggler"
@@ -13,10 +10,10 @@
         [attr.aria-expanded]="isExpanded"
         (click)="toggle()"
       >
-        <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon"></span>
       </button>
       <div
-        class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
+        class="navbar-collapse collapse d-sm-inline-flex justify-content-center"
         [ngClass]="{ show: isExpanded }"
       >
         <ul class="navbar-nav flex-grow">
@@ -28,37 +25,52 @@
             <a class="nav-link text-dark" [routerLink]="['/']">Главная</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/products']"
-              >Продукты</a
-            >
+            <a class="nav-link text-dark" [routerLink]="['/products']">Продукты</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/sales']"
-              >Продажи</a
-            >
+            <a class="nav-link text-dark" [routerLink]="['/sales']">Продажи</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/entrances']"
-            >Поступления</a
-            >
+            <a class="nav-link text-dark" [routerLink]="['/entrances']">Поступления</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/warehouse']"
-            >Склад</a
-            >
+            <a class="nav-link text-dark" [routerLink]="['/prices']">Цены</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/departments']"
-            >Подразделения</a
-            >
+            <a class="nav-link text-dark" [routerLink]="['/stocks']">Остатки</a>
           </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/admin']"
-            >Администрирование</a
-            >
-          </li>
+          <ng-container *ngIf="this.authService.IsAdmin">
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/warehouse']">Склад</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/departments']">Подразделения</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/characteristic-type']">Типы характеристик</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/users']">Пользователи</a>
+            </li>
+
+            <button mat-button [matMenuTriggerFor]="reportMenu">Отчеты</button>
+            <mat-menu #reportMenu="matMenu">
+              <a mat-menu-item [routerLink]="['/reports/entrance']">Отчет по поступлениям</a>
+              <a mat-menu-item [routerLink]="['/reports/sale']">Отчет по продажам</a>  
+            </mat-menu>
+
+          </ng-container>
         </ul>
+        <div class="row">
+          <nav class="col navbar-text">
+            <a (click)="accountDetail()">{{email}}</a>
+          </nav>
+          <nav class="col navbar-text">
+            <a href="#" (click)="logout()">Выйти</a>
+          </nav>
+        </div>
       </div>
-    </div>
+
+
   </nav>
 </header>

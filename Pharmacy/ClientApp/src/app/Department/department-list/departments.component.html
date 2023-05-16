@@ -1,0 +1,23 @@
+<div class="mb-1">
+    <button class="btn btn-success" (click)="newDepartment()">Новое подразделение</button>  
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Наименование</th>
+            <th>Адрес</th>
+            <th>Склад</th>
+            <th>#</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let department of departments">
+            <td>{{department.Name}}</td>
+            <td>{{department.Address}}</td>
+            <td><a routerLink="/warehouse">{{department.Warehouse?.Name}}</a></td>
+            <td class="col-1"><button type="button" (click)="edit(department)" class="btn btn-warning btn-block">Ред.</button></td>
+        </tr>
+    </tbody>
+</table>
