@@ -23,6 +23,7 @@ namespace Pharmacy.Controllers
         }
 
         [HttpGet]
+        [ResponseCache(Duration = 30)]
         public async Task<ActionResult<IEnumerable<DepartmentModel>>> GetDepartments()
         {
             var result = await departmentService.GetDepartmentsAsync();

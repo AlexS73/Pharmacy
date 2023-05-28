@@ -4,6 +4,7 @@ import {IProduct} from "../../Shared/Models/product.interface";
 import { MatDialog } from '@angular/material/dialog';
 import { ProductNewComponent } from '../product-new/product-new.component';
 import { ProductEditComponent } from '../product-edit/product-edit.component';
+import { AuthService } from 'src/app/Shared/Services/auth.service';
 
 @Component({
   selector: 'app-products',
@@ -15,7 +16,7 @@ export class ProductsComponent implements OnInit {
   products: IProduct[];
   loading: boolean;
 
-  constructor(private productService: ProductService, public dialog: MatDialog) { }
+  constructor(private productService: ProductService, public dialog: MatDialog, public authService: AuthService ) { }
 
   ngOnInit() {
     this.loading = true;

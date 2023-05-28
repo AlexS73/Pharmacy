@@ -19,6 +19,7 @@ export class DepartmentsComponent implements OnInit {
   ngOnInit() {
     this.departmentService.Get().subscribe(res=> {
       this.departments = res;
+      console.log('departments', res);
     });
   }
 

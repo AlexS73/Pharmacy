@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ICharacteresticModel, ICharacteresticTypeModel } from 'src/app/Shared/Models/characteristictype.interface';
 import { IProduct } from 'src/app/Shared/Models/product.interface';
+import { AuthService } from 'src/app/Shared/Services/auth.service';
 import { CharacteristicService } from 'src/app/Shared/Services/characteristic.service';
 import { ProductService } from 'src/app/Shared/Services/product.service';
 
@@ -20,7 +21,8 @@ export class ProductEditComponent implements OnInit {
     private characteristicService: CharacteristicService,
     private fb: FormBuilder, 
     public dialogRef: MatDialogRef<ProductEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public product: IProduct) { }
+    @Inject(MAT_DIALOG_DATA) public product: IProduct,
+    public authService: AuthService) { }
 
   ngOnInit(): void {
     

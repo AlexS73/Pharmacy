@@ -1,4 +1,4 @@
-<div class="mb-1">
+<div class="mb-1" *ngIf="this.authService.IsAdmin">
   <button class="btn btn-success" (click)="newProduct()">Создать товар</button>
 </div>
 <table class="table" *ngIf="!loading">

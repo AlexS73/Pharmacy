@@ -49,15 +49,15 @@
               <input formControlName="Value" class="form-control" type="text">
             </td>
             <td>
-              <button [disabled]="editProductForm.get('Characteristics')['controls'].length == 0" (click)="deleteRow(i)" class="btn btn-danger">Х</button>
+              <button *ngIf="this.authService.IsAdmin" [disabled]="editProductForm.get('Characteristics')['controls'].length == 0" (click)="deleteRow(i)" class="btn btn-danger">Х</button>
             </td>
           </tr>
           <tr>
-            <button class="btn btn-primary" type="button" (click)="AddCharacteristic()">+</button>
+            <button *ngIf="this.authService.IsAdmin" class="btn btn-primary" type="button" (click)="AddCharacteristic()">+</button>
           </tr>
         </tbody>
       </table>
   
-      <button type="submit" class="btn btn-primary btn-block">Сохранить</button>
+      <button *ngIf="this.authService.IsAdmin" type="submit" class="btn btn-primary btn-block">Сохранить</button>
     </form>
     

@@ -45,7 +45,7 @@ namespace Pharmacy.BL.Services
 
         public async Task<DepartmentModel> GetDepartmentByIdAsync(int id)
         {
-            var dbDepartment = await db.Departments.FirstOrDefaultAsync(_ => _.Id == id);
+            var dbDepartment = await db.Departments.Include(_ => _.Warehouse).AsNoTracking().FirstOrDefaultAsync(_ => _.Id == id);
 
             if (dbDepartment == null)
             {
@@ -56,7 +56,7 @@ namespace Pharmacy.BL.Services
 
         public async Task<IEnumerable<DepartmentModel>> GetDepartmentsAsync()
         {
-            return await db.Departments.Select(_=> new DepartmentModel(_)).ToListAsync();
+            return await db.Departments.Include(_=>_.Warehouse).AsNoTracking().Select(_=> new DepartmentModel(_)).ToListAsync();
         }
     }
 }

@@ -28,6 +28,7 @@ namespace Pharmacy.BL.Services
                 .ThenInclude(_=>_.Product)
                 .Include(_=>_.Warehouse)
                 .ThenInclude(_=>_.Department)
+                .AsNoTracking()
                 .Select(_=> new SaleModel(_)).ToListAsync();
             return result;
         }
@@ -40,7 +41,7 @@ namespace Pharmacy.BL.Services
                 .ThenInclude(_ => _.Product)
                 .Include(_=>_.Warehouse)
                 .ThenInclude(_=>_.Department)
-                .Where(_=>_.Warehouse.DepartmentId == departmentId)
+                .Where(_=>_.Warehouse.DepartmentId == departmentId) 
                 .Select(_ => new SaleModel(_))
                 .ToListAsync();
             return result;
@@ -54,6 +55,7 @@ namespace Pharmacy.BL.Services
                 .ThenInclude(_=>_.Product)
                 .Include(_ => _.Warehouse)
                 .ThenInclude(_ => _.Department)
+                .AsNoTracking()
                 .Select(_=> new EntranceModel(_)).ToListAsync();
             return result;
         }
@@ -67,6 +69,7 @@ namespace Pharmacy.BL.Services
                 .Include(_ => _.Warehouse)
                 .ThenInclude(_=>_.Department)
                 .Where(_ => _.Warehouse.DepartmentId == departmentId)
+                .AsNoTracking()
                 .Select(_ => new EntranceModel(_)).ToListAsync();
             return result;
         }
@@ -202,6 +205,10 @@ namespace Pharmacy.BL.Services
                 .Where(_ => newSale.SaleProducts.Select(p => p.ProductId).Contains(_.ProductId) && _.WarehouseId == warehouse.Id)
                 .ToListAsync();
 
+            if(dbStocks == null || dbStocks.Count == 0)
+            {
+                throw new ArgumentException($"Недостаточно товара");
+            }
 
             foreach (var newStock in newStocks)
             {
