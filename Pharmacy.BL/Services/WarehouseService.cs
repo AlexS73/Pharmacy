@@ -54,10 +54,6 @@ namespace Pharmacy.BL.Services
         public async Task<IEnumerable<WarehouseModel>> GetLeftoversAsync()
         {
             throw new NotImplementedException();
-            //return await db.Warehouse
-            //    .Include(_=>_.Product)
-            //    .Select(_=> new WarehouseModel(_))
-            //    .ToListAsync();
         }
 
         public async Task<IEnumerable<WarehouseModel>> GetLeftoversAsync(string department)

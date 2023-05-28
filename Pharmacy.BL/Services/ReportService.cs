@@ -28,19 +28,15 @@ namespace Pharmacy.BL.Services
                 .AsQueryable();
 
             if (from != null)
-            {
                 query = query.Where(e => e.CreatedOn >= from);
-            }
+            
 
             if (to != null)
-            {
                 query = query.Where(e => e.CreatedOn >= from);
-            }
+
 
             if (departmentId != null)
-            {
                 query = query.Where(e => e.Warehouse.DepartmentId >= departmentId);
-            }
 
             var result = await query.ToListAsync();
 

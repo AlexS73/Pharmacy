@@ -29,20 +29,16 @@ namespace Pharmacy
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<DepartmentSettings>(Configuration.GetSection("DepartmentSettings"));
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<Entity.PharmacyContext>(opt => opt.UseSqlServer(connection));
 
-            /*services.Configure<IdentityOptions>(options => 
-                options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);*/
             services.AddIdentity<User, IdentityRole<int>>(options =>
                 {
-                    //options.ClaimsIdentity.EmailClaimType = ClaimTypes.Name;
-                    //options.ClaimsIdentity.UserIdClaimType = ClaimTypes.Name;
-                    
+
                     options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier;
                     options.ClaimsIdentity.EmailClaimType = ClaimTypes.Email;
                 })
@@ -79,21 +75,13 @@ namespace Pharmacy
                 options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    // ��������� ��������
                     ValidateIssuer = true,
-                    // ��������
                     ValidIssuer = tokenSettings.Issuer,
-                    // ��������� �����������
                     ValidateAudience = true,
-                    // �����������
                     ValidAudience = tokenSettings.Audience,
-                    // ��������� ������� �����
                     ValidateLifetime = true,
-                    // ��������� ����� ������������
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-                    // ��������� ����� ������������
                     ValidateIssuerSigningKey = true,
-                    // �� ��������� ����� ����� 5 �����
                     ClockSkew = TimeSpan.Zero,
                     
                 };

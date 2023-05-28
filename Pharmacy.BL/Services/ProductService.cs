@@ -52,7 +52,8 @@ namespace Pharmacy.BL.Services
 
         public async Task<ProductModel> SaveProductAsync(ProductModel productModel)
         {
-            var product = await db.Products.Include(_=>_.Characteristics).FirstOrDefaultAsync(_ => _.Id == productModel.Id);
+            var product = await db.Products.Include(_=>_.Characteristics)
+                .FirstOrDefaultAsync(_ => _.Id == productModel.Id);
             var charTypes = await db.CharacteristicTypes.ToListAsync();
 
             if (product != null)
@@ -63,10 +64,8 @@ namespace Pharmacy.BL.Services
             }
             else
             {
-
                 product = new Product()
                 {
-                    //Id = productModel.Id,
                     Name = productModel.Name,
                     Article = productModel.Article,
                     Description = productModel.Description,
@@ -79,10 +78,11 @@ namespace Pharmacy.BL.Services
 
             foreach (var characteristic in productModel.Characteristics)
             {
-                var charType = charTypes.Find(_ => _.Id == characteristic.TypeId);
-                var dbChar = db.Characteristics.FirstOrDefault(_ => _.Type == charType && _.Value == characteristic.Value);
+                var charType = charTypes
+                    .Find(_ => _.Id == characteristic.TypeId);
+                var dbChar = db.Characteristics
+                    .FirstOrDefault(_ => _.Type == charType && _.Value == characteristic.Value);
 
-                
                 if (dbChar != null)
                 {
                     if(!product.Characteristics.Contains(dbChar))

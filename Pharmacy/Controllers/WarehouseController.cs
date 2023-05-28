@@ -45,32 +45,6 @@ namespace Pharmacy.Controllers
             }
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<WarehouseModel>>> GetLeftovers()
-        //{
-        //    try
-        //    {
-        //        var result = await warehouseService.GetLeftoversAsync();
-        //        return Ok(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return NotFound(ex);
-        //    }
-        //}
 
-        //[HttpGet("{department}")]
-        //public async Task<ActionResult<IEnumerable<WarehouseModel>>> GetLeftoversForDepartment(string department)
-        //{
-        //    try
-        //    {
-        //        var result = await warehouseService.GetLeftoversAsync(department);
-        //        return Ok(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return NotFound(ex);
-        //    }
-        //}
     }
 }
